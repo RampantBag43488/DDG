@@ -24,15 +24,37 @@ app.get("/", (req, res) => {
     res.end();
 });
 
-const rutasAuth = require('./routes/auth.routes');
-app.use('/', rutasAuth);
+app.get('/login', (req, res) => {
+    res.render('auth/login/Login');
+});
+
+// Rutas Oficial de Cumplimiento
 
 app.get("/DashboardOC", (req, res) => {
-    res.render('oc/Dashboard');
+    res.render('oc/dashboard/Dashboard');
 });
 
-app.get("/DashboardEmpleado", (req, res) => {
-    res.render('empleado/Dashboard');
+app.get("/Alertas", (req, res) => {
+    res.render('oc/alertas/Alertas');
 });
+
+app.get("/Operaciones", (req, res) => {
+    res.render('oc/operaciones/Operaciones');
+});
+
+app.get("/Expediente", (req, res) => {
+    res.render('oc/expediente/Expediente');
+});
+
+app.get("/Reportes", (req, res) => {
+    res.render('oc/reportes/Reportes');
+});
+
+// Rutas Empleado
+
+app.get("/DashboardEmpleado", (req, res) => {
+    res.render('empleado/dashboard/Dashboard');
+});
+
 
 app.listen(6767);
