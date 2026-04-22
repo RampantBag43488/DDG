@@ -1,0 +1,25 @@
+/* reset css * selecciona todos los elementos */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Centrar todo */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+/* Rectángulo */
+.card {
+  width: 360px;
+  padding: 48px 40px;
+  background-color: white;
+  border-radius: 16px;
+  border: 1px solid #ddd;
+}
