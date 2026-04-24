@@ -1,0 +1,25 @@
+<script>
+fetch('/alertas_db')
+    .then(response => response.json())
+    .then(data => {
+        let filas = '';
+
+        data.total.forEach(alerta => {
+            filas += `
+                <tr>
+                    <td>${alerta.id_alerta}</td>
+                    <td>${alerta.cliente_id}</td>
+                    <td>${alerta.id_operacion}</td>
+                    <td>${alerta.tipo_alerta}</td>
+                    <td>${alerta.motivo}</td>
+                    <td>${alerta.evidencia_asociada}</td>
+                    <td>${alerta.fecha_generacion}</td>
+                    <td>${alerta.estatus}</td>
+                    <td>${alerta.fecha_cierre}</td>
+                </tr>
+            `;
+        });
+
+        document.getElementById('tabla-alertas').innerHTML = filas;
+    });
+</script>

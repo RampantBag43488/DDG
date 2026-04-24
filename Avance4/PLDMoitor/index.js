@@ -3,12 +3,16 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 const bodyParser = require('body-parser');
+const alertasRoutes = require('./routes/alertas.routes');
+const expedienteRoutes = require('./routes/expediente.routes');
 
 const reportesRouter = require('./routes/reportes.routes.js');
 const operacionesRouter = require('./routes/operaciones.routes.js')
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', alertasRoutes);
+app.use('/', expedienteRoutes);
 
 const { response } = require('express');
 
@@ -42,6 +46,7 @@ app.get("/DashboardOC", (req, res) => {
 
 app.get("/Alertas", (req, res) => {
     res.render('oc/alertas/Alertas');
+
 });
 
 app.get("/Operaciones", (req, res) => {
