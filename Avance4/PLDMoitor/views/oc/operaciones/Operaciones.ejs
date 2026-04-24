@@ -3,11 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="">
 </head>
 <body>
   
-    <h1>Operaciones (vista del Oficial de Cumplimiento)</h1>
+    <h1>Operaciones</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% operaciones.forEach(op => { %>
+                <tr>
+                    <td><%= op.id_operacion %></td>
+                    <td><%= op.cliente_id%></td>
+                    <td><%= op.id_contrato%></td>
+                    <td><%= op.tipo_operacion%></td>
+                    <td><%= op.fecha_operacion%></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
 
 </body>
 </html>

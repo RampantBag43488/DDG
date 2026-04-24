@@ -9,5 +9,26 @@
   
     <h1>Reportes (vista del Oficial de Cumplimiento)</h1>
 
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% reportes.forEach(rep => { %>
+                <tr>
+                    <td><%= rep.id_reporte %></td>
+                    <td><%= rep.acusado %></td>
+                    <td><%= rep.fecha_generacion %></td>
+                    <td><%= rep.descripcion %></td>
+                    <td><%= rep.evidencia_adjunta %></td>
+                    <td><%= rep.estatus %></td>
+                    <td><%= rep.formato_salida %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
 </body>
 </html>
