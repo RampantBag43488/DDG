@@ -13,6 +13,27 @@
   
   <%- include('./partials/content') %>
 
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% reportes.forEach(rep => { %>
+                <tr>
+                    <td><%= rep.id_reporte %></td>
+                    <td><%= rep.acusado %></td>
+                    <td><%= rep.fecha_generacion %></td>
+                    <td><%= rep.descripcion %></td>
+                    <td><%= rep.evidencia_adjunta %></td>
+                    <td><%= rep.estatus %></td>
+                    <td><%= rep.formato_salida %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
 </body>
 <script src="/js/Sidebar.js"></script>
 </html>
