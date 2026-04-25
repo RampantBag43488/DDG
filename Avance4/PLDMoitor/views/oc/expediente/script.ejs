@@ -1,0 +1,32 @@
+<script>
+fetch('/expedientes_db')
+    .then(response => response.json())
+    .then(data => {
+        let filas = '';
+
+        data.total.forEach(expediente => {
+            filas += `
+                <tr>
+                    <td>${expediente.id_expediente}</td>
+                    <td>${expediente.cliente_id}</td>
+                    <td>${expediente.actividad}</td>
+                    <td>${expediente.nombre}</td>
+                    <td>${expediente.apellido_paterno}</td>
+                    <td>${expediente.apellido_materno}</td>
+                    <td>${expediente.nacionalidad}</td>
+                    <td>${expediente.fecha_nacimiento}</td>
+                    <td>${expediente.rfc}</td>
+                    <td>${expediente.correo}</td>
+                    <td>${expediente.telefono}</td>
+                    <td>${expediente.domicilio}</td>
+                    <td>${expediente.numero_id_fiscal}</td>
+                    <td>${expediente.num_serie_firma}</td>
+                </tr>
+            `;
+        });
+
+        document.getElementById('tabla-expedientes').innerHTML = filas;
+    });
+
+    src="/js/Sidebar.js"
+</script>
