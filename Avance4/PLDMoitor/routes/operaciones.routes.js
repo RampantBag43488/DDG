@@ -3,6 +3,6 @@ const path = require('path');
 const controller = require('../controllers/operaciones.controller.js');
 const router = express.Router();
 
-router.get('/', controller.getOperaciones);
+router.get('/', controller.index);
 
 module.exports = router;
