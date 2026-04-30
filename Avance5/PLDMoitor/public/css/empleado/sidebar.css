@@ -1,0 +1,166 @@
+.bar{
+    display: flex;
+}
+
+/* menu styles */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background-color: #ffff;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+.content {
+    padding: 1em;
+    
+}
+
+.logo img{
+    width: 40px;
+    border-radius: 50%;
+}
+
+.user img{
+    width: 40px;
+    border-radius: 50%;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h4{
+    padding: 0 1em;
+}
+
+.arrow {
+    padding: 20px;
+}
+
+.menu {
+    border-top: 1px solid #a4a4a4;
+    border-bottom: 1px solid #a4a4a4;
+}
+
+.selected {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    width: 190px;
+    height: 60px;
+}
+
+.menu ul{
+    padding: 0;
+}
+
+.menu ul li{
+    list-style: none;
+    margin: 3em 0;
+    cursor: pointer;
+}
+
+.menu a{
+    color: black;
+    text-decoration: none;
+    font-size: 1.3em;
+}
+
+.menu ul li i{
+    margin: 0 1em;
+    color: black;
+}
+
+.menu ul li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.user h5,p {
+    margin-left: 1em;
+    padding: 0;
+    font-size: .9rem;
+}
+
+.user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-info h5,
+.user-info p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.user-info p {
+    margin-top: 3%;
+    color: #5e5e5e;
+    word-break: break-word;
+}
+
+.user p {
+    color: #5e5e5e;
+}
+
+/* Estado escondido */
+
+.sidebar.hide {
+    width: 80px;
+}
+
+.sidebar.hide span {
+    display: none;
+}
+
+.sidebar.hide ul li a {
+    justify-content: center;
+}
+
+.sidebar.hide ul li{
+    justify-content: center;
+}
+
+.sidebar.hide .user-info {
+    display: none;
+}
+
+.sidebar.hide .user {
+    justify-content: center;
+}
+
+.sidebar.hide .logo h4 {
+    display: none;
+}
+
+.sidebar.hide .sidebar-header {
+    justify-content: center;
+}
+
+.sidebar.hide .arrow {
+    text-align: center;
+    padding: 10px;
+}
+
+.sidebar.hide .selected{
+    width: 50px;
+    height: 50px;
+    
+}
