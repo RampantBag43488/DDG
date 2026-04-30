@@ -53,3 +53,12 @@ tr:hover {
     background: #111827; 
     color: white; 
 }
+
+.recientes {
+    background-color: #ffff;
+    border-radius: 1em;
+    width: auto;
+    height: auto;
+
+    padding: 1em;
+}
