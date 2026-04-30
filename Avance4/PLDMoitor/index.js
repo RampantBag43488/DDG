@@ -40,32 +40,13 @@ app.get('/login', (req, res) => {
 
 // Rutas Oficial de Cumplimiento
 
-app.get("/DashboardOC", (req, res) => {
-    res.render('oc/dashboard/Dashboard');
-});
-
-app.get("/Alertas", (req, res) => {
-    res.render('oc/alertas/Alertas');
-
-});
-
-app.get("/Operaciones", (req, res) => {
-    res.render('oc/operaciones/Operaciones');
-});
-
-app.get("/Expediente", (req, res) => {
-    res.render('oc/expediente/Expediente');
-});
-
-app.get("/Reportes", (req, res) => {
-    res.render('oc/reportes/Reportes');
-});
+const rutasOficial = require('./routes/oficial.routes');
+app.use('/oficial', rutasOficial);
 
 // Rutas Empleado
 
-app.get("/DashboardEmpleado", (req, res) => {
-    res.render('empleado/dashboard/Dashboard');
-});
+const rutasEmpleado = require('./routes/empleado.routes');
+app.use('/empleado', rutasEmpleado);
 
 
-app.listen(6768);
+app.listen(6767);
