@@ -16,7 +16,7 @@ router.get("/Alertas", (req, res) => {
 
 });
 
-router.get("/Operaciones", operacionesController.getOperaciones);
+router.get("/Operaciones", operacionesController.index);
 
 router.get("/Expediente", (req, res) => {
     res.render('oc/expediente/Expediente');
