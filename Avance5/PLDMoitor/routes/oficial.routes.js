@@ -4,21 +4,23 @@ const reportesController = require('../controllers/reportes.controller');
 const operacionesController = require('../controllers/operaciones.controller');
 const alertasController = require('../controllers/alertas.controller');
 const expedienteController = require('../controllers/expediente.controller');
+const isAuth = require('../util/is-auth.js');
+const checkRol = require('../util/check-rol.js');
 
-router.get("/", (req, res) => {
+router.get("/",isAuth, checkRol('oficial_cumplimiento'), (req, res) => {
     res.redirect("/oficial/Dashboard");
 });
 
-router.get("/Dashboard", (req, res) => {
+router.get("/Dashboard",isAuth, checkRol('oficial_cumplimiento'), (req, res) => {
     res.render('oc/dashboard/Dashboard');
 });
 
-router.get("/Alertas", alertasController.index);
+router.get("/Alertas",isAuth, checkRol('oficial_cumplimiento'), alertasController.index);
 
-router.get("/Operaciones", operacionesController.index);
+router.get("/Operaciones",isAuth, checkRol('oficial_cumplimiento'), operacionesController.index);
 
-router.get("/Expediente", expedienteController.index);
+router.get("/Expediente",isAuth, checkRol('oficial_cumplimiento'),expedienteController.index);
 
-router.get("/Reportes", reportesController.index);
+router.get("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.index);
 
 module.exports = router;

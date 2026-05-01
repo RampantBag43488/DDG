@@ -1,23 +1,25 @@
 const express = require('express');
 const router = express.Router();
+const isAuth = require('../util/is-auth.js');
+const checkRol = require('../util/check-rol.js');
 
-router.get('/', (req, res) => {
+router.get('/', isAuth, checkRol('empleado'),(req, res) => {
     res.redirect('/empleado/Dashboard');
 });
 
-router.get('/Dashboard', (req, res) => {
+router.get('/Dashboard',isAuth, checkRol('empleado'),(req, res) => {
     res.render('empleado/dashboard/Dashboard');
 });
 
-router.get('/Reportes', (req, res) => {
+router.get('/Reportes',isAuth, checkRol('empleado'),(req, res) => {
     res.render('empleado/reportes/Reportes');
 });
 
-router.get('/Expedientes', (req, res) => {
+router.get('/Expedientes',isAuth, checkRol('empleado'), (req, res) => {
     res.render('empleado/expedientes/Expedientes');
 });
 
-router.get('/Transacciones', (req, res) => {
+router.get('/Transacciones',isAuth, checkRol('empleado'), (req, res) => {
     res.render('empleado/transacciones/Transacciones');
 });
 
