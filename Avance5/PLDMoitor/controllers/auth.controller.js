@@ -1,4 +1,4 @@
-const model = require('../models/login.model.js');
+const model = require('../models/auth.model.js');
 const bcrypt = require('bcryptjs');
 
 exports.render_login = (req, res) => {
@@ -36,5 +36,10 @@ exports.do_login = async (req, res) => {
         console.error(e);
         res.redirect('/login');
     }
+};
+
+exports.do_logout = (req, res) => {
+    req.session.destroy();
+    res.redirect('/login');
 };
 
