@@ -12,7 +12,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f0f0f0;
+  background-color: #efe7da;
 }
 
 /* Rectángulo */
@@ -22,4 +22,28 @@ body {
   background-color: white;
   border-radius: 16px;
   border: 1px solid #ddd;
+}
+
+.card h1 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.card button {
+  width: 100%;
+  padding: 12px;
+  background-color: #968555;
+  color: white;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
 }
