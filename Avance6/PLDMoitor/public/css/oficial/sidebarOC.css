@@ -47,6 +47,7 @@
 
 .arrow {
     padding: 20px;
+    cursor: pointer;
 }
 
 .menu {
@@ -180,5 +181,8 @@
 
 .btn_arrowDown button {
     width: 100px;
+}
+
+#arrow_down {
     cursor: pointer;
 }
