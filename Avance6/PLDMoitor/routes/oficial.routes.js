@@ -19,7 +19,8 @@ router.get("/Alertas",isAuth, checkRol('oficial_cumplimiento'), alertasControlle
 
 router.get("/Operaciones",isAuth, checkRol('oficial_cumplimiento'), operacionesController.index);
 
-router.get("/Expediente",isAuth, checkRol('oficial_cumplimiento'),expedienteController.index);
+router.get("/Expediente",isAuth, checkRol('oficial_cumplimiento'), expedienteController.index);
+router.get("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), expedienteController.nuevo);
 
 router.get("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.index);
 

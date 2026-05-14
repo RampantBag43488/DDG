@@ -9,4 +9,50 @@
              </div>
          </div>
      </div>
+
+    <div class="reportes">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Acusado</th>
+                    <th>Fecha de Generación</th>
+                    <th>Descripción</th>
+                    <th>Evidencia Adjunta</th>
+                    <th>Estatus</th>
+                    <th>Formato de Salida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% reportes.forEach(rep => { %>
+                    <tr>
+                        <td><%= rep.id_reporte %></td>
+                        <td><%= rep.acusado %></td>
+                        <td><%= rep.fecha_generacion %></td>
+                        <td><%= rep.descripcion %></td>
+                        <td><%= rep.evidencia_adjunta %></td>
+                        <td><%= rep.estatus %></td>
+                        <td><%= rep.formato_salida %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <div class="pager">
+            <div style="margin: 1em; margin-left: 0;"><p class="meta"><% if (reportes.length > 0) { %>Mostrando <%= reportes.length %> de <%= total %> reportes<% } else { %>No hay reportes disponibles<% } %></p></div>
+            <% if (page > 1) { %>
+                <a href="/empleado/Reportes?page=<%= page - 1 %>">← Anterior</a>
+            <% } %>
+            <% for (let p = 1; p <= totalPages; p++) { %>
+                <% if (p === page) { %>
+                    <span class="current"><%= p %></span>
+                <% } else { %>
+                    <a href="/empleado/Reportes?page=<%= p %>"><%= p %></a>
+                <% } %>
+            <% } %>
+            <% if (page < totalPages) { %>
+                <a href="/empleado/Reportes?page=<%= page + 1 %>">Siguiente →</a>
+            <% } %>
+        </div>
+    </div>
  </div>
