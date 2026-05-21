@@ -14,25 +14,25 @@
     <div class="nuevoReporte">
   <h2>Nuevo Reporte</h2>
 
-  <form>
+  <form action="/oficial/Reportes" method="POST">
         <div class="fila">  
             <div>
             <label for="acusado">Nombre del acusado</label><br>
-            <input type="text" id="acusado" name="acusado" placeholder="Nombre completo">
+            <input type="text" id="acusado" name="acusado" placeholder="Nombre completo" required>
             </div>
 
             <br>
 
             <div>
             <label for="fecha">Fecha</label><br>
-            <input type="date" id="fecha" name="fecha">
+            <input type="date" id="fecha" name="fecha" required>
             </div>
         </div>    
         <br>
 
         <div>
         <label for="descripcion">Descripción</label><br>
-        <textarea id="descripcion" name="descripcion" rows="5" cols="40" placeholder="Describe los hechos..."></textarea>
+        <textarea id="descripcion" name="descripcion" rows="5" cols="40" placeholder="Describe los hechos..." required></textarea>
         </div>
 
         <br>

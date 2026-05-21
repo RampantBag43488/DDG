@@ -14,6 +14,7 @@ router.get('/Dashboard',isAuth, checkRol('empleado'),(req, res) => {
 });
 
 router.get('/Reportes',isAuth, checkRol('empleado'), reportesController.indexEmpleado);
+router.post('/Reportes',isAuth, checkRol('empleado'), reportesController.createEmpleado);
 
 router.get('/Expedientes',isAuth, checkRol('empleado'), expedienteController.indexEmpleado);
 

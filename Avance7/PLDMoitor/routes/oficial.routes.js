@@ -23,5 +23,6 @@ router.get("/Expediente",isAuth, checkRol('oficial_cumplimiento'), expedienteCon
 router.get("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), expedienteController.nuevo);
 
 router.get("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.index);
+router.post("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.create);
 
 module.exports = router;
