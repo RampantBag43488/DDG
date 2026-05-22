@@ -28,6 +28,7 @@
         <table border="1">
             <thead>
                 <tr>
+                    <th>Acción</th>
                     <th>ID Expediente</th>
                     <th>ID Cliente</th>
                     <th>Tipo Persona</th>
@@ -41,6 +42,12 @@
             <tbody>
                 <% expedientes.forEach(exp => { %>
                     <tr>
+                        <td>
+                            <form action="/oficial/Expediente/Actualizar" method="get" style="margin:0;">
+                                <input type="hidden" name="id_expediente" value="<%= exp.id_expediente %>" />
+                                <button type="submit" class="actionButton">Ver expediente</button>
+                            </form>
+                        </td>
                         <td><%= exp.id_expediente %></td>
                         <td><%= exp.cliente_id %></td>
                         <td><%= exp.tipo_persona %></td>
