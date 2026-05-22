@@ -20,7 +20,10 @@ router.get("/Alertas",isAuth, checkRol('oficial_cumplimiento'), alertasControlle
 router.get("/Operaciones",isAuth, checkRol('oficial_cumplimiento'), operacionesController.index);
 
 router.get("/Expediente",isAuth, checkRol('oficial_cumplimiento'), expedienteController.index);
+
 router.get("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), expedienteController.nuevo);
+router.get("/Expediente/Actualizar", isAuth, checkRol('oficial_cumplimiento'), expedienteController.actualizarVista);
+router.post("/Expediente/Actualizar", isAuth, checkRol('oficial_cumplimiento'), expedienteController.actualizarExpediente);
 
 router.get("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.index);
 
