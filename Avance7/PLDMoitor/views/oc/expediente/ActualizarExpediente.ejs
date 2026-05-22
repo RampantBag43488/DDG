@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <%- include('./partials/css') %>
+</head>
+<body>
+  <%- include('./components/sidebar') %>
+  <div class="main-content">
+      <div class="page-top">
+          <div>
+              <h1>Actualizar Expediente</h1>
+              <p class="subtitle">Modifica los datos del cliente. Cambia solo los campos necesarios.</p>
+          </div>
+          <form action="/oficial/Expediente" method="get">
+              <button class="VolverButton" type="submit">
+                  <div class="plus">
+                      <i class="fa-solid fa-arrow-left"></i>
+                  </div>
+                  Volver
+              </button>
+          </form>
+      </div>
+      <section class="form-card">
+          <form id="actualizarExpedienteForm" action="/oficial/Expediente/Actualizar" method="post">
+              <input type="hidden" name="id_expediente" value="<%= expediente.id_expediente %>" />
+              <input type="hidden" name="cliente_id" value="<%= expediente.cliente_id %>" />
+              <div class="form-header">
+                  <div>
+                      <h2>Datos del cliente</h2>
+                      <p>Modifica los campos necesarios y haz clic en Actualizar.</p>
+                  </div>
+                  <div class="field-group select-group">
+                      <label for="tipoPersona">Tipo de Persona</label>
+                      <select id="tipoPersona" name="tipo_persona" aria-label="Tipo de Persona">
+                          <option value="fisica" <%= expediente.tipo_persona === 'fisica' ? 'selected' : '' %>>Persona Física</option>
+                          <option value="moral" <%= expediente.tipo_persona === 'moral' ? 'selected' : '' %>>Persona Moral</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="form-grid">
+                  <div class="field-group">
+                      <label for="nombre">Nombre</label>
+                      <input id="nombre" name="nombre" type="text" value="<%= expediente.nombre %>" required>
+                  </div>
+                  <div class="field-group">
+                      <label for="apellidoPaterno">Apellido paterno</label>
+                      <input id="apellidoPaterno" name="apellido_paterno" type="text" value="<%= expediente.apellido_paterno %>" required>
+                  </div>
+                  <div class="field-group">
+                      <label for="apellidoMaterno">Apellido materno</label>
+                      <input id="apellidoMaterno" name="apellido_materno" type="text" value="<%= expediente.apellido_materno %>" required>
+                  </div>
+                  <div class="field-group">
+                      <label for="nacionalidad">Nacionalidad</label>
+                      <input id="nacionalidad" name="nacionalidad" type="text" value="<%= expediente.nacionalidad %>" required>
+                  </div>
+                  <div class="field-group">
+                      <label for="fechaNacimiento">Fecha de nacimiento</label>
+                      <input id="fechaNacimiento" name="fecha_nacimiento" type="date" value="<%= expediente.fecha_nacimiento ? expediente.fecha_nacimiento.toISOString().substring(0,10) : '' %>" required>
+                  </div>
+                  <div class="field-group">
+                      <label for="rfc">RFC</label>
+                      <input id="rfc" name="rfc" type="text" value="<%= expediente.rfc %>" required>
+                  </div>
+                  <div class="field-group" id="nombreEmpresaGroup" data-type="moral">
+                      <label for="nombreEmpresa">Nombre de la empresa</label>
+                      <input id="nombreEmpresa" name="nombre_empresa" type="text" value="<%= expediente.nombre_empresa || '' %>">
+                  </div>
+                  <div class="field-group">
+                      <label for="correo">Correo</label>
+                      <input id="correo" name="correo" type="email" value="<%= expediente.correo %>" required>
+                  </div>
+                  <div class="field-group">
+                      <label for="telefono">Teléfono</label>
+                      <input id="telefono" name="telefono" type="tel" value="<%= expediente.telefono %>" required>
+                  </div>
+                  <div class="field-group full-width">
+                      <label for="domicilio">Domicilio</label>
+                      <textarea id="domicilio" name="domicilio" rows="2" required><%= expediente.domicilio %></textarea>
+                  </div>
+                  <div class="field-group">
+                      <label for="numeroIdFiscal">Número de Identificación Fiscal</label>
+                      <input id="numeroIdFiscal" name="numero_id_fiscal" type="text" value="<%= expediente.numero_id_fiscal %>" required>
+                  </div>
+                  <div class="field-group">
+                      <label for="numeroSerieFirma">Número de serie de la firma</label>
+                      <input id="numeroSerieFirma" name="num_serie_firma" type="text" value="<%= expediente.num_serie_firma %>" required>
+                  </div>
+                  <!-- Agrega aquí los demás campos igual que en NuevoExpediente.ejs -->
+              </div>
+                            <div class="form-actions">
+                                <button class="submitButton" type="submit" onclick="return confirmarActualizacion(event)">Actualizar expediente</button>
+                                <a class="secondaryButton" href="/oficial/Expediente">Cancelar</a>
+                            </div>
+          </form>
+      </section>
+  </div>
+    <script>
+        function confirmarActualizacion(e) {
+            if (!confirm('¿Estás seguro de que deseas actualizar este expediente?')) {
+                if (e) e.preventDefault();
+                return false;
+            }
+            return true;
+        }
+    </script>
+<%- include('./partials/script') %>
+</body>
+</html>
