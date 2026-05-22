@@ -1,47 +1,89 @@
-// Manejo de estado del formulario
 const initExpedienteForm = () => {
     const tipoPersonaSelect = document.getElementById('tipoPersona');
-    const fields = document.querySelectorAll('#expedienteForm input, #expedienteForm textarea, #expedienteForm select');
-    
-    // Estado compartido
+    const form = document.getElementById('expedienteForm');
+
+    if (!tipoPersonaSelect || !form) return;
+
+    const camposFisica = document.getElementById('camposFisica');
+    const camposMoral = document.getElementById('camposMoral');
+
+    const fields = form.querySelectorAll('input, textarea, select');
+
     const state = {
         currentType: tipoPersonaSelect.value || 'fisica',
         data: {}
     };
 
-    // Obtiene un elemento por ID
-    const getField = id => document.getElementById(id);
-
-    // Guarda todos los campos
+    // Guarda datos
     const saveState = () => {
-        fields.forEach(f => { if (f.id && f.id !== 'tipoPersona') state.data[f.id] = f.value; });
+        fields.forEach(field => {
+            if (field.id && field.id !== 'tipoPersona') {
+                state.data[field.id] = field.value;
+            }
+        });
     };
 
-    // Carga todos los campos
+    // Activa/desactiva required
+    const setRequired = (container, active) => {
+        if (!container) return;
+
+        const inputs = container.querySelectorAll('input, textarea, select');
+
+        inputs.forEach(input => {
+            input.required = active;
+        });
+    };
+
+    // Muestra/oculta secciones
+    const toggleFields = () => {
+        if (state.currentType === 'fisica') {
+            camposFisica.style.display = 'block';
+            camposMoral.style.display = 'none';
+
+            setRequired(camposFisica, true);
+            setRequired(camposMoral, false);
+        } else {
+            camposFisica.style.display = 'none';
+            camposMoral.style.display = 'block';
+
+            setRequired(camposFisica, false);
+            setRequired(camposMoral, true);
+        }
+    };
+
+    // Carga datos guardados
     const loadState = () => {
-        fields.forEach(f => { if (f.id && f.id !== 'tipoPersona') f.value = state.data[f.id] || ''; });
-        // Muestra/oculta campo de empresa
-        const empresa = getField('nombreEmpresaGroup');
-        if (empresa) empresa.style.display = state.currentType === 'moral' ? 'flex' : 'none';
+        fields.forEach(field => {
+            if (field.id && field.id !== 'tipoPersona') {
+                field.value = state.data[field.id] || '';
+            }
+        });
+
+        toggleFields();
     };
 
-    // Cambia entre tipos de persona
+    // Evento cambio de tipo
     tipoPersonaSelect.addEventListener('change', () => {
         const newType = tipoPersonaSelect.value;
+
         if (newType === state.currentType) return;
+
         saveState();
         state.currentType = newType;
-        state.data.rfc = ''; // Limpia RFC
+
+
         loadState();
     });
 
-    // Carga inicial
     loadState();
+
+   const params = new URLSearchParams(window.location.search);
+
+    if (params.get('success') === '1') {
+    alert('Expediente guardado correctamente');
+    window.history.replaceState({}, document.title, window.location.pathname);
+    } 
 };
 
-// Ejecuta cuando esté listo el DOM
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initExpedienteForm);
-} else {
-    initExpedienteForm();
-}
+// Ejecutar cuando cargue
+document.addEventListener('DOMContentLoaded', initExpedienteForm);
