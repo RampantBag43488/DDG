@@ -133,7 +133,25 @@
 
 .form-grid {
     display: grid;
+    grid-template-columns: repeat(3,1fr);
     gap: 1rem;
+}
+
+#camposFisica,
+#camposMoral {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+#camposMoral {
+    display: none;
+}
+
+#camposFisica h3,
+#camposMoral h3,
+.form-card h3 {
+    margin: 1.5rem 0 1rem;
+    color: #111827;
 }
 
 .full-width {

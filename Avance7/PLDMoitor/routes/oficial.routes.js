@@ -6,6 +6,8 @@ const alertasController = require('../controllers/alertas.controller');
 const expedienteController = require('../controllers/expediente.controller');
 const isAuth = require('../util/is-auth.js');
 const checkRol = require('../util/check-rol.js');
+const nuevo_expedienteController = require('../controllers/nexpediente.controller');
+
 
 router.get("/",isAuth, checkRol('oficial_cumplimiento'), (req, res) => {
     res.redirect("/oficial/Dashboard");
@@ -21,7 +23,7 @@ router.get("/Operaciones",isAuth, checkRol('oficial_cumplimiento'), operacionesC
 
 router.get("/Expediente",isAuth, checkRol('oficial_cumplimiento'), expedienteController.index);
 router.get("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), expedienteController.nuevo);
-
+router.post("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), nuevo_expedienteController.postNuevoExpediente);
 router.get("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.index);
 router.post("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.create);
 
