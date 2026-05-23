@@ -15,7 +15,6 @@ module.exports.index = async (req, res) => {
             accion: 'Visualizó alertas',
             descripcion: `Visualización de la página de alertas por el usuario ${req.session.nombre}`
         });
-        res.render('oc/alertas/Alertas', { alertas, total, page, pageSize, totalPages });
         res.render('oc/alertas/Alertas', { alertas, total, page, pageSize, totalPages, search, status });
     }
     catch (e) {
