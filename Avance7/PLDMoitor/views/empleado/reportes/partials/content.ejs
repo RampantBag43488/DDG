@@ -1,19 +1,19 @@
 <div class="main-content">
-     <div class="header">
-         <h2>Reportes</h2>
-     </div>
-     <div class="content">
-         <div class="card">
-             <div class="card-body">
-                 <p>Desde aquí puedes gestionar los reportes.</p>
-             </div>
-         </div>
-     </div>
+    <div class="header">
+        <h2>Mensajes Anónimos</h2>
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <p>Desde aquí puedes realizar mensajes anónimos.</p>
+            </div>
+        </div>
+    </div>
 
     <div class="nuevoReporte">
-      <h2>Nuevo Reporte</h2>
+    <h2>Nuevo Mensaje Anónimo </h2>
 
-      <form action="/empleado/Reportes" method="POST">
+    <form action="/empleado/Reportes" method="POST">
             <div class="fila">
                 <div>
                 <label for="acusado">Nombre del acusado</label><br>
@@ -43,53 +43,7 @@
 
             <br>
 
-            <button type="submit">Enviar reporte</button>
+            <button type="submit">Enviar mensaje</button>
         </form>
     </div>
-
-    <div class="reportes">
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Acusado</th>
-                    <th>Fecha de Generación</th>
-                    <th>Descripción</th>
-                    <th>Evidencia Adjunta</th>
-                    <th>Estatus</th>
-                    <th>Formato de Salida</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% reportes.forEach(rep => { %>
-                    <tr>
-                        <td><%= rep.id_reporte %></td>
-                        <td><%= rep.acusado %></td>
-                        <td><%= rep.fecha_generacion %></td>
-                        <td><%= rep.descripcion %></td>
-                        <td><%= rep.evidencia_adjunta %></td>
-                        <td><%= rep.estatus %></td>
-                        <td><%= rep.formato_salida %></td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
-
-        <div class="pager">
-            <div style="margin: 1em; margin-left: 0;"><p class="meta"><% if (reportes.length > 0) { %>Mostrando <%= reportes.length %> de <%= total %> reportes<% } else { %>No hay reportes disponibles<% } %></p></div>
-            <% if (page > 1) { %>
-                <a href="/empleado/Reportes?page=<%= page - 1 %>">← Anterior</a>
-            <% } %>
-            <% for (let p = 1; p <= totalPages; p++) { %>
-                <% if (p === page) { %>
-                    <span class="current"><%= p %></span>
-                <% } else { %>
-                    <a href="/empleado/Reportes?page=<%= p %>"><%= p %></a>
-                <% } %>
-            <% } %>
-            <% if (page < totalPages) { %>
-                <a href="/empleado/Reportes?page=<%= page + 1 %>">Siguiente →</a>
-            <% } %>
-        </div>
-    </div>
- </div>
+</div>

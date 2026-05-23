@@ -1,15 +1,15 @@
 <div class="main-content">
-     <div class="header">
-         <h2>Operaciones</h2>
-     </div>
-     <div class="content">
-         <div class="card">
-             <div class="card-body">
-                 <h3>Bienvenido, Oficial de Cumplimiento</h3>
-                 <p>Desde aquí puedes gestionar las operaciones.</p>
-             </div>
-         </div>
-     </div>
+    <div class="header">
+        <h2>Operaciones</h2>
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <h3>Bienvenido, Oficial de Cumplimiento</h3>
+                <p>Desde aquí puedes gestionar las operaciones.</p>
+            </div>
+        </div>
+    </div>
 
     <div class="fila"> 
         <div class="recientes">
@@ -26,7 +26,7 @@
                         <td><%= op.cliente_id%></td>
                         <td><%= op.id_contrato%></td>
                         <td><%= op.tipo_operacion%></td>
-                        <td><%= op.fecha_operacion%></td>
+                        <td><%= new Date(op.fecha_operacion).toLocaleDateString('es-MX') %></td>
                     </tr>
                 <% }); %>
             </tbody>
