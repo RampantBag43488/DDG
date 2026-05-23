@@ -31,18 +31,12 @@
                     <th>Acción</th>
                     <th>ID Expediente</th>
                     <th>ID Cliente</th>
-                    <th>Actividad</th>
-                    <th>Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
-                    <th>Nacionalidad</th>
-                    <th>Fecha Nacimiento</th>
-                    <th>RFC</th>
-                    <th>Correo</th>
-                    <th>Telefono</th>
-                    <th>Domicilio</th>
-                    <th>Numero ID Fiscal</th>
-                    <th>Numero Serie Firma</th>
+                    <th>Tipo Persona</th>
+                    <th>Cliente</th>
+                    <th>Tipo Expediente</th>
+                    <th>Estatus</th>
+                    <th>Fecha Apertura</th>
+                    <th>Observaciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,23 +50,24 @@
                         </td>
                         <td><%= exp.id_expediente %></td>
                         <td><%= exp.cliente_id %></td>
-                        <td><%= exp.actividad %></td>
-                        <td><%= exp.nombre %></td>
-                        <td><%= exp.apellido_paterno %></td>
-                        <td><%= exp.apellido_materno %></td>
-                        <td><%= exp.nacionalidad %></td>
-                        <td><%= exp.fecha_nacimiento %></td>
-                        <td><%= exp.rfc %></td>
-                        <td><%= exp.correo %></td>
-                        <td><%= exp.telefono %></td>
-                        <td><%= exp.domicilio %></td>
-                        <td><%= exp.numero_id_fiscal %></td>
-                        <td><%= exp.num_serie_firma %></td>
+                        <td><%= exp.tipo_persona %></td>
+
+                        <td>
+                            <% if (exp.tipo_persona === 'fisica') { %>
+                                <%= exp.nombre %> <%= exp.apellido_paterno %> <%= exp.apellido_materno %>
+                            <% } else { %>
+                                <%= exp.razon_social %>
+                            <% } %>
+                        </td>
+
+                        <td><%= exp.tipo_expediente %></td>
+                        <td><%= exp.estatus_expediente %></td>
+                        <td><%= exp.fecha_apertura %></td>
+                        <td><%= exp.observaciones %></td>
                     </tr>
                 <% }); %>
             </tbody>
         </table>
-
         <div class="pager">
             <div style="margin: 1em; margin-left: 0;"><p class="meta"><% if (expedientes.length > 0) { %>Mostrando <%= expedientes.length %> de <%= total %> expedientes<% } else { %>No hay expedientes disponibles<% } %></p></div>
             <% if (page > 1) { %>

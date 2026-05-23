@@ -12,249 +12,208 @@
   <%- include('./components/sidebar') %>
 
   <div class="main-content">
-      <div class="page-top">
-          <div>
-              <h1>Nuevo Expediente</h1>
-              <p class="subtitle">Captura los datos del cliente con el tipo de persona correcto.</p>
-          </div>
-          <form action="/empleado/expedientes" method="get">
-              <button class="VolverButton" type="submit">
-                  <div class="plus">
-                      <i class="fa-solid fa-arrow-left"></i>
-                  </div>
-                  Volver
-              </button>
-          </form>
+    <div class="page-top">
+      <div>
+        <h1>Nuevo Expediente</h1>
+        <p class="subtitle">Captura los datos del cliente con el tipo de persona correcto.</p>
       </div>
 
-      <section class="form-card">
-          <div class="form-header">
-              <div>
-                  <h2>Datos del cliente</h2>
-                  <p>Selecciona el tipo de persona y completa los campos obligatorios.</p>
-              </div>
-              <div class="field-group select-group">
-                  <label for="tipoPersona">Tipo de Persona</label>
-                  <select id="tipoPersona" name="tipoPersona" aria-label="Tipo de Persona">
-                      <option value="fisica" selected>Persona Física</option>
-                      <option value="moral">Persona Moral</option>
-                  </select>
-              </div>
+      <form action="/empleado/Expedientes" method="get">
+        <button class="VolverButton" type="submit">
+          <div class="plus">
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+          Volver
+        </button>
+      </form>
+    </div>
+
+    <section class="form-card">
+      <form id="expedienteForm" action="/empleado/Expedientes/Nuevo" method="POST">
+
+        <div class="form-header">
+          <div>
+            <h2>Datos del cliente</h2>
+            <p>Selecciona el tipo de persona y completa los campos obligatorios.</p>
           </div>
 
-              <div class="form-grid">
-                  <div class="field-group">
-                      <label for="nombre">Nombre</label>
-                      <input id="nombre" name="nombre" type="text" placeholder="Ingresa el nombre" required>
-                      <span class="field-error"></span>
-                  </div>
+          <div class="field-group select-group">
+            <label for="tipoPersona">Tipo de Persona</label>
+            <select id="tipoPersona" name="tipoPersona" required>
+              <option value="fisica" selected>Persona Física</option>
+              <option value="moral">Persona Moral</option>
+            </select>
+          </div>
+        </div>
 
-                  <div class="field-group">
-                      <label for="apellidoPaterno">Apellido paterno</label>
-                      <input id="apellidoPaterno" name="apellidoPaterno" type="text" placeholder="Apellido paterno" required>
-                      <span class="field-error"></span>
-                  </div>
+        <h3>Datos comunes</h3>
 
-                  <div class="field-group">
-                      <label for="apellidoMaterno">Apellido materno</label>
-                      <input id="apellidoMaterno" name="apellidoMaterno" type="text" placeholder="Apellido materno" required>
-                      <span class="field-error"></span>
-                  </div>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="nacionalidad">Nacionalidad</label>
+            <input id="nacionalidad" name="nacionalidad" type="text" placeholder="Ej. Mexicana" required>
+          </div>
 
-                  <div class="field-group">
-                      <label for="nacionalidad">Nacionalidad</label>
-                      <input id="nacionalidad" name="nacionalidad" type="text" placeholder="Ej. Mexicana" required>
-                      <span class="field-error"></span>
-                  </div>
+          <div class="field-group">
+            <label for="rfc">RFC</label>
+            <input id="rfc" name="rfc" type="text" placeholder="RFC" required>
+          </div>
 
-                  <div class="field-group">
-                      <label for="fechaNacimiento">Fecha de nacimiento</label>
-                      <input id="fechaNacimiento" name="fechaNacimiento" type="date" required>
-                      <span class="field-error"></span>
-                  </div>
+          <div class="field-group">
+            <label for="numero_id_fiscal">Número de Identificación Fiscal</label>
+            <input id="numero_id_fiscal" name="numero_id_fiscal" type="text" placeholder="ID fiscal" required>
+          </div>
 
-                  <div class="field-group">
-                      <label for="rfc">RFC</label>
-                      <input id="rfc" name="rfc" type="text" placeholder="RFC" required>
-                      <span class="field-error"></span>
-                  </div>
+          <div class="field-group">
+            <label for="num_serie_firma">Número de serie de firma</label>
+            <input id="num_serie_firma" name="num_serie_firma" type="text" placeholder="Serie de firma" required>
+          </div>
 
-                  <div class="field-group hidden-field" id="nombreEmpresaGroup" data-type="moral">
-                      <label for="nombreEmpresa">Nombre de la empresa</label>
-                      <input id="nombreEmpresa" name="nombreEmpresa" type="text" placeholder="Nombre de la empresa" value="">
-                      <span class="field-error"></span>
-                  </div>
+          <div class="field-group">
+            <label for="telefono">Teléfono</label>
+            <input id="telefono" name="telefono" type="tel" placeholder="5512345678" required>
+          </div>
 
-                  <div class="field-group">
-                      <label for="correo">Correo</label>
-                      <input id="correo" name="correo" type="email" placeholder="correo@dominio.com" required>
-                      <span class="field-error"></span>
-                  </div>
+          <div class="field-group">
+            <label for="correo">Correo</label>
+            <input id="correo" name="correo" type="email" placeholder="correo@dominio.com" required>
+          </div>
 
-                  <div class="field-group">
-                      <label for="telefono">Teléfono</label>
-                      <input id="telefono" name="telefono" type="tel" placeholder="5512345678" required>
-                      <span class="field-error"></span>
-                  </div>
+          <div class="field-group full-width">
+            <label for="domicilio">Domicilio</label>
+            <textarea id="domicilio" name="domicilio" rows="2" placeholder="Calle, número, colonia, ciudad" required></textarea>
+          </div>
+        </div>
 
-                  <div class="field-group full-width">
-                      <label for="domicilio">Domicilio</label>
-                      <textarea id="domicilio" name="domicilio" rows="2" placeholder="Calle, número, colonia, ciudad" required></textarea>
-                      <span class="field-error"></span>
-                  </div>
+        <div id="camposFisica" data-type="fisica">
+          <h3>Persona Física</h3>
 
-                  <div class="field-group">
-                      <label for="numeroIdFiscal">Número de Identificación Fiscal</label>
-                      <input id="numeroIdFiscal" name="numeroIdFiscal" type="text" placeholder="ID fiscal" required>
-                      <span class="field-error"></span>
-                  </div>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" name="nombre" type="text" placeholder="Nombre">
+            </div>
 
-                  <div class="field-group">
-                      <label for="numeroSerieFirma">Número de serie de la firma</label>
-                      <input id="numeroSerieFirma" name="numeroSerieFirma" type="text" placeholder="Serie de la firma" required>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="apellido_paterno">Apellido paterno</label>
+              <input id="apellido_paterno" name="apellido_paterno" type="text" placeholder="Apellido paterno">
+            </div>
 
-                  <div class="field-group">
-                      <label for="edad">Edad</label>
-                      <input id="edad" name="edad" type="number" min="0" placeholder="Edad" required>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="apellido_materno">Apellido materno</label>
+              <input id="apellido_materno" name="apellido_materno" type="text" placeholder="Apellido materno">
+            </div>
 
-                  <div class="field-group">
-                      <label for="estadoCivil">Estado civil</label>
-                      <select id="estadoCivil" name="estadoCivil" required>
-                          <option value="">Selecciona</option>
-                          <option value="soltero">Soltero/a</option>
-                          <option value="casado">Casado/a</option>
-                          <option value="divorciado">Divorciado/a</option>
-                          <option value="viudo">Viudo/a</option>
-                      </select>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="genero">Género</label>
+              <select id="genero" name="genero">
+                <option value="">Selecciona</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
 
-                  <div class="field-group">
-                      <label for="dependientesEconomicos">Dependientes económicos</label>
-                      <input id="dependientesEconomicos" name="dependientesEconomicos" type="number" min="0" placeholder="Cantidad" required>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="fecha_nacimiento">Fecha de nacimiento</label>
+              <input id="fecha_nacimiento" name="fecha_nacimiento" type="date">
+            </div>
 
-                  <div class="field-group">
-                      <label for="numeroHijos">Número de hijos</label>
-                      <input id="numeroHijos" name="numeroHijos" type="number" min="0" placeholder="Cantidad de hijos" required>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="entidad_federativa_nacimiento">Entidad federativa de nacimiento</label>
+              <input id="entidad_federativa_nacimiento" name="entidad_federativa_nacimiento" type="text" placeholder="Ej. Querétaro">
+            </div>
 
-                  <div class="field-group">
-                      <label for="nivelEstudios">Nivel de estudios</label>
-                      <select id="nivelEstudios" name="nivelEstudios" required>
-                          <option value="">Selecciona</option>
-                          <option value="primaria">Primaria</option>
-                          <option value="secundaria">Secundaria</option>
-                          <option value="preparatoria">Preparatoria</option>
-                          <option value="universidad">Universidad</option>
-                          <option value="posgrado">Posgrado</option>
-                      </select>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="pais_nacimiento">País de nacimiento</label>
+              <input id="pais_nacimiento" name="pais_nacimiento" type="text" placeholder="Ej. México">
+            </div>
 
-                  <div class="field-group">
-                      <label for="tipoVivienda">Tipo de vivienda</label>
-                      <select id="tipoVivienda" name="tipoVivienda" required>
-                          <option value="">Selecciona</option>
-                          <option value="propia">Propia</option>
-                          <option value="rentada">Rentada</option>
-                          <option value="familiar">Familiar</option>
-                          <option value="otro">Otro</option>
-                      </select>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="curp">CURP</label>
+              <input id="curp" name="curp" type="text" placeholder="CURP">
+            </div>
 
-                  <div class="field-group">
-                      <label for="tipoEmpleo">Tipo de empleo</label>
-                      <select id="tipoEmpleo" name="tipoEmpleo" required>
-                          <option value="">Selecciona</option>
-                          <option value="asalariado">Asalariado</option>
-                          <option value="independiente">Independiente</option>
-                          <option value="empresario">Empresario</option>
-                          <option value="otro">Otro</option>
-                      </select>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group full-width">
+              <label for="ocupacion_actividad">Ocupación o actividad</label>
+              <textarea id="ocupacion_actividad" name="ocupacion_actividad" rows="2" placeholder="Describe la ocupación o actividad"></textarea>
+            </div>
+          </div>
+        </div>
 
-                  <div class="field-group">
-                      <label for="ingresosMensuales">Ingresos mensuales</label>
-                      <input id="ingresosMensuales" name="ingresosMensuales" type="number" min="0" step="0.01" placeholder="0.00" required>
-                      <span class="field-error"></span>
-                  </div>
+        <div id="camposMoral" data-type="moral" style="display: none;">
+          <h3>Persona Moral</h3>
 
-                  <div class="field-group">
-                      <label for="frecuenciaPago">Frecuencia de pago/ingresos</label>
-                      <select id="frecuenciaPago" name="frecuenciaPago" required>
-                          <option value="">Selecciona</option>
-                          <option value="semanal">Semanal</option>
-                          <option value="quincenal">Quincenal</option>
-                          <option value="mensual">Mensual</option>
-                          <option value="otro">Otro</option>
-                      </select>
-                      <span class="field-error"></span>
-                  </div>
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="razon_social">Razón social</label>
+              <input id="razon_social" name="razon_social" type="text" placeholder="Razón social">
+            </div>
 
-                  <div class="field-group">
-                      <label for="valorPatrimonio">Valor patrimonio</label>
-                      <input id="valorPatrimonio" name="valorPatrimonio" type="number" min="0" step="0.01" placeholder="0.00" required>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="giro_mercantil_actividad">Giro mercantil / actividad</label>
+              <input id="giro_mercantil_actividad" name="giro_mercantil_actividad" type="text" placeholder="Giro mercantil">
+            </div>
 
-                  <div class="field-group full-width">
-                      <label for="actividadEconomica">Actividad económica/laboral</label>
-                      <textarea id="actividadEconomica" name="actividadEconomica" rows="2" placeholder="Describe la actividad" required></textarea>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="pais_asigna_id_fiscal">País que asigna ID fiscal</label>
+              <input id="pais_asigna_id_fiscal" name="pais_asigna_id_fiscal" type="text" placeholder="Ej. México">
+            </div>
 
-                  <div class="field-group full-width">
-                      <label for="origenRecursos">Origen de los recursos</label>
-                      <textarea id="origenRecursos" name="origenRecursos" rows="2" placeholder="Origen de los recursos" required></textarea>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="representante_legal">Representante legal</label>
+              <input id="representante_legal" name="representante_legal" type="text" placeholder="Nombre del representante">
+            </div>
 
-                  <div class="field-group select-group">
-                      <label for="campanaPolitica">¿Pertenece a campaña o partido político?</label>
-                      <select id="campanaPolitica" name="campanaPolitica" required>
-                          <option value="">Selecciona</option>
-                          <option value="si">Sí</option>
-                          <option value="no">No</option>
-                      </select>
-                      <span class="field-error"></span>
-                  </div>
+            <div class="field-group">
+              <label for="fecha_constitucion">Fecha de constitución</label>
+              <input id="fecha_constitucion" name="fecha_constitucion" type="date">
+            </div>
+          </div>
+        </div>
 
-                  <div class="field-group select-group">
-                      <label for="vinculadoGrupo">Vinculado con el grupo</label>
-                      <select id="vinculadoGrupo" name="vinculadoGrupo" required>
-                          <option value="">Selecciona</option>
-                          <option value="si">Sí</option>
-                          <option value="no">No</option>
-                      </select>
-                      <span class="field-error"></span>
-                  </div>
+        <h3>Datos del expediente</h3>
 
-                  <div class="field-group full-width">
-                      <label for="finDestinoCredito">Fin del destino de crédito</label>
-                      <textarea id="finDestinoCredito" name="finDestinoCredito" rows="2" placeholder="Describe el fin del crédito" required></textarea>
-                      <span class="field-error"></span>
-                  </div>
-              </div>
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="tipo_expediente">Tipo de expediente</label>
+            <select id="tipo_expediente" name="tipo_expediente" required>
+              <option value="">Selecciona</option>
+              <option value="apertura">Apertura</option>
+              <option value="actualizacion">Actualización</option>
+              <option value="revision">Revisión</option>
+            </select>
+          </div>
 
-              <div class="form-actions">
-                <button class="submitButton" type="submit">Guardar expediente</button>
-                <form action="/empleado/expedientes" method="get">
-                    <button class="secondaryButton" type="submit">
-                        Cancelar
-                    </button>
-                </form>
-              </div>
-          </form>
-      </section>
+          <div class="field-group">
+            <label for="estatus_expediente">Estatus</label>
+            <select id="estatus_expediente" name="estatus_expediente" required>
+              <option value="en_revision" selected>En Revision</option>
+              <option value="aprobado">Aprobado</option>
+              <option value="rechazado">Rechazado</option>
+              <option value ="cerrado">Cerrado</option>
+            </select>
+          </div>
+
+          <div class="field-group full-width">
+            <label for="observaciones">Observaciones</label>
+            <textarea id="observaciones" name="observaciones" rows="2" placeholder="Observaciones del expediente"></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="submitButton" type="submit">Guardar expediente</button>
+
+          <button
+            class="secondaryButton"
+            type="button"
+            onclick="window.location.href='/oficial/Expediente'">
+            Cancelar
+          </button>
+        </div>
+
+      </form>
+    </section>
   </div>
 <script src="/js/Sidebar.js"></script>
 <script src="/js/NuevoExpediente.js"></script>
