@@ -4,7 +4,7 @@ exports.create = async (data) => {
     const campos = [
         'cliente_id', 'nombre', 'apellido_paterno', 'apellido_materno', 'genero', 'fecha_nacimiento',
         'entidad_federativa_nacimiento', 'pais_nacimiento', 'nacionalidad', 'ocupacion_actividad',
-        'domicilio', 'telefono', 'correo', 'curp', 'rfc', 'numero_id_fiscal'
+        'domicilio', 'telefono', 'correo', 'curp', 'rfc', 'numero_id_fiscal', 'num_serie_firma'
     ];
     const values = campos.map(campo => data[campo]);
     const { rows } = await pool.query(
@@ -18,7 +18,7 @@ exports.update = async (persona_fisica_id, data) => {
     const campos = [
         'nombre', 'apellido_paterno', 'apellido_materno', 'genero', 'fecha_nacimiento',
         'entidad_federativa_nacimiento', 'pais_nacimiento', 'nacionalidad', 'ocupacion_actividad',
-        'domicilio', 'telefono', 'correo', 'curp', 'rfc', 'numero_id_fiscal'
+        'domicilio', 'telefono', 'correo', 'curp', 'rfc', 'numero_id_fiscal', 'num_serie_firma'
     ];
     const sets = campos.map((campo, i) => `${campo} = $${i + 2}`);
     const values = campos.map(campo => data[campo]);

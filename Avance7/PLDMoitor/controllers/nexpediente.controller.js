@@ -5,6 +5,11 @@ exports.postNuevoExpediente = async (req, res) => {
         const datos = req.body;
         const rol = req.session.rol;
 
+        const limpiarInput = (val) => {
+            const target = Array.isArray(val) ? val[0] : val;
+            return String(target || '').replace(/[{} "\\,]/g, '').trim();
+        };
+
         // 1. Crear cliente
         const cliente = new model.Cliente(
             'bajo',
@@ -32,9 +37,9 @@ exports.postNuevoExpediente = async (req, res) => {
                 datos.telefono,
                 datos.correo,
                 datos.curp,
-                datos.rfc,
-                datos.numero_id_fiscal,
-                datos.num_serie_firma
+                limpiarInput(datos.rfc),
+                limpiarInput(datos.numero_id_fiscal),
+                limpiarInput(datos.num_serie_firma)
             );
 
             await personaFisica.save();
@@ -45,10 +50,10 @@ exports.postNuevoExpediente = async (req, res) => {
                 datos.razon_social,
                 datos.giro_mercantil_actividad,
                 datos.nacionalidad,
-                datos.rfc,
-                datos.numero_id_fiscal,
+                limpiarInput(datos.rfc),
+                limpiarInput(datos.numero_id_fiscal),
                 datos.pais_asigna_id_fiscal,
-                datos.num_serie_firma,
+                limpiarInput(datos.num_serie_firma),
                 datos.domicilio,
                 datos.telefono,
                 datos.correo,
