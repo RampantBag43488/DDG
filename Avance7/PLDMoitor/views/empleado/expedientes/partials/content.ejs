@@ -52,7 +52,7 @@
 
                         <td><%= exp.tipo_expediente %></td>
                         <td><%= exp.estatus_expediente %></td>
-                        <td><%= exp.fecha_apertura %></td>
+                        <td><%= new Date(exp.fecha_apertura).toLocaleDateString('es-MX') %></td>
                         <td><%= exp.observaciones %></td>
                     </tr>
                 <% }); %>
