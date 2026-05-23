@@ -1,3 +1,36 @@
 <script src="/js/Sidebar.js"></script>
 <script src="/js/NuevoExpediente.js"></script>
 
+<script>
+    function confirmarActualizacion(e) {
+        if (!confirm('¿Estás seguro de que deseas actualizar este expediente?')) {
+            if (e) e.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<script>
+    // Mostrar/ocultar campos según tipo de persona
+    document.addEventListener('DOMContentLoaded', function() {
+        const tipoPersona = document.getElementById('tipoPersona');
+        const camposFisica = document.getElementById('camposFisica');
+        const camposMoral = document.getElementById('camposMoral');
+        function toggleCampos() {
+            const isFisica = tipoPersona.value === 'fisica';
+            camposFisica.style.display = isFisica ? 'block' : 'none';
+            camposMoral.style.display = isFisica ? 'none' : 'block';
+            
+            // Prevenir duplicados
+            camposFisica.querySelectorAll('input, textarea, select').forEach(el => {
+                if(el.name !== 'tipo_persona') el.disabled = !isFisica;
+            });
+            camposMoral.querySelectorAll('input, textarea, select').forEach(el => {
+                if(el.name !== 'tipo_persona') el.disabled = isFisica;
+            });
+        }
+        tipoPersona.addEventListener('change', toggleCampos);
+        toggleCampos();
+    });
+</script>

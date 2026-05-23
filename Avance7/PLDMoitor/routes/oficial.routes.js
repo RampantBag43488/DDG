@@ -6,6 +6,8 @@ const alertasController = require('../controllers/alertas.controller');
 const expedienteController = require('../controllers/expediente.controller');
 const isAuth = require('../util/is-auth.js');
 const checkRol = require('../util/check-rol.js');
+const nuevo_expedienteController = require('../controllers/nexpediente.controller');
+
 
 router.get("/",isAuth, checkRol('oficial_cumplimiento'), (req, res) => {
     res.redirect("/oficial/Dashboard");
@@ -25,6 +27,7 @@ router.get("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), expedi
 router.get("/Expediente/Actualizar", isAuth, checkRol('oficial_cumplimiento'), expedienteController.actualizarVista);
 router.post("/Expediente/Actualizar", isAuth, checkRol('oficial_cumplimiento'), expedienteController.actualizarExpediente);
 
+router.post("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), nuevo_expedienteController.postNuevoExpediente);
 router.get("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.index);
 
 module.exports = router;
