@@ -1,5 +1,6 @@
 const model = require('../models/auth.model.js');
 const bcrypt = require('bcryptjs');
+const registrarBitacora = require('../util/bitacora.js');
 
 exports.render_login = (req, res) => {
     res.render('auth/login/Login', { registro: false });
@@ -22,6 +23,12 @@ exports.do_login = async (req, res) => {
         req.session.isLoggedIn = true;
         req.session. rol       = usuario.rol;
 
+        await registrarBitacora({
+            id_usuario: usuario.id_usuario,
+            accion: 'LOGIN',
+            descripcion: `Acceso al sistema por usuario ${usuario.nombre}`
+        });
+
         if (usuario.rol =='gestion'){
             return res.redirect('/gestion/Dashboard');
         }else if (usuario.rol == 'oficial_cumplimiento'){
@@ -38,7 +45,12 @@ exports.do_login = async (req, res) => {
     }
 };
 
-exports.do_logout = (req, res) => {
+exports.do_logout = async (req, res) => {
+    await registrarBitacora({
+        id_usuario: req.session.id_usuario,
+        accion: 'LOGOUT',
+        descripcion: `Cierre de sesión por usuario ${req.session.nombre}`
+    });
     req.session.destroy();
     res.redirect('/login');
 };

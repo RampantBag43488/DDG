@@ -44,6 +44,11 @@ module.exports.actualizarVista = async (req, res) => {
 
 module.exports.actualizarExpediente = async (req, res) => {
     try {
+        await registrarBitacora({
+            id_usuario: req.session.id_usuario,
+            accion: 'Actualizó un Expediente',
+            descripcion: `Actualización de expediente por usuario ${req.session.nombre}`
+        });
         const id_expediente = req.body.id_expediente;
         if (!id_expediente) return res.redirect('/oficial/Expediente');
 
@@ -142,6 +147,7 @@ module.exports.actualizarExpediente = async (req, res) => {
             expediente.rfc = sanitizarCatch(expediente.rfc);
             expediente.numero_id_fiscal = sanitizarCatch(expediente.numero_id_fiscal);
             expediente.num_serie_firma = sanitizarCatch(expediente.num_serie_firma);
+
         } catch {}
         res.render('oc/expediente/ActualizarExpediente', {
             expediente,
@@ -150,6 +156,7 @@ module.exports.actualizarExpediente = async (req, res) => {
     }
 };
 const model = require('../models/expediente.model');
+const registrarBitacora = require('../util/bitacora.js');
 
 module.exports.index = async (req, res) => {
     try {
@@ -158,6 +165,11 @@ module.exports.index = async (req, res) => {
         const expedientes = await model.fetchAll(page, pageSize);
         const total = await model.countExpedientes();
         const totalPages = Math.ceil(total / pageSize);
+        await registrarBitacora({
+            id_usuario: req.session.id_usuario,
+            accion: 'Visualizó Expedientes',
+            descripcion: `Visualización de expedientes por usuario ${req.session.nombre}`
+        });
         res.render('oc/expediente/Expediente', { expedientes, total, page, pageSize, totalPages });
     }
     catch (e) {
@@ -166,11 +178,21 @@ module.exports.index = async (req, res) => {
     }
 };
 
-module.exports.nuevo = (req, res) => {
+module.exports.nuevo = async (req, res) => {
+    await registrarBitacora({
+        id_usuario: req.session.id_usuario,
+        accion: 'Creo un Nuevo Expediente',
+        descripcion: `Creación de nuevo expediente por usuario ${req.session.nombre}`
+    });
     res.render('oc/expediente/NuevoExpediente');
 };
 
-module.exports.nuevoEmpleado = (req, res) => {
+module.exports.nuevoEmpleado = async (req, res) => {
+    await registrarBitacora({
+        id_usuario: req.session.id_usuario,
+        accion: 'Creo un Nuevo Expediente',
+        descripcion: `Creación de nuevo expediente por usuario ${req.session.nombre}`
+    });
     res.render('empleado/expedientes/NuevoExpediente');
 };
 
@@ -181,7 +203,14 @@ module.exports.indexEmpleado = async (req, res) => {
         const expedientes = await model.fetchAll(page, pageSize);
         const total = await model.countExpedientes();
         const totalPages = Math.ceil(total / pageSize);
-        res.render('empleado/expedientes/Expedientes', { expedientes, total, page, pageSize, totalPages });
+        const search = req.query.search || '';
+        const status = req.query.status || '';
+        await registrarBitacora({
+            id_usuario: req.session.id_usuario,
+            accion: 'Visualizó Expedientes',
+            descripcion: `Visualización de expedientes por usuario ${req.session.nombre}`
+        });
+        res.render('empleado/expedientes/Expedientes', { expedientes, total, page, pageSize, totalPages, search, status});
     }
     catch (e) {
         console.log(e);
