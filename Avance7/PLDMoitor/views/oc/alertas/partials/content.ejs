@@ -12,6 +12,16 @@
      </div>
 
     <div class="alertas">
+            <!-- Filtros para alertas -->
+            <form id="alertas-filtro-form" style="margin-bottom: 1em; display: flex; gap: 1em; align-items: center;">
+                <input type="text" id="alerta-search" name="search" placeholder="Buscar alerta..." value="<%= typeof search !== 'undefined' ? search : '' %>" style="padding: 0.5em; border-radius: 4px; border: 1px solid #ccc;" />
+                <select id="alerta-status" name="status" style="padding: 0.5em; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="" <%= !status ? 'selected' : '' %>>Todos los estatus</option>
+                    <option value="abierta" <%= status === 'abierta' ? 'selected' : '' %>>Abierta</option>
+                    <option value="en revision" <%= status === 'en revision' ? 'selected' : '' %>>En revisión</option>
+                    <option value="cerrada" <%= status === 'cerrada' ? 'selected' : '' %>>Cerrada</option>
+                </select>
+            </form>
         <table border="1">
             <thead>
                 <tr>
@@ -45,19 +55,22 @@
 
         <div class="pager">
             <div style="margin: 1em; margin-left: 0;"><p class="meta"><% if (alertas.length > 0) { %>Mostrando <%= alertas.length %> de <%= total %> alertas<% } else { %>No hay alertas disponibles<% } %></p></div>
+            <% const filtroQuery = (search || status) ? `&search=${encodeURIComponent(search || '')}&status=${encodeURIComponent(status || '')}` : '';
+            %>
             <% if (page > 1) { %>
-                <a href="/oficial/Alertas?page=<%= page - 1 %>">← Anterior</a>
+                <a href="/oficial/Alertas?page=<%= page - 1 %><%= filtroQuery %>">← Anterior</a>
             <% } %>
             <% for (let p = 1; p <= totalPages; p++) { %>
                 <% if (p === page) { %>
                     <span class="current"><%= p %></span>
                 <% } else { %>
-                    <a href="/oficial/Alertas?page=<%= p %>"><%= p %></a>
+                    <a href="/oficial/Alertas?page=<%= p %><%= filtroQuery %>"><%= p %></a>
                 <% } %>
             <% } %>
             <% if (page < totalPages) { %>
-                <a href="/oficial/Alertas?page=<%= page + 1 %>">Siguiente →</a>
+                <a href="/oficial/Alertas?page=<%= page + 1 %><%= filtroQuery %>">Siguiente →</a>
             <% } %>
         </div>
+    <script src="/js/alertasFiltro.js"></script>
     </div>
  </div>

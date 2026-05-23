@@ -1,13 +1,60 @@
 const pool = require('../util/database.js');
 
-exports.fetchAll = async (page = 1, pageSize = 5) => {
+exports.fetchAll = async (page = 1, pageSize = 5, search = '', status = '') => {
     const offset = (page - 1) * pageSize;
-    const {rows} = await pool.query('SELECT * FROM reportes ORDER BY id_reporte LIMIT $1 OFFSET $2', [pageSize, offset]);
+    let query = 'SELECT * FROM reportes';
+    let where = [];
+    let params = [];
+
+    if (search) {
+        where.push(`(
+            CAST(id_reporte AS TEXT) ILIKE $${params.length + 1} OR
+            acusado ILIKE $${params.length + 1} OR
+            CAST(fecha_generacion AS TEXT) ILIKE $${params.length + 1} OR
+            descripcion ILIKE $${params.length + 1} OR
+            evidencia_adjunta ILIKE $${params.length + 1} OR
+            estatus ILIKE $${params.length + 1} OR
+            formato_salida ILIKE $${params.length + 1}
+        )`);
+        params.push(`%${search}%`);
+    }
+    if (status && status !== '') {
+        where.push(`estatus ILIKE $${params.length + 1}`);
+        params.push(status);
+    }
+    if (where.length > 0) {
+        query += ' WHERE ' + where.join(' AND ');
+    }
+    query += ' ORDER BY id_reporte LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
+    params.push(pageSize, offset);
+    const {rows} = await pool.query(query, params);
     return rows;
 };
     
-exports.countReportes = async () => {
-    const {rows} = await pool.query('SELECT COUNT(*) AS totalreportes FROM reportes');
+exports.countReportesFiltered = async (search = '', status = '') => {
+    let query = 'SELECT COUNT(*) AS totalreportes FROM reportes';
+    let where = [];
+    let params = [];
+    if (search) {
+        where.push(`(
+            CAST(id_reporte AS TEXT) ILIKE $${params.length + 1} OR
+            acusado ILIKE $${params.length + 1} OR
+            CAST(fecha_generacion AS TEXT) ILIKE $${params.length + 1} OR
+            descripcion ILIKE $${params.length + 1} OR
+            evidencia_adjunta ILIKE $${params.length + 1} OR
+            estatus ILIKE $${params.length + 1} OR
+            formato_salida ILIKE $${params.length + 1}
+        )`);
+        params.push(`%${search}%`);
+    }
+    if (status && status !== '') {
+        where.push(`estatus ILIKE $${params.length + 1}`);
+        params.push(status);
+    }
+    if (where.length > 0) {
+        query += ' WHERE ' + where.join(' AND ');
+    }
+    const {rows} = await pool.query(query, params);
     return rows[0].totalreportes;
 };
 
