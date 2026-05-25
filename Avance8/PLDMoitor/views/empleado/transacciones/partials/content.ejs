@@ -1,0 +1,52 @@
+<div class="main-content">
+    <div class="header">
+        <h2>Operaciones</h2>
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <p>Desde aquí puedes gestionar las operaciones.</p>
+            </div>
+        </div>
+    </div>
+    <div class="fila"> 
+        <div class="recientes">
+            <table border="1">
+            <thead>
+                <tr>
+                    <tr><th>ID</th><th>IDCliente</th><th>IDContrato</th><th>Tipo</th><th>Fecha</th></tr>
+                </tr>
+            </thead>
+            <tbody>
+                <% operaciones.forEach(op => { %>
+                    <tr>
+                        <td><%= op.id_operacion %></td>
+                        <td><%= op.cliente_id%></td>
+                        <td><%= op.id_contrato%></td>
+                        <td><%= op.tipo_operacion%></td>
+                        <td><%= new Date(op.fecha_operacion).toLocaleDateString('es-MX') %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+            </table>
+
+            <div class="pager">
+            <div style="margin: 1em; margin-left: 0;"><p class="meta"><% if (operaciones.length > 0) { %>Mostrando <%= operaciones.length %> de <%= total %> operaciones<% } else { %>No hay operaciones disponibles<% } %></p></div>
+            <% if (page > 1) { %>
+                <a href="/operaciones?page=<%= page - 1 %>">← Anterior</a>
+            <% } %>
+            <% for (let p = 1; p <= totalPages; p++) { %>
+                <% if (p === page) { %>
+                    <span class="current"><%= p %></span>
+                <% } else { %>
+                    <a href="/operaciones?page=<%= p %>"><%= p %></a>
+                <% } %>
+            <% } %>
+            <% if (page < totalPages) { %>
+                <a href="/operaciones?page=<%= page + 1 %>">Siguiente →</a>
+            <% } %>
+        </div>
+
+        </div>
+    </div>
+</div>
