@@ -1,0 +1,66 @@
+<div class="main-content">
+    <div class="header">
+        <h2>Operaciones</h2>
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <h3>Bienvenido, Oficial de Cumplimiento</h3>
+                <p>Desde aquí puedes gestionar las operaciones.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="fila">
+        <div class="recientes">
+            <form id="operaciones-filtro-form" style="margin-bottom: 1em; display: flex; gap: 1em; align-items: center;">
+                <input type="text" id="operacion-search" name="search" placeholder="Buscar operación..." value="<%= typeof search !== 'undefined' ? search : '' %>" style="padding: 0.5em; border-radius: 4px; border: 1px solid #ccc;" />
+                <select id="operacion-tipo" name="tipo" style="padding: 0.5em; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="" <%= !tipo ? 'selected' : '' %>>Todos los tipos</option>
+                    <option value="Depósito" <%= tipo === 'Depósito' ? 'selected' : '' %>>Depósito</option>
+                    <option value="Pago" <%= tipo === 'Pago' ? 'selected' : '' %>>Pago</option>
+                    <option value="Transferencia" <%= tipo === 'Transferencia' ? 'selected' : '' %>>Transferencia</option>
+                    <option value="Retiro" <%= tipo === 'Retiro' ? 'selected' : '' %>>Retiro</option>
+                    <option value="Inversión" <%= tipo === 'Inversión' ? 'selected' : '' %>>Inversión</option>
+                </select>
+                <input type="date" id="operacion-fecha" name="fecha" value="<%= typeof fecha !== 'undefined' ? fecha : '' %>" style="padding: 0.5em; border-radius: 4px; border: 1px solid #ccc;" />
+            </form>
+            <table border="1">
+                <thead>
+                    <tr><th>ID</th><th>IDCliente</th><th>IDContrato</th><th>Tipo</th><th>Fecha</th></tr>
+                </tr>
+            </thead>
+            <tbody>
+                <% operaciones.forEach(op => { %>
+                    <tr>
+                        <td><%= op.id_operacion %></td>
+                        <td><%= op.cliente_id%></td>
+                        <td><%= op.id_contrato%></td>
+                        <td><%= op.tipo_operacion%></td>
+                        <td><%= new Date(op.fecha_operacion).toLocaleDateString('es-MX') %></td>
+                    </tr>
+                <% }); %>
+          </tbody>
+            </table>
+            <div class="pager">
+                <div style="margin: 1em; margin-left: 0;"><p class="meta"><% if (operaciones.length > 0) { %>Mostrando <%= operaciones.length %> de <%= total %> operaciones<% } else { %>No hay operaciones disponibles<% } %></p></div>
+                <% const filtroQuery = (search || tipo || fecha) ? `&search=${encodeURIComponent(search || '')}&tipo=${encodeURIComponent(tipo || '')}&fecha=${encodeURIComponent(fecha || '')}` : '';
+                %>
+                <% if (page > 1) { %>
+                    <a href="/operaciones?page=<%= page - 1 %><%= filtroQuery %>">← Anterior</a>
+                <% } %>
+                <% for (let p = 1; p <= totalPages; p++) { %>
+                    <% if (p === page) { %>
+                        <span class="current"><%= p %></span>
+                    <% } else { %>
+                        <a href="/operaciones?page=<%= p %><%= filtroQuery %>"><%= p %></a>
+                    <% } %>
+                <% } %>
+                <% if (page < totalPages) { %>
+                    <a href="/operaciones?page=<%= page + 1 %><%= filtroQuery %>">Siguiente →</a>
+                <% } %>
+            </div>
+            <script src="/js/operacionesFiltro.js"></script>
+        </div>
+    </div>
+</div>
