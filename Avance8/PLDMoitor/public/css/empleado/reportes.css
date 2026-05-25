@@ -1,0 +1,144 @@
+/* reset css * selecciona todos los elementos */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+    background-color: #efe7da;
+    display: flex;
+}
+
+.main-content {  
+    flex: 1;  
+    padding: 20px;  
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background: white; 
+}
+
+th, td { 
+    padding: 0.5rem 0.75rem; 
+    border-bottom: 1px solid #e5e7eb; 
+    text-align: left; 
+}
+
+th { 
+    background: #111827; 
+    color: white; 
+}
+
+tr:hover { 
+    background: #f3f4f6; 
+}
+
+.pager { 
+    margin-top: 1.5rem; 
+}
+
+.pager a, .pager span { 
+    padding: 0.35rem 0.7rem; 
+    margin-right: 0.3rem; 
+    border: 1px solid #d1d5db; 
+    border-radius: 4px; 
+    text-decoration: none; 
+    color: #111827; 
+}
+
+.pager a:hover { 
+    background: #f3f4f6; 
+}
+
+.pager .current { 
+    background: #111827; 
+    color: white; 
+    padding: 0.35rem 0.7rem; 
+    margin-right: 0.3rem; 
+    border-radius: 4px; 
+}
+
+.reportes {
+    background-color: #ffff;
+    border-radius: 1em;
+    width: auto;
+    height: auto;
+    padding: 1em;
+}
+
+/*NUEVO REPORTE*/
+
+.nuevoReporte {
+  width: auto;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.nuevoReporte h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #222;
+}
+
+.nuevoReporte label {
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+}
+
+.nuevoReporte input[type="text"],
+.nuevoReporte input[type="date"],
+.nuevoReporte textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.nuevoReporte textarea {
+  resize: vertical;
+}
+
+.nuevoReporte input[type="file"] {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.nuevoReporte div {
+  margin-bottom: 16px;
+}
+
+.nuevoReporte button[type="submit"] {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nuevoReporte button[type="submit"]:hover {
+  background-color: #1d4ed8;
+}
+
+.nuevoReporte .fila {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.nuevoReporte .fila > div {
+  flex: 1;
+  margin-bottom: 0;
+}
