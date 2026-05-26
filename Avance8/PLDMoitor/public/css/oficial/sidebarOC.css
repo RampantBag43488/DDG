@@ -16,7 +16,7 @@
 }
 
 .content {
-    padding: 1em;
+    padding: .5em;
     
 }
 
@@ -33,7 +33,7 @@
 .sidebar-header {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .logo{
@@ -43,7 +43,8 @@
 }
 
 .logo h4{
-    padding: 0 1em;
+    padding: 0 10px;
+    font-size: .9rem;
 }
 
 .arrow {
@@ -131,8 +132,17 @@
     width: 80px;
 }
 
+.sidebar.hide .content {
+    padding-top: 1em;
+}
+
 .sidebar.hide span {
     display: none;
+}
+
+.sidebar.hide ul {
+    margin-top: 40px;
+    margin-bottom: 50px;
 }
 
 .sidebar.hide ul li a {
@@ -165,6 +175,7 @@
 }
 
 .sidebar.hide .selected{
+    margin-left: 20px;
     width: 36px;
     height: 36px;
 }
