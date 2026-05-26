@@ -12,7 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (searchInput.value) params.append('search', searchInput.value);
         if (tipoSelect.value) params.append('tipo', tipoSelect.value);
         if (fechaInput.value) params.append('fecha', fechaInput.value);
-        window.location.href = '/oficial/Operaciones?' + params.toString();
+        // Detectar la vista actual
+        if (window.location.pathname.startsWith('/empleado/Transacciones')) {
+            window.location.href = '/empleado/Transacciones?' + params.toString();
+        } else {
+            window.location.href = '/oficial/Operaciones?' + params.toString();
+        }
     }
     searchInput.addEventListener('change', submitFiltro);
     searchInput.addEventListener('keyup', function(e) { if (e.key === 'Enter') submitFiltro(); });
