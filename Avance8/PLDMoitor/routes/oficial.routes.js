@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 const reportesController = require('../controllers/reportes.controller');
@@ -8,6 +9,7 @@ const isAuth = require('../util/is-auth.js');
 const checkRol = require('../util/check-rol.js');
 const nuevo_expedienteController = require('../controllers/nexpediente.controller');
 const bitacoraController = require('../controllers/bitacora.controller.js');
+const clientesController = require('../controllers/clientes.controller');
 
 
 router.get("/",isAuth, checkRol('oficial_cumplimiento'), (req, res) => {
@@ -32,5 +34,7 @@ router.post("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), nuevo
 router.get("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.index);
 router.post("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.create);
 router.get("/Bitacora",isAuth, checkRol('oficial_cumplimiento'), require('../controllers/bitacora.controller.js').index);
+router.get("/Clientes", isAuth, checkRol('oficial_cumplimiento'), clientesController.index);
+router.get("/Clientes/consulta/:id", isAuth, checkRol('oficial_cumplimiento'), clientesController.info);
 
 module.exports = router;
