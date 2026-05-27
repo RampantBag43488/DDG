@@ -1,0 +1,66 @@
+
+
+<div class="main-content">
+        <div class="volver-container">
+            <form action="/oficial/Clientes" method="get">
+                <button class="VolverButton" type="submit">
+                    <div class="plus">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </div>
+                    Volver
+                </button>
+            </form>
+        </div>
+<div class="cliente-header">
+<div class="cliente-info-header">
+    <div class="avatar-nombre">
+        <div class="avatar">
+            <%= avatarIniciales %>
+        </div>
+        <div class="nombre-cliente">
+            <h2><%= nombreCliente %></h2>
+            
+        </div>
+        <div>
+            <span class="badge <%= actividadBadgeClass %>"><%= actividadBadgeText %></span>
+        </div>
+    </div>
+    <div class="acciones-header">
+        <button class="btn reportar">Reportar</button>
+        <button class="btn baja">Dar de baja</button>
+    </div>
+</div>
+</div>
+
+<div class="resumen-tarjetas">
+    <div class="tarjeta score-riesgo">
+        <div class="score-numero"><%= scoreRiesgo %></div>
+        <div class="score-badge <%= scoreBadgeClass %>"><%= scoreBadgeText %></div>
+        <div class="score-label">Score de riesgo</div>
+    </div>
+    <div class="tarjeta operaciones-inusuales">
+        <div class="operaciones-numero"><%= operacionesInusuales %></div>
+        <div class="operaciones-badge <%= operacionesBadgeClass %>"><%= operacionesBadgeText %></div>
+        <div class="operaciones-label">Operaciones Inusuales</div>
+    </div>
+</div>
+
+
+<div class="tabs-cliente">
+    <ul class="tabs">
+        <li class="<%= tab === 'alertas' ? 'active' : '' %>"><a href="?tab=alertas">Alertas Recientes</a></li>
+        <li class="<%= tab === 'operaciones' ? 'active' : '' %>"><a href="?tab=operaciones">Operaciones Recientes</a></li>
+        <li class="<%= tab === 'datos' ? 'active' : '' %>"><a href="?tab=datos">Datos del cliente</a></li>
+    </ul>
+    <div class="tab-content">
+       <% if(tab === 'alertas') { %>
+           <%- include('../../alertas/partials/tabla-alertas', { alertas, filtros, paginacion }) %>
+       <% } else if(tab === 'operaciones') { %>
+           <%- include('../../operaciones/partials/tabla-operaciones', { operaciones, paginacion }) %>
+       <% } else if(tab === 'datos') { %>
+           <%- include('./datos-cliente', { cliente, datos }) %>
+       <% } %>
+   </div>
+</div>
+
+</div>
