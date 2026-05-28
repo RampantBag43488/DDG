@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
  
+app.set("trust proxy", 1);
 
 app.use(helmet());
 app.use(cookieParser());
