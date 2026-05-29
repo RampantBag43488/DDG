@@ -1,0 +1,101 @@
+<div class="tabla-contratos">
+    <!-- Filtros -->
+    <form class="filtros-alertas" method="get" action="">
+        <input type="hidden" name="tab" value="contratos">
+        
+        <input type="text" 
+               id="contrato-search" 
+               name="cont_search" 
+               placeholder="Buscar por ID, folio, tipo..." 
+               value="<%= contFiltros.search || '' %>"
+               style="min-width: 200px;">
+        
+        <select id="contrato-estatus" name="cont_estatus" style="min-width: 150px;">
+            <option value="">Todos los estatus</option>
+            <option value="vigente" <%= contFiltros.estatus === 'vigente' ? 'selected' : '' %>>Vigente</option>
+            <option value="vencido" <%= contFiltros.estatus === 'vencido' ? 'selected' : '' %>>Vencido</option>
+            <option value="cancelado" <%= contFiltros.estatus === 'cancelado' ? 'selected' : '' %>>Cancelado</option>
+            <option value="en revision" <%= contFiltros.estatus === 'en revision' ? 'selected' : '' %>>En Revisión</option>
+        </select>
+        
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <!-- Tabla de contratos -->
+    <% if (contratos && contratos.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Contrato</th>
+                    <th>Folio</th>
+                    <th>Tipo</th>
+                    <th>Fecha Firma</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Final</th>
+                    <th>Monto Autorizado</th>
+                    <th>Estatus</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% contratos.forEach(function(contrato) { %>
+                    <tr>
+                        <td><%= contrato.id_contrato %></td>
+                        <td><%= contrato.folio_contrato %></td>
+                        <td><%= contrato.tipo_contrato %></td>
+                        <td><%= new Date(contrato.fecha_firma).toLocaleDateString() %></td>
+                        <td><%= new Date(contrato.fecha_inicio).toLocaleDateString() %></td>
+                        <td><%= new Date(contrato.fecha_final).toLocaleDateString() %></td>
+                        <td>$<%= Number(contrato.monto_autorizado).toLocaleString('es-MX', {minimumFractionDigits: 2}) %></td>
+                        <td>
+                            <% 
+                                var estatusClass = '';
+                                switch(contrato.estatus_contrato) {
+                                    case 'vigente':
+                                        estatusClass = 'badge-vigente';
+                                        break;
+                                    case 'vencido':
+                                        estatusClass = 'badge-vencido';
+                                        break;
+                                    case 'cancelado':
+                                        estatusClass = 'badge-cancelado';
+                                        break;
+                                    case 'en revision':
+                                        estatusClass = 'badge-revision';
+                                        break;
+                                    default:
+                                        estatusClass = '';
+                                }
+                            %>
+                            <span class="badge <%= estatusClass %>"><%= contrato.estatus_contrato %></span>
+                        </td>
+                        <td><%= contrato.observaciones || '-' %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <!-- Paginación -->
+        <% if (contPaginacion.totalPages > 1) { %>
+            <div class="paginacion">
+                <% if (contPaginacion.page > 1) { %>
+                    <a href="?tab=contratos&cont_page=<%= contPaginacion.page - 1 %>&cont_search=<%= contFiltros.search %>&cont_estatus=<%= contFiltros.estatus %>">Anterior</a>
+                <% } %>
+                
+                <% for (var i = 1; i <= contPaginacion.totalPages; i++) { %>
+                    <% if (i === contPaginacion.page) { %>
+                        <span class="actual"><%= i %></span>
+                    <% } else { %>
+                        <a href="?tab=contratos&cont_page=<%= i %>&cont_search=<%= contFiltros.search %>&cont_estatus=<%= contFiltros.estatus %>"><%= i %></a>
+                    <% } %>
+                <% } %>
+                
+                <% if (contPaginacion.page < contPaginacion.totalPages) { %>
+                    <a href="?tab=contratos&cont_page=<%= contPaginacion.page + 1 %>&cont_search=<%= contFiltros.search %>&cont_estatus=<%= contFiltros.estatus %>">Siguiente</a>
+                <% } %>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p style="text-align: center; padding: 2em; color: #666;">No se encontraron contratos para este cliente.</p>
+    <% } %>
+</div>
