@@ -36,5 +36,6 @@ router.post("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesContro
 router.get("/Bitacora",isAuth, checkRol('oficial_cumplimiento'), require('../controllers/bitacora.controller.js').index);
 router.get("/Clientes", isAuth, checkRol('oficial_cumplimiento'), clientesController.index);
 router.get("/Clientes/consulta/:id", isAuth, checkRol('oficial_cumplimiento'), clientesController.info);
+router.post("/Clientes/consulta/:id/baja", isAuth, checkRol('oficial_cumplimiento'), clientesController.darDeBaja);
 
 module.exports = router;
