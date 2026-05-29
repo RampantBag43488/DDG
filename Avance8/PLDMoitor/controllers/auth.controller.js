@@ -3,25 +3,32 @@ const bcrypt = require('bcryptjs');
 const registrarBitacora = require('../util/bitacora.js');
 
 exports.render_login = (req, res) => {
-    res.render('auth/login/Login', { registro: false });
+    res.render('auth/login/Login', { registro: false,
+        error: req.query.error
+     });
 };
 
 exports.do_login = async (req, res) => {
     try {
         const usuario = await model.User.findByID(req.body.usuario);
         if (!usuario) {
-            return res.redirect('/login');
+            return res.redirect('/login?error=usuario');
         }
 
         const doMatch = await bcrypt.compare(req.body.password, usuario.contrasena);
         if (!doMatch) {
-            return res.redirect('/login');
+            return res.redirect('/login?error=password');
+        }
+
+        if (usuario.estatus !== 'activo') {
+            return res.redirect('/login?error=inactivo');
         }
 
         req.session.id_usuario   = usuario.id_usuario;
         req.session.nombre     = usuario.nombre;
         req.session.isLoggedIn = true;
-        req.session. rol       = usuario.rol;
+        req.session.rol       = usuario.rol;
+        req.session.estatus = usuario.estatus;
 
         await registrarBitacora({
             id_usuario: usuario.id_usuario,
@@ -30,7 +37,7 @@ exports.do_login = async (req, res) => {
         });
 
         if (usuario.rol =='gestion'){
-            return res.redirect('/gestion/Dashboard');
+            return res.redirect('/admin/usuarios');
         }else if (usuario.rol == 'oficial_cumplimiento'){
             return res.redirect('/oficial/Dashboard');
         }else if (usuario.rol == 'empleado'){

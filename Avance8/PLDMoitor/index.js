@@ -31,6 +31,7 @@ const reportesRouter = require('./routes/reportes.routes.js');
 const operacionesRouter = require('./routes/operaciones.routes.js');
 const rutasOficial = require('./routes/oficial.routes');
 const rutasEmpleado = require('./routes/empleado.routes');
+const rutasAdmin = require('./routes/admin.routes');
 
 app.use('/', alertasRoutes);
 app.use('/', expedienteRoutes);
@@ -38,6 +39,7 @@ app.use('/reportes', reportesRouter);
 app.use('/operaciones', operacionesRouter);
 app.use('/oficial', rutasOficial);
 app.use('/empleado', rutasEmpleado);
+app.use('/admin', rutasAdmin);
 
 app.get("/", (req, res) => {
     res.redirect('/login');
