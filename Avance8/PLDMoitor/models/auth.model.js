@@ -14,7 +14,7 @@ exports.User = class {
     }
 
     static async findByID(id_usuario){
-        const sql = `SELECT id_usuario, nombre, contrasena, rol
+        const sql = `SELECT id_usuario, nombre, contrasena, rol, estatus
             FROM usuarios
             WHERE id_usuario = $1`;
         const {rows} = await pool.query(sql, [id_usuario]);
