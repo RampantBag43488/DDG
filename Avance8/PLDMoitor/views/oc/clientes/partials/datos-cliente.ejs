@@ -1,0 +1,39 @@
+<div class="datos-cliente">
+    <% if (cliente.tipo_persona && cliente.tipo_persona.toLowerCase() === 'fisica') { %>
+        <h3>Datos de Persona Física</h3>
+        <ul>
+            <li><b>Nombre:</b> <%= datos.nombre %></li>
+            <li><b>Apellido paterno:</b> <%= datos.apellido_paterno %></li>
+            <li><b>Apellido materno:</b> <%= datos.apellido_materno %></li>
+            <li><b>Género:</b> <%= datos.genero %></li>
+            <li><b>Fecha de nacimiento:</b> <%= datos.fecha_nacimiento %></li>
+            <li><b>Entidad federativa nacimiento:</b> <%= datos.entidad_federativa_nacimiento %></li>
+            <li><b>País nacimiento:</b> <%= datos.pais_nacimiento %></li>
+            <li><b>Nacionalidad:</b> <%= datos.nacionalidad %></li>
+            <li><b>Ocupación/Actividad:</b> <%= datos.ocupacion_actividad %></li>
+            <li><b>Domicilio:</b> <%= datos.domicilio %></li>
+            <li><b>Teléfono:</b> <%= datos.telefono %></li>
+            <li><b>Correo:</b> <%= datos.correo %></li>
+            <li><b>CURP:</b> <%= datos.curp %></li>
+            <li><b>RFC:</b> <%= datos.rfc %></li>
+            <li><b>Número ID Fiscal:</b> <%= datos.numero_id_fiscal %></li>
+            <li><b>Número Serie Firma:</b> <%= datos.num_serie_firma %></li>
+        </ul>
+    <% } else if (cliente.tipo_persona && cliente.tipo_persona.toLowerCase() === 'moral') { %>
+        <h3>Datos de Persona Moral</h3>
+        <ul>
+            <li><b>Razón social:</b> <%= datos.razon_social %></li>
+            <li><b>Giro mercantil/actividad:</b> <%= datos.giro_mercantil_actividad %></li>
+            <li><b>Nacionalidad:</b> <%= datos.nacionalidad %></li>
+            <li><b>RFC:</b> <%= datos.rfc %></li>
+            <li><b>Número ID Fiscal:</b> <%= datos.numero_id_fiscal %></li>
+            <li><b>País asigna ID fiscal:</b> <%= datos.pais_asigna_id_fiscal %></li>
+            <li><b>Número Serie Firma:</b> <%= datos.num_serie_firma %></li>
+            <li><b>Domicilio:</b> <%= datos.domicilio %></li>
+            <li><b>Teléfono:</b> <%= datos.telefono %></li>
+            <li><b>Correo:</b> <%= datos.correo %></li>
+            <li><b>Representante legal:</b> <%= datos.representante_legal %></li>
+            <li><b>Fecha constitución:</b> <%= datos.fecha_constitucion %></li>
+        </ul>
+    <% } %>
+</div>

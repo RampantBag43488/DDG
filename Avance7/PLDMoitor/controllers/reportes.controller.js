@@ -10,12 +10,12 @@ module.exports.index = async (req, res) => {
         const reportes = await model.fetchAll(page, pageSize, search, status);
         const total = await model.countReportesFiltered(search, status);
         const totalPages = Math.ceil(total / pageSize);
-        res.render('oc/reportes/Reportes', { reportes, total, page, pageSize, totalPages });
         await registrarBitacora({
             id_usuario: req.session.id_usuario,
             accion: 'Visualizó Mensajes Anonimos',
             descripcion: `Visualización de mensajes anonimos por usuario ${req.session.nombre}`
         });
+        res.render('oc/reportes/Reportes', { reportes, total, page, pageSize, totalPages, search, status });
     }
     catch (e) {
         console.log(e);
@@ -32,12 +32,12 @@ module.exports.indexEmpleado = async (req, res) => {
         const reportes = await model.fetchAll(page, pageSize, search, status);
         const total = await model.countReportesFiltered(search, status);
         const totalPages = Math.ceil(total / pageSize);
-        res.render('empleado/reportes/Reportes', { reportes, total, page, pageSize, totalPages });
         await registrarBitacora({
             id_usuario: req.session.id_usuario,
             accion: 'Visualizó pagina de Mensajes Anonimos',
             descripcion: `Visualización de pagina de mensajes anonimos por usuario ${req.session.nombre}`
         });
+        res.render('empleado/reportes/Reportes', { reportes, total, page, pageSize, totalPages, search, status });
     }
     catch (e) {
         console.log(e);

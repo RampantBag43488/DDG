@@ -1,0 +1,89 @@
+
+
+<div class="main-content">
+        <div class="volver-container">
+            <form action="/oficial/Clientes" method="get">
+                <button class="VolverButton" type="submit">
+                    <div class="plus">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </div>
+                    Volver
+                </button>
+            </form>
+        </div>
+<div class="cliente-header">
+<div class="cliente-info-header">
+    <div class="avatar-nombre">
+        <div class="avatar">
+            <%= avatarIniciales %>
+        </div>
+        <div class="nombre-cliente">
+            <h2><%= nombreCliente %></h2>
+            
+        </div>
+        <div>
+            <span class="badge <%= actividadBadgeClass %>"><%= actividadBadgeText %></span>
+        </div>
+    </div>
+    <div class="acciones-header">
+        <button class="btn reportar">Reportar</button>
+        <form action="/oficial/Clientes/consulta/<%= cliente.cliente_id %>/baja" method="POST" id="formBaja" style="display: inline;">
+            <button type="button" class="btn baja" id="btnBaja" data-cliente-id="<%= cliente.cliente_id %>">Dar de baja</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal de confirmación para dar de baja -->
+<div id="modalBaja" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Confirmar baja de contrato</h3>
+        </div>
+        <div class="modal-body">
+            <p>¿Está seguro que desea dar de baja el contrato de este cliente?</p>
+            <p class="modal-advertencia">Esta acción cancelará todos los contratos activos del cliente y no podrá revertirse.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn modal-cancel" id="cancelarBaja">Cancelar</button>
+            <button type="button" class="btn baja modal-confirmar" id="confirmarBaja">Sí, dar de baja</button>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="resumen-tarjetas">
+    <div class="tarjeta score-riesgo">
+        <div class="score-numero"><%= scoreRiesgo %></div>
+        <div class="score-badge <%= scoreBadgeClass %>"><%= scoreBadgeText %></div>
+        <div class="score-label">Score de riesgo</div>
+    </div>
+    <div class="tarjeta operaciones-inusuales">
+        <div class="operaciones-numero"><%= operacionesInusuales %></div>
+        <div class="operaciones-badge <%= operacionesBadgeClass %>"><%= operacionesBadgeText %></div>
+        <div class="operaciones-label">Operaciones Inusuales</div>
+    </div>
+</div>
+
+
+<div class="tabs-cliente">
+    <ul class="tabs">
+        <li class="<%= tab === 'alertas' ? 'active' : '' %>"><a href="?tab=alertas">Alertas Recientes</a></li>
+        <li class="<%= tab === 'operaciones' ? 'active' : '' %>"><a href="?tab=operaciones">Operaciones Recientes</a></li>
+        <li class="<%= tab === 'contratos' ? 'active' : '' %>"><a href="?tab=contratos">Contratos</a></li>
+        <li class="<%= tab === 'datos' ? 'active' : '' %>"><a href="?tab=datos">Datos del cliente</a></li>
+    </ul>
+    <div class="tab-content">
+       <% if(tab === 'alertas') { %>
+           <%- include('../../alertas/partials/tabla-alertas', { alertas, filtros, paginacion }) %>
+       <% } else if(tab === 'operaciones') { %>
+           <%- include('../../operaciones/partials/tabla-operaciones', { operaciones, paginacion }) %>
+       <% } else if(tab === 'contratos') { %>
+           <%- include('./tabla-contratos', { contratos, contPaginacion, contFiltros }) %>
+       <% } else if(tab === 'datos') { %>
+           <%- include('./datos-cliente', { cliente, datos }) %>
+       <% } %>
+   </div>
+</div>
+
+</div>
