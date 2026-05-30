@@ -1,13 +1,79 @@
-const pool = require('../util/database');
+const pool = require('../util/database.js');
 
+// Obtener alertas por cliente_id
+exports.fetchByCliente = async (cliente_id, page = 1, pageSize = 10, search = '', riesgo = '', estatus = '', fecha = '') => {
+    const offset = (page - 1) * pageSize;
+    let query = 'SELECT * FROM alertas';
+    let where = ['cliente_id = $1'];
+    let params = [cliente_id];
+    if (search) {
+        where.push(`(
+            CAST(id_alerta AS TEXT) ILIKE $${params.length + 1} OR
+            tipo_alerta ILIKE $${params.length + 1} OR
+            motivo ILIKE $${params.length + 1}
+        )`);
+        params.push(`%${search}%`);
+    }
+    if (riesgo) {
+        where.push('riesgo ILIKE $' + (params.length + 1));
+        params.push(riesgo);
+    }
+    if (estatus) {
+        where.push('estatus ILIKE $' + (params.length + 1));
+        params.push(estatus);
+    }
+    if (fecha) {
+        where.push('CAST(fecha_generacion AS DATE) = $' + (params.length + 1));
+        params.push(fecha);
+    }
+    if (where.length > 0) {
+        query += ' WHERE ' + where.join(' AND ');
+    }
+    query += ' ORDER BY id_alerta DESC LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
+    params.push(pageSize, offset);
+    const { rows } = await pool.query(query, params);
+    return rows;
+};
+
+// Contar alertas por cliente con filtros
+exports.countAlertasByCliente = async (cliente_id, search = '', riesgo = '', estatus = '', fecha = '') => {
+    let query = 'SELECT COUNT(*) AS totalalertas FROM alertas';
+    let where = ['cliente_id = $1'];
+    let params = [cliente_id];
+    if (search) {
+        where.push(`(
+            CAST(id_alerta AS TEXT) ILIKE $${params.length + 1} OR
+            tipo_alerta ILIKE $${params.length + 1} OR
+            motivo ILIKE $${params.length + 1}
+        )`);
+        params.push(`%${search}%`);
+    }
+    if (riesgo) {
+        where.push('riesgo ILIKE $' + (params.length + 1));
+        params.push(riesgo);
+    }
+    if (estatus) {
+        where.push('estatus ILIKE $' + (params.length + 1));
+        params.push(estatus);
+    }
+    if (fecha) {
+        where.push('CAST(fecha_generacion AS DATE) = $' + (params.length + 1));
+        params.push(fecha);
+    }
+    if (where.length > 0) {
+        query += ' WHERE ' + where.join(' AND ');
+    }
+    const { rows } = await pool.query(query, params);
+    return parseInt(rows[0].totalalertas, 10);
+};
 
 exports.fetchAll = async (page = 1, pageSize = 10, search = '', status = '') => {
     const offset = (page - 1) * pageSize;
     let query = 'SELECT * FROM alertas';
     let where = []; // Condiciones WHERE
-    let params = []; // Parámetros para la consulta parametrizada
+    let params = []; // Parametros para parametrizar
 
-    // Búsqueda en múltiples campos
+    // Busqueda
     if (search) { 
         where.push(`(
             CAST(id_alerta AS TEXT) ILIKE $${params.length + 1} OR
@@ -20,7 +86,7 @@ exports.fetchAll = async (page = 1, pageSize = 10, search = '', status = '') => 
             estatus ILIKE $${params.length + 1} OR
             CAST(fecha_cierre AS TEXT) ILIKE $${params.length + 1}
         )`);
-        params.push(`%${search}%`); // El texto puede aparecer en cualquier campo
+        params.push(`%${search}%`);
     }
     // Filtro por estatus
     if (status && status !== '') {
@@ -31,7 +97,7 @@ exports.fetchAll = async (page = 1, pageSize = 10, search = '', status = '') => 
     if (where.length > 0) {
         query += ' WHERE ' + where.join(' AND ');
     }
-    query += ' ORDER BY id_alerta LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2); // Paginacion de 10 en 10
+    query += ' ORDER BY id_alerta LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
     params.push(pageSize, offset);
     const {rows} = await pool.query(query, params);
     return rows;

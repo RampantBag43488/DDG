@@ -35,16 +35,25 @@ exports.do_login = async (req, res) => {
             accion: 'LOGIN',
             descripcion: `Acceso al sistema por usuario ${usuario.nombre}`
         });
+      
+        req.session.save((e) => {
+            if (e) {
+                console.error("Error al guardar la sesión:", e);
+                return res.redirect('/login');
+            }
 
-        if (usuario.rol =='gestion'){
-            return res.redirect('/admin/usuarios');
-        }else if (usuario.rol == 'oficial_cumplimiento'){
-            return res.redirect('/oficial/Dashboard');
-        }else if (usuario.rol == 'empleado'){
-            return res.redirect('/empleado/Dashboard');
-        }else if (usuario.rol == 'auditoria'){
-            return res.redirect('/auditoria');
-        }
+            if (usuario.rol =='gestion'){
+                return res.redirect('/admin/usuarios');
+            }else if (usuario.rol == 'oficial_cumplimiento'){
+                return res.redirect('/oficial/Dashboard');
+            }else if (usuario.rol == 'empleado'){
+                return res.redirect('/empleado/Dashboard');
+            }else if (usuario.rol == 'auditoria'){
+                return res.redirect('/auditoria');
+            }
+
+            return res.redirect('/login');
+        });
 
     } catch (e) {
         console.error(e);
@@ -58,7 +67,12 @@ exports.do_logout = async (req, res) => {
         accion: 'LOGOUT',
         descripcion: `Cierre de sesión por usuario ${req.session.nombre}`
     });
-    req.session.destroy();
-    res.redirect('/login');
+    req.session.destroy((e) => {
+        if (e) {
+            console.error("Error al destruir la sesión:", e);
+        }
+        res.clearCookie('connect.sid');
+        res.redirect('/login');
+    });
 };
 
