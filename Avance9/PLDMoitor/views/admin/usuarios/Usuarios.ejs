@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuarios</title>
+
+  <link rel="stylesheet" href="/css/admin/usuario.css">
+</head>
+
+<body>
+
+  <main class="main-content">
+
+    <div class="top-bar">
+      <h1>Administración de Usuarios</h1>
+
+      <div class="acciones">
+        <a href="/admin/usuarios/Registro_usuarios" class="btnRegistrar">
+          Registrar Usuario
+        </a>
+      </div>
+
+      <form action="/logout" method="POST" class="formLogout">
+        <button type="submit" class="btnCerrarSesion">
+          Cerrar sesión
+        </button>
+      </form>
+    </div>
+
+    <div class="tabla-container">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre completo</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Estatus</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% usuarios.forEach(usuario => { %>
+            <tr>
+              <td><%= usuario.id_usuario %></td>
+              <td>
+                <%= usuario.nombre %>
+                <%= usuario.apellido_paterno %>
+                <%= usuario.apellido_materno %>
+              </td>
+              <td><%= usuario.email %></td>
+              <td><%= usuario.rol %></td>
+              <td><%= usuario.estatus %></td>
+              <td>
+                <a href="/admin/usuarios/<%= usuario.id_usuario %>/Editar_usuario" class="btnEditar">
+                  Editar
+                </a>
+                <form action="/admin/usuarios/<%= usuario.id_usuario %>/cambiarestatus" method="POST">
+
+                    <% if(usuario.estatus === 'activo') { %>
+
+                        <button type="submit" class="btnEstatus">
+                            Desactivar
+                        </button>
+
+                    <% } else { %>
+
+                        <button type="submit" class="btnEstatus">
+                            Activar
+                        </button>
+
+                    <% } %>
+
+                </form>
+
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+<div class="footer-tabla">
+  <p>
+    Mostrando
+    <%= ((page - 1) * pageSize) + 1 %>
+    -
+    <%= Math.min(page * pageSize, total) %>
+    de
+    <%= total %>
+    usuarios
+  </p>
+
+    <div class="pager">
+
+      <% for(let i = 1; i <= totalPage; i++) { %>
+        <a 
+          href="/admin/usuarios?page=<%= i %>" 
+          class="<%= i === page ? 'current' : '' %>"
+        >
+          <%= i %>
+        </a>
+      <% } %>
+
+      <% if(page < totalPage) { %>
+        <a href="/admin/usuarios?page=<%= page + 1 %>" class="next">
+          Siguiente →
+        </a>
+      <% } %>
+
+    </div>
+  </div>
+
+  </main>
+
+</body>
+</html>
