@@ -29,7 +29,7 @@ exports.fetchAll = async (page = 1, pageSize = 10) => {
     apellido_paterno, apellido_materno, email, rol, 
     estatus, fecha_creacion, fecha_actualizacion
     FROM usuarios
-    ORDER BY id_usuario
+    ORDER BY fecha_creacion DESC, id_usuario DESC
     LIMIT $1 OFFSET $2`;
     const {rows} = await pool.query(sql,[pageSize,offset]);
     return rows;
