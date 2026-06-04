@@ -1,0 +1,113 @@
+<div class="main-content">
+     <div class="header">
+         <h2>Mensajes Anónimos</h2>
+     </div>
+     <div class="content">
+         <div class="card">
+             <div class="card-body">
+                 <h3>Bienvenido, Oficial de Cumplimiento</h3>
+                 <p>Desde aquí puedes gestionar los mensajes anónimos.</p>
+             </div>
+         </div>
+     </div>
+
+    <div class="nuevoReporte">
+  <h2>Nuevo Mensaje Anónimo</h2>
+
+  <form action="/oficial/Reportes" method="POST">
+        <div class="fila">  
+            <div>
+            <label for="acusado">Nombre del acusado</label><br>
+            <input type="text" id="acusado" name="acusado" placeholder="Nombre completo" required>
+            </div>
+
+            <br>
+
+            <div>
+            <label for="fecha">Fecha</label><br>
+            <input type="date" id="fecha" name="fecha" required>
+            </div>
+        </div>    
+        <br>
+
+        <div>
+        <label for="descripcion">Descripción</label><br>
+        <textarea id="descripcion" name="descripcion" rows="5" cols="40" placeholder="Describe los hechos..." required></textarea>
+        </div>
+
+        <br>
+
+        <div>
+        <label for="archivo">Archivo adjunto</label><br>
+        <input type="file" id="archivo" name="archivo">
+        </div>
+
+        <br>
+
+        <button type="submit">Enviar mensaje</button>
+    </form>
+    </div>     
+
+    <div class="reportes">
+        <form id="mensajes-filtro-form" style="margin-bottom: 1em; display: flex; gap: 1em; align-items: center;">
+            <input type="text" id="mensaje-search" name="search" placeholder="Buscar mensaje..." value="<%= typeof search !== 'undefined' ? search : '' %>" style="padding: 0.5em; border-radius: 4px; border: 1px solid #ccc;" />
+            <select id="mensaje-status" name="status" style="padding: 0.5em; border-radius: 4px; border: 1px solid #ccc;">
+                <option value="" <%= !status ? 'selected' : '' %>>Todos los estatus</option>
+                <option value="aprobado" <%= status === 'aprobado' ? 'selected' : '' %>>Aprobado</option>
+                <option value="pendiente" <%= status === 'pendiente' ? 'selected' : '' %>>Pendiente</option>
+                <option value="borrador" <%= status === 'borrador' ? 'selected' : '' %>>Borrador</option>
+            </select>
+        </form>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Acusado</th>
+                    <th>Fecha de Generación</th>
+                    <th>Descripción</th>
+                    <th>Evidencia Adjunta</th>
+                    <th>Estatus</th>
+                    <th>Formato de Salida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% reportes.forEach(rep => { %>
+                    <tr>
+                        <td><%= rep.id_reporte %></td>
+                        <td><%= rep.acusado %></td>
+                        <td><%= new Date(rep.fecha_generacion).toLocaleDateString('es-MX')  %></td>
+                        <td><%= rep.descripcion %></td>
+                        <td><%= rep.evidencia_adjunta %></td>
+                        <td><%= rep.estatus %></td>
+                        <td><%= rep.formato_salida %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        
+
+        <div class="pager">
+            <div style="margin: 1em; margin-left: 0;"><p class="meta"><% if (reportes.length > 0) { %>Mostrando <%= reportes.length %> de <%= total %> reportes<% } else { %>No hay reportes disponibles<% } %></p></div>
+            <% const filtroQuery = (search || status) ? `&search=${encodeURIComponent(search || '')}&status=${encodeURIComponent(status || '')}` : '';
+            %>
+            <% if (page > 1) { %>
+                <a href="/reportes?page=<%= page - 1 %><%= filtroQuery %>">← Anterior</a>
+            <% } %>
+            <% for (let p = 1; p <= totalPages; p++) { %>
+                <% if (p === page) { %>
+                    <span class="current"><%= p %></span>
+                <% } else { %>
+                    <a href="/reportes?page=<%= p %><%= filtroQuery %>"><%= p %></a>
+                <% } %>
+            <% } %>
+            <% if (page < totalPages) { %>
+                <a href="/reportes?page=<%= page + 1 %><%= filtroQuery %>">Siguiente →</a>
+            <% } %>
+        </div>
+        <script src="/js/reportesFiltro.js"></script>
+        <script src="/js/alertasmensaje.js"></script>
+    </div>
+ </div>
+
+ 

@@ -1,0 +1,401 @@
+/* reset css * selecciona todos los elementos */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+    background-color: #efe7da;
+    display: flex;
+}
+
+.main-content {  
+    min-height: 100vh;
+    flex: 1;  
+    padding: 20px;
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background: white; 
+}
+
+th, td { 
+    padding: 0.5rem 0.75rem; 
+    border-bottom: 1px solid #e5e7eb; 
+    text-align: left; 
+}
+
+th { 
+    background: #111827; 
+    color: white; 
+}
+
+tr:hover { 
+    background: #f3f4f6; 
+}
+
+.pager { 
+    margin-top: 1.5rem; 
+}
+
+.pager a, .pager span { 
+    padding: 0.35rem 0.7rem; 
+    margin-right: 0.3rem; 
+    border: 1px solid #d1d5db; 
+    border-radius: 4px; 
+    text-decoration: none; 
+    color: #111827; 
+}
+
+.pager .current { 
+    background: #111827; 
+    color: white; 
+}
+
+.recientes {
+    background-color: #ffff;
+    border-radius: 1em;
+    width: auto;
+    height: auto;
+
+    padding: 1em;
+}
+
+
+
+/* --- Estilos para la vista de informacion del cliente --- */
+
+.cliente-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  gap: 2em;
+  padding: 1.5em;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.avatar-nombre {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+}
+.avatar {
+  width: 70px;
+  height: 70px;
+  background: #b0894a;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.nombre-cliente h2 {
+  margin: 0;
+  font-size: 2em;
+  font-weight: 600;
+  color: #222;
+}
+.badge {
+  display: inline-block;
+  padding: 0.2em 0.8em;
+  border-radius: 1em;
+  font-size: 0.95em;
+  margin-left: 0.7em;
+}
+.badge-regular { background: #e6f7e6; color: #389e0d; }
+.badge-inusual { background: #fff1f0; color: #cf1322; }
+.badge-score { background: #e6f4ff; color: #096dd9; }
+.badge-atencion { background: #fffbe6; color: #d48806; }
+.badge-ok { background: #e6f7e6; color: #389e0d; }
+
+.acciones-header {
+  display: flex;
+  gap: 1em;
+  align-items: flex-start;
+}
+.btn {
+  padding: 0.5em 1.2em;
+  border: none;
+  border-radius: 4px;
+  background: #2d8cf0;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.volver-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 100%;
+}
+.VolverButton {
+    background: #686868; 
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 0.85em 1.5em;
+    font-size: 1rem;
+    border-radius: 0.75em;
+    cursor: pointer;
+    min-width: 100px;
+    margin-bottom: 10px;
+    
+}
+/* Alinear icono y texto en VolverButton */
+.VolverButton {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+}
+.VolverButton .plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.2em;
+}
+
+.btn.reportar { background: #faad14; }
+.btn.baja { background: #cf1322; }
+.btn:hover { opacity: 0.85; }
+
+.resumen-tarjetas {
+  display: flex;
+  gap: 2em;
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+.tarjeta {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 1.5em 2em;
+  min-width: 200px;
+  text-align: center;
+}
+.score-numero {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 0.3em;
+}
+.score-badge {
+  margin-bottom: 0.5em;
+}
+.operaciones-numero {
+  font-size: 2.2em;
+  font-weight: bold;
+  margin-bottom: 0.3em;
+}
+.operaciones-badge {
+  margin-bottom: 0.5em;
+}
+
+.tabs-cliente {
+  margin-top: 2em;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1.5em
+}
+.tabs {
+  display: flex;
+  gap: 1em;
+  list-style: none;
+  padding: 0;
+}
+.tabs li {
+  margin: 0;
+}
+.tabs li a {
+  display: block;
+  padding: 0.6em 1.4em;
+  border-radius: 8px 8px 0 0;
+  background: #ececec;
+  color: #888;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.06);
+}
+.tabs li.active a {
+  background: #fff;
+  color: #2d8cf0;
+  box-shadow: 0 -3px 6px rgba(0, 0, 0, 0.08);
+  border-top: 2px solid #2d8cf0;
+}
+.tab-content {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+}
+
+.tabla-alertas table, .tabla-operaciones table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+
+
+.tabla-alertas .badge-alto { background: #fff1f0; color: #cf1322; }
+.tabla-alertas .badge-medio { background: #fffbe6; color: #d48806; }
+.tabla-alertas .badge-bajo { background: #e6f7e6; color: #389e0d; }
+.tabla-alertas .badge-activa { background: #e6f4ff; color: #096dd9; }
+.tabla-alertas .badge-cerrada { background: #f5f5f5; color: #aaa; }
+.tabla-alertas .btn.revisar { background: #2d8cf0; color: #fff; padding: 0.3em 1em; border-radius: 4px; text-decoration: none; }
+.tabla-alertas .btn.revisar:hover { background: #096dd9; }
+
+
+.paginacion {
+  text-align: right;
+  margin-top: 1em;
+}
+.paginacion .actual {
+  font-weight: bold;
+  color: #2d8cf0;
+  margin: 0 0.5em;
+}
+.paginacion a {
+  color: #2d8cf0;
+  text-decoration: none;
+  margin: 0 0.5em;
+}
+.datos-cliente ul {
+  list-style: none;
+  padding: 0;
+}
+.datos-cliente li {
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+.datos-cliente b {
+  color: #2d8cf0;
+}
+.datos-cliente h3 {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* Filtros de alertas*/
+.filtros-alertas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin-bottom: 1.5em;
+  align-items: center;
+}
+
+.filtros-alertas input,
+.filtros-alertas select {
+  padding: 0.5em 1em;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1em;
+  background: #fff;
+  color: #222;
+}
+
+.filtros-alertas button {
+  background: #2d8cf0;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5em 1.5em;
+  font-size: 1em;
+  cursor: pointer;
+}
+.filtros-alertas button:hover {
+  background: #096dd9;
+}
+
+/* --- Estilos para el modal de baja --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5em;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header h3 {
+  margin: 0 0 1em 0;
+  color: #222;
+  font-size: 1.3em;
+}
+
+.modal-body {
+  margin-bottom: 1.5em;
+}
+
+.modal-body p {
+  margin: 0.5em 0;
+  color: #555;
+  line-height: 1.5;
+}
+
+.modal-advertencia {
+  color: #cf1322 !important;
+  font-size: 0.9em;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+}
+
+.modal-cancel {
+  background: #ccc;
+  color: #333;
+}
+
+.modal-cancel:hover {
+  background: #bbb;
+  opacity: 1;
+}
+
+.modal-confirmar {
+  background: #cf1322;
+}
+
+.modal-confirmar:hover {
+  opacity: 0.85;
+}
+
+/* --- Estilos para el tab de contratos --- */
+.badge-vigente { background: #e6f7e6; color: #389e0d; }
+.badge-vencido { background: #fffbe6; color: #d48806; }
+.badge-cancelado { background: #f5f5f5; color: #999; }
+.badge-revision { background: #e6f4ff; color: #096dd9; }
+
+.tabla-contratos table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+
+.tabla-contratos .filtros-alertas {
+  margin-bottom: 1.5em;
+}
