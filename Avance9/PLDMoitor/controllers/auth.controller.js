@@ -49,9 +49,10 @@ exports.do_login = async (req, res) => {
             }else if (usuario.rol == 'empleado'){
                 return res.redirect('/empleado/Dashboard');
             }else if (usuario.rol == 'auditoria'){
-                return res.redirect('/auditoria');
+                return res.redirect('/oficial/Dashboard');
+            }else if (usuario.rol == 'cliente'){
+                return res.redirect('/cliente/Informacion');
             }
-
             return res.redirect('/login');
         });
 

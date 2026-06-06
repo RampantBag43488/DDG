@@ -82,4 +82,26 @@ exports.updateStatus = async(id_usuario) => {
     RETURNING id_usuario, estatus`;
     const {rows} = await pool.query(sql,[id_usuario]);
     return rows[0];
-}
+};
+
+exports.fetchClientesSinUsuario = async () => {
+    const sql = `
+        SELECT 
+            c.cliente_id,
+            CASE 
+                WHEN c.tipo_persona = 'fisica' THEN pf.nombre || ' ' || pf.apellido_paterno
+                WHEN c.tipo_persona = 'moral' THEN pm.razon_social
+            END AS nombre
+        FROM cliente c
+        LEFT JOIN persona_fisica pf ON pf.cliente_id = c.cliente_id
+        LEFT JOIN persona_moral pm ON pm.cliente_id = c.cliente_id
+        WHERE c.id_usuario IS NULL
+    `;
+    const { rows } = await pool.query(sql);
+    return rows;
+};
+
+exports.vincularClienteUsuario = async (id_usuario, cliente_id) => {
+    const sql = `UPDATE cliente SET id_usuario = $1 WHERE cliente_id = $2`;
+    await pool.query(sql, [id_usuario, cliente_id]);
+};
