@@ -95,6 +95,12 @@
                             <option value="empleado">
                                 Empleado
                             </option>
+                            <option value="auditoria">
+                                Auditoría
+                            </option>
+                            <option value="cliente">
+                                Cliente
+                            </option>
 
                         <% } else if (usuario.rol === 'oficial_cumplimiento') { %>
 
@@ -105,8 +111,16 @@
                             <option value="oficial_cumplimiento" selected>
                                 Oficial de cumplimiento
                             </option>
-                            <option value="empleado">Empleado</option>
-                        <% } else { %>
+                            <option value="empleado">
+                                Empleado
+                            </option>
+                            <option value="auditoria">
+                                Auditoría
+                            </option>
+                            <option value="cliente">
+                                Cliente
+                            </option>
+                        <% } else if (usuario.rol === 'auditoria') { %>
                             <option value="gestion">
                                 Administrador
                             </option>
@@ -115,8 +129,48 @@
                                 Oficial de Cumplimiento
                             </option>
 
+                            <option value="empleado" >
+                                Empleado
+                            </option>
+                            <option value="auditoria" selected>
+                                Auditoría
+                            </option>
+                            <option value="cliente">
+                                Cliente
+                            </option>
+                        <% } else if (usuario.rol === 'cliente') { %>
+                            <option value="gestion">
+                                Administrador
+                            </option>
+
+                            <option value="oficial_cumplimiento">
+                                Oficial de Cumplimiento
+                            </option>
+
+                            <option value="empleado" >
+                                Empleado
+                            </option>
+                            <option value="auditoria">
+                                Auditoría
+                            </option>
+                            <option value="cliente" selected>
+                                Cliente
+                            </option>
+                        <% }else { %>
+                            <option value="gestion">
+                                Administrador
+                            </option>
+                            <option value="oficial_cumplimiento">
+                                Oficial de Cumplimiento
+                            </option>
                             <option value="empleado" selected>
                                 Empleado
+                            </option>
+                            <option value="auditoria">
+                                Auditoría
+                            </option>
+                            <option value="cliente">
+                                Cliente
                             </option>
                         <% } %>
 

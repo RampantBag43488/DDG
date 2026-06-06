@@ -1,6 +1,5 @@
 const model = require('../models/operaciones.model.js');
 const registrarBitacora = require('../util/bitacora.js');
-
 module.exports.index = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
@@ -24,7 +23,17 @@ module.exports.index = async (req, res) => {
             console.log('Error al registrar en bitácora:', bitacoraError);
         }
 
-        res.render('oc/operaciones/Operaciones', { operaciones, total, page, pageSize, totalPages, search, tipo, fecha });
+        res.render('oc/operaciones/Operaciones', {
+            operaciones,
+            total,
+            page,
+            pageSize,
+            totalPages,
+            search,
+            tipo,
+            fecha
+        });
+
     } catch (e) {
         console.log(e);
         res.status(500).send('Error al cargar operaciones');

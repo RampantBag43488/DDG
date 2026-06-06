@@ -86,6 +86,22 @@
                         <option value="oficial_cumplimiento">
                             Oficial de Cumplimiento
                         </option>
+                        <option value ="auditoria">
+                            Auditoria
+                        </option>
+                        <option value="cliente">
+                            Cliente
+                        </option>
+                    </select>
+                </div>
+
+                <div class="field-group" id="campo-cliente" style="display:none">
+                    <label for="id_cliente">Cliente</label>
+                    <select id="id_cliente" name="id_cliente">
+                        <option value="">Selecciona un cliente</option>
+                        <% clientes.forEach(c => { %>
+                            <option value="<%= c.cliente_id %>"><%= c.nombre %></option>
+                        <% }) %>
                     </select>
                 </div>
 
@@ -119,6 +135,7 @@
     </div>
 
 </div>
+<script src="/js/registro_usuario.js"></script>
 
 </body>
 </html>
