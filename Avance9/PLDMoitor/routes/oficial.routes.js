@@ -32,5 +32,9 @@ router.get("/Bitacora",isAuth, checkRol('oficial_cumplimiento'), require('../con
 router.get("/Clientes", isAuth, checkRol('oficial_cumplimiento'), clientesController.index);
 router.get("/Clientes/consulta/:id", isAuth, checkRol('oficial_cumplimiento'), clientesController.info);
 router.post("/Clientes/consulta/:id/baja", isAuth, checkRol('oficial_cumplimiento'), clientesController.darDeBaja);
+router.get("/Clientes/consulta/:id/contratos/nuevo", isAuth, checkRol('oficial_cumplimiento'), clientesController.nuevoContratoVista);
+router.post("/Clientes/consulta/:id/contratos/nuevo", isAuth, checkRol('oficial_cumplimiento'), clientesController.crearContrato);
+router.get("/Clientes/consulta/:id/operaciones/nueva", isAuth, checkRol('oficial_cumplimiento'), clientesController.nuevaOperacionVista);
+router.post("/Clientes/consulta/:id/operaciones/nueva", isAuth, checkRol('oficial_cumplimiento'), clientesController.crearOperacion);
 
 module.exports = router;

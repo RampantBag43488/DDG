@@ -399,3 +399,77 @@ tr:hover {
 .tabla-contratos .filtros-alertas {
   margin-bottom: 1.5em;
 }
+
+/* Estilos para el formulario de nuevo contrato */
+.btn-crear-contrato {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    padding: 0.75em 1.2em;
+    border-radius: 0.6em;
+    font-weight: 600;
+}
+
+.btn-crear-contrato:hover {
+    background: #1d4ed8;
+}
+
+.form-card {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.grupo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.grupo-form input,
+.grupo-form select,
+.grupo-form textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.7rem;
+    font-size: 0.95rem;
+}
+
+.form-actions {
+    margin-top: 1.5rem;
+}
+
+.submitButton {
+    border: none;
+    background: #111827;
+    color: white;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.btn-crear-operacion {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    padding: 0.75em 1.2em;
+    border-radius: 0.6em;
+    font-weight: 600;
+}
+
+.btn-crear-operacion:hover {
+    background: #1d4ed8;
+}
