@@ -77,9 +77,9 @@
        <% if(tab === 'alertas') { %>
            <%- include('../../alertas/partials/tabla-alertas', { alertas, filtros, paginacion }) %>
        <% } else if(tab === 'operaciones') { %>
-           <%- include('../../operaciones/partials/tabla-operaciones', { operaciones, paginacion }) %>
+           <%- include('../../operaciones/partials/tabla-operaciones', { operaciones, paginacion, cliente }) %>
        <% } else if(tab === 'contratos') { %>
-           <%- include('./tabla-contratos', { contratos, contPaginacion, contFiltros }) %>
+           <%- include('./tabla-contratos', { contratos, contPaginacion, contFiltros, cliente }) %>
        <% } else if(tab === 'datos') { %>
            <%- include('./datos-cliente', { cliente, datos }) %>
        <% } %>

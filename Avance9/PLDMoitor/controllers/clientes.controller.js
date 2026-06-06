@@ -5,6 +5,7 @@ const personaMoralModel = require('../models/persona_moral.model');
 const modeloCliente = require('../models/cliente.model');
 const contratoModel = require('../models/contrato.model');
 const registrarBitacora = require('../util/bitacora.js');
+const productoModel = require('../models/producto.model');
 
 module.exports.info = async (req, res) => {
     const cliente_id = req.params.id;
@@ -142,5 +143,174 @@ module.exports.darDeBaja = async (req, res) => {
     } catch (e) {
         console.error('Error al dar de baja:', e);
         res.redirect(`/oficial/Clientes/consulta/${cliente_id}?baja=error`);
+    }
+};
+
+// Vista para registrar nuevo contrato
+module.exports.nuevoContratoVista = async (req, res) => {
+    try {
+        const cliente_id = req.params.id;
+        const cliente = await modeloCliente.getById(cliente_id);
+        const productos = await productoModel.fetchAll();
+
+        res.render('oc/clientes/NuevoContrato', {
+            cliente,
+            productos
+        });
+    } catch (e) {
+        console.error('Error al cargar vista de nuevo contrato:', e);
+        res.status(500).send('Error al cargar formulario de contrato');
+    }
+};
+
+// Registrar nuevo contrato
+module.exports.crearContrato = async (req, res) => {
+    try {
+        const cliente_id = req.params.id;
+        const {
+            id_producto,
+            tipo_contrato,
+            folio_contrato,
+            fecha_firma,
+            fecha_inicio,
+            fecha_final,
+            monto_autorizado,
+            estatus_contrato,
+            observaciones
+        } = req.body;
+
+        if (
+            !id_producto ||
+            !tipo_contrato ||
+            !folio_contrato ||
+            !fecha_firma ||
+            !fecha_inicio ||
+            !fecha_final ||
+            !monto_autorizado ||
+            !estatus_contrato
+        ) {
+            return res.status(400).send('Faltan campos obligatorios');
+        }
+
+        if (new Date(fecha_final) < new Date(fecha_inicio)) {
+            return res.status(400).send('La fecha final no puede ser menor a la fecha de inicio');
+        }
+
+        if (Number(monto_autorizado) <= 0) {
+            return res.status(400).send('El monto autorizado debe ser mayor a 0');
+        }
+
+        const folioExistente = await contratoModel.findByFolio(folio_contrato);
+        if (folioExistente) {
+            return res.status(400).send('El folio del contrato ya existe');
+        }
+
+        await contratoModel.create({
+            cliente_id,
+            id_producto,
+            tipo_contrato,
+            folio_contrato,
+            fecha_firma,
+            fecha_inicio,
+            fecha_final,
+            monto_autorizado,
+            estatus_contrato,
+            observaciones
+        });
+
+        if (req.session && req.session.id_usuario) {
+            await registrarBitacora({
+                id_usuario: req.session.id_usuario,
+                accion: 'Registrar contrato',
+                descripcion: `Se registró un nuevo contrato para el cliente ID: ${cliente_id}`
+            });
+        }
+
+        res.redirect(`/oficial/Clientes/consulta/${cliente_id}?tab=contratos`);
+    } catch (e) {
+        console.error('Error al crear contrato:', e);
+        res.status(500).send('Error al registrar contrato');
+    }
+};
+
+// Vista para registrar nueva Operacion
+module.exports.nuevaOperacionVista = async (req, res) => {
+    try {
+        const cliente_id = req.params.id;
+        const cliente = await modeloCliente.getById(cliente_id);
+        const contratos = await operacionesModel.fetchContratosByCliente(cliente_id);
+
+        res.render('oc/clientes/NuevaOperacion', {
+            cliente,
+            contratos
+        });
+    } catch (e) {
+        console.error('Error al cargar vista de nueva operación:', e);
+        res.status(500).send('Error al cargar formulario de operación');
+    }
+};
+
+// Registrar nueva Operacion
+module.exports.crearOperacion = async (req, res) => {
+    try {
+        const cliente_id = req.params.id;
+        const {
+            id_contrato,
+            tipo_operacion,
+            fecha_operacion,
+            monto,
+            clasificacion,
+            estatus,
+            nivel_riesgo,
+            observaciones
+        } = req.body;
+
+        if (
+            !id_contrato ||
+            !tipo_operacion ||
+            !fecha_operacion ||
+            !monto ||
+            !clasificacion ||
+            !estatus ||
+            !nivel_riesgo
+        ) {
+            return res.status(400).send('Faltan campos obligatorios');
+        }
+
+        if (Number(monto) <= 0) {
+            return res.status(400).send('El monto debe ser mayor a 0');
+        }
+
+        const contratosCliente = await operacionesModel.fetchContratosByCliente(cliente_id);
+        const contratoValido = contratosCliente.find(c => String(c.id_contrato) === String(id_contrato));
+
+        if (!contratoValido) {
+            return res.status(400).send('El contrato seleccionado no corresponde al cliente');
+        }
+
+        await operacionesModel.create({
+            cliente_id,
+            id_contrato,
+            tipo_operacion,
+            fecha_operacion,
+            monto,
+            clasificacion,
+            estatus,
+            nivel_riesgo,
+            observaciones
+        });
+
+        if (req.session && req.session.id_usuario) {
+            await registrarBitacora({
+                id_usuario: req.session.id_usuario,
+                accion: 'Registrar operación',
+                descripcion: `Se registró una operación para el cliente ID: ${cliente_id}`
+            });
+        }
+
+        res.redirect(`/oficial/Clientes/consulta/${cliente_id}?tab=operaciones`);
+    } catch (e) {
+        console.error('Error al crear operación:', e);
+        res.status(500).send('Error al registrar operación');
     }
 };

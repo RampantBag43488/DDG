@@ -124,3 +124,59 @@ exports.countOperacionesByCliente = async (cliente_id, search = '', tipo = '', f
     const { rows } = await pool.query(query, params);
     return parseInt(rows[0].totaloperaciones, 10);
 };
+
+// Contratos del cliente
+exports.fetchContratosByCliente = async (cliente_id) => {
+    const { rows } = await pool.query(
+        `SELECT id_contrato, folio_contrato, tipo_contrato
+         FROM contrato
+         WHERE cliente_id = $1
+         ORDER BY fecha_inicio DESC`,
+        [cliente_id]
+    );
+    return rows;
+};
+
+// Registrar nueva Operacion
+exports.create = async ({
+    cliente_id,
+    id_contrato,
+    tipo_operacion,
+    fecha_operacion,
+    monto,
+    clasificacion,
+    estatus,
+    nivel_riesgo,
+    observaciones
+}) => {
+    const sql = `
+        INSERT INTO operaciones (
+            cliente_id,
+            id_contrato,
+            tipo_operacion,
+            fecha_operacion,
+            monto,
+            clasificacion,
+            estatus,
+            nivel_riesgo,
+            observaciones
+        )
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+        RETURNING *
+    `;
+
+    const values = [
+        cliente_id,
+        id_contrato,
+        tipo_operacion,
+        fecha_operacion,
+        monto,
+        clasificacion,
+        estatus,
+        nivel_riesgo,
+        observaciones || null
+    ];
+
+    const { rows } = await pool.query(sql, values);
+    return rows[0];
+};

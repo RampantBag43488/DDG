@@ -92,3 +92,59 @@ exports.getEstatusContrato = async () => {
     );
     return rows.map(row => row.estatus_contrato);
 };
+
+// Crear un nuevo contrato
+exports.create = async ({
+    cliente_id,
+    id_producto,
+    tipo_contrato,
+    folio_contrato,
+    fecha_firma,
+    fecha_inicio,
+    fecha_final,
+    monto_autorizado,
+    estatus_contrato,
+    observaciones
+}) => {
+    const sql = `
+        INSERT INTO contrato (
+            cliente_id,
+            id_producto,
+            tipo_contrato,
+            folio_contrato,
+            fecha_firma,
+            fecha_inicio,
+            fecha_final,
+            monto_autorizado,
+            estatus_contrato,
+            observaciones
+        )
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+        RETURNING *
+    `;
+
+    const values = [
+        cliente_id,
+        id_producto,
+        tipo_contrato,
+        folio_contrato,
+        fecha_firma,
+        fecha_inicio,
+        fecha_final,
+        monto_autorizado,
+        estatus_contrato,
+        observaciones || null
+    ];
+
+    const { rows } = await pool.query(sql, values);
+    return rows[0];
+};
+
+// Obtener contrato por Folio
+exports.findByFolio = async (folio_contrato) => {
+    const { rows } = await pool.query(
+        'SELECT id_contrato FROM contrato WHERE folio_contrato = $1',
+        [folio_contrato]
+    );
+    return rows[0] || null;
+};
