@@ -46,6 +46,9 @@ const rutasOficial = require('./routes/oficial.routes');
 const rutasEmpleado = require('./routes/empleado.routes');
 const rutasAdmin = require('./routes/admin.routes');
 
+const clienteRoutes = require('./routes/cliente.routes');
+app.use('/cliente', clienteRoutes);
+
 app.use('/', alertasRoutes);
 app.use('/', expedienteRoutes);
 app.use('/reportes', reportesRouter);

@@ -13,17 +13,17 @@ const bitacoraController = require('../controllers/bitacora.controller.js');
 const clientesController = require('../controllers/clientes.controller');
 
 
-router.get("/Dashboard",isAuth, checkRol('oficial_cumplimiento'), dashboardController.index);
+router.get("/Dashboard",isAuth, checkRol('oficial_cumplimiento','auditoria'), dashboardController.index);
 
-router.get("/Alertas",isAuth, checkRol('oficial_cumplimiento'), alertasController.index);
+router.get("/Alertas",isAuth, checkRol('oficial_cumplimiento','auditoria'), alertasController.index);
 
-router.get("/Operaciones",isAuth, checkRol('oficial_cumplimiento'), operacionesController.index);
+router.get("/Operaciones",isAuth, checkRol('oficial_cumplimiento','auditoria'), operacionesController.index);
 
-router.get("/Expediente",isAuth, checkRol('oficial_cumplimiento'), expedienteController.index);
+router.get("/Expediente",isAuth, checkRol('oficial_cumplimiento','auditoria'), expedienteController.index);
 
-router.get("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), expedienteController.nuevo);
-router.get("/Expediente/Actualizar", isAuth, checkRol('oficial_cumplimiento'), expedienteController.actualizarVista);
-router.post("/Expediente/Actualizar", isAuth, checkRol('oficial_cumplimiento'), expedienteController.actualizarExpediente);
+router.get("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento', 'auditoria'), expedienteController.nuevo);
+router.get("/Expediente/Actualizar", isAuth, checkRol('oficial_cumplimiento', 'auditoria'), expedienteController.actualizarVista);
+router.post("/Expediente/Actualizar", isAuth, checkRol('oficial_cumplimiento', 'auditoria'), expedienteController.actualizarExpediente);
 
 router.post("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), nuevo_expedienteController.postNuevoExpediente);
 router.get("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.index);
