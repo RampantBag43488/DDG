@@ -25,12 +25,16 @@ router.get("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento', 'audito
 router.get("/Expediente/Actualizar", isAuth, checkRol('oficial_cumplimiento', 'auditoria'), expedienteController.actualizarVista);
 router.post("/Expediente/Actualizar", isAuth, checkRol('oficial_cumplimiento', 'auditoria'), expedienteController.actualizarExpediente);
 
-router.post("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento', 'auditoria'), nuevo_expedienteController.postNuevoExpediente);
-router.get("/Reportes",isAuth, checkRol('oficial_cumplimiento', 'auditoria'), reportesController.index);
-router.post("/Reportes",isAuth, checkRol('oficial_cumplimiento', 'auditoria'), reportesController.create);
-router.get("/Bitacora",isAuth, checkRol('oficial_cumplimiento','auditoria'), require('../controllers/bitacora.controller.js').index);
-router.get("/Clientes", isAuth, checkRol('oficial_cumplimiento', 'auditoria'), clientesController.index);
-router.get("/Clientes/consulta/:id", isAuth, checkRol('oficial_cumplimiento', 'auditoria'), clientesController.info);
-router.post("/Clientes/consulta/:id/baja", isAuth, checkRol('oficial_cumplimiento', 'auditoria'), clientesController.darDeBaja);
+router.post("/Expediente/Nuevo", isAuth, checkRol('oficial_cumplimiento'), nuevo_expedienteController.postNuevoExpediente);
+router.get("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.index);
+router.post("/Reportes",isAuth, checkRol('oficial_cumplimiento'), reportesController.create);
+router.get("/Bitacora",isAuth, checkRol('oficial_cumplimiento'), require('../controllers/bitacora.controller.js').index);
+router.get("/Clientes", isAuth, checkRol('oficial_cumplimiento'), clientesController.index);
+router.get("/Clientes/consulta/:id", isAuth, checkRol('oficial_cumplimiento'), clientesController.info);
+router.post("/Clientes/consulta/:id/baja", isAuth, checkRol('oficial_cumplimiento'), clientesController.darDeBaja);
+router.get("/Clientes/consulta/:id/contratos/nuevo", isAuth, checkRol('oficial_cumplimiento'), clientesController.nuevoContratoVista);
+router.post("/Clientes/consulta/:id/contratos/nuevo", isAuth, checkRol('oficial_cumplimiento'), clientesController.crearContrato);
+router.get("/Clientes/consulta/:id/operaciones/nueva", isAuth, checkRol('oficial_cumplimiento'), clientesController.nuevaOperacionVista);
+router.post("/Clientes/consulta/:id/operaciones/nueva", isAuth, checkRol('oficial_cumplimiento'), clientesController.crearOperacion);
 
 module.exports = router;
