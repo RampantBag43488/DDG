@@ -1,6 +1,6 @@
-module.exports = (rolRequerido) => {
+module.exports = (...roles) => {
     return (req, res, next) => {
-        if (req.session.rol === rolRequerido) return next();
+        if (roles.includes(req.session.rol)) return next();
         return res.status(403).send('Acceso denegado');
     };
 };
