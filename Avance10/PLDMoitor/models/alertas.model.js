@@ -140,3 +140,27 @@ exports.getAlertas = async () => {
     const{ rows } = await pool.query('SELECT * FROM alertas');
     return rows;
 };
+
+// Obtener una alerta por ID
+exports.findById = async (id_alerta) => {
+    const { rows } = await pool.query('SELECT * FROM alertas WHERE id_alerta = $1', [id_alerta]);
+    return rows[0] || null;
+};
+
+// Actualizar alerta (solo estatus) - maneja fecha_cierre automaticamente
+exports.updateAlerta = async (id_alerta, estatus) => {
+    let fecha_cierre = null;
+    
+    // Si el estatus es "cerrada", establecer fecha_cierre al momento actual
+    if (estatus === 'cerrada') {
+        fecha_cierre = new Date();
+    }
+    // Si el estatus es "abierta" o "en revision", fecha_cierre debe ser NULL
+    
+    const query = `
+        UPDATE alertas 
+        SET estatus = $1, fecha_cierre = $2
+        WHERE id_alerta = $3
+    `;
+    await pool.query(query, [estatus, fecha_cierre, id_alerta]);
+};

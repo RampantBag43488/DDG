@@ -1,14 +1,11 @@
 <div class="main-content">
     <div class="header">
         <h2>Clientes</h2>
+        <h3>Bienvenido, Oficial de Cumplimiento</h3>
+                <p>Desde aquí puedes consultar y buscar clientes.</p>
     </div>
     <div class="content">
-        <div class="card">
-            <div class="card-body">
-                <h3>Bienvenido, Oficial de Cumplimiento</h3>
-                <p>Desde aquí puedes consultar y buscar clientes.</p>
-            </div>
-        </div>
+
     </div>
     <div class="fila">
         <div class="recientes">
@@ -32,7 +29,7 @@
                             <td><%= cliente.tipo_persona %></td>
                             <td><%= cliente.nivel_riesgo %></td>
                             <td>
-                                <a href="/oficial/Clientes/consulta/<%= cliente.cliente_id %>">Ver</a>
+                                <a href="/oficial/Clientes/consulta/<%= cliente.cliente_id %>" class="btn-consultar">Consultar</a>
                             </td>
                         </tr>
                     <% }); %>

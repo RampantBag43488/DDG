@@ -24,10 +24,13 @@ exports.do_login = async (req, res) => {
             return res.redirect('/login?error=inactivo');
         }
 
-        req.session.id_usuario   = usuario.id_usuario;
-        req.session.nombre     = usuario.nombre;
+        req.session.id_usuario = usuario.id_usuario;
+        req.session.nombre = usuario.nombre;
+        req.session.apellido_paterno = usuario.apellido_paterno;
+        req.session.apellido_materno = usuario.apellido_materno;
+        req.session.email = usuario.email;
         req.session.isLoggedIn = true;
-        req.session.rol       = usuario.rol;
+        req.session.rol = usuario.rol;
         req.session.estatus = usuario.estatus;
 
         await registrarBitacora({

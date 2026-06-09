@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Alerta - Oficial de Cumplimiento</title>
+    <link rel="stylesheet" href="/css/oficial/Alertas.css">
+    <link rel="stylesheet" href="/css/oficial/sidebarOC.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <%- include('./components/sidebar') %>
+    
+    <div class="main-content">
+        <div class="header">
+            <h2>Detalle de Alerta</h2>
+            <p>Revisa y gestiona la alerta seleccionada.</p>
+        </div>
+
+        <div class="alerta-detalle-container">
+            <!-- Información principal de la alerta -->
+            <div class="detalle-card">
+                <div class="detalle-header">
+                    <h3>Información de la Alerta</h3>
+                    <span class="badge badge-<%= alerta.estatus === 'abierta' ? 'activa' : 'cerrada' %>">
+                        <%= alerta.estatus %>
+                    </span>
+                </div>
+                
+                <div class="detalle-grid">
+                    <div class="detalle-item">
+                        <span class="detalle-label">ID Alerta</span>
+                        <span class="detalle-value"><%= alerta.id_alerta %></span>
+                    </div>
+                    
+                    <div class="detalle-item">
+                        <span class="detalle-label">Tipo de Alerta</span>
+                        <span class="detalle-value"><%= alerta.tipo_alerta %></span>
+                    </div>
+                    
+                    <div class="detalle-item">
+                        <span class="detalle-label">Nivel de Riesgo</span>
+                        <span class="badge badge-<%= alerta.nivel_riesgo === 'ALTO' ? 'alto' : (alerta.nivel_riesgo === 'MEDIO' ? 'medio' : 'bajo') %>">
+                            <%= alerta.nivel_riesgo %>
+                        </span>
+                    </div>
+                    
+                    <div class="detalle-item">
+                        <span class="detalle-label">Fecha de Generación</span>
+                        <span class="detalle-value"><%= new Date(alerta.fecha_generacion).toLocaleDateString('es-MX') %></span>
+                    </div>
+                    
+                    <div class="detalle-item full-width">
+                        <span class="detalle-label">Motivo</span>
+                        <span class="detalle-value"><%= alerta.motivo %></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información del cliente relacionado -->
+            <div class="detalle-card">
+                <div class="detalle-header">
+                    <h3>Información Relacionada</h3>
+                </div>
+                
+                <div class="detalle-grid">
+                    <div class="detalle-item">
+                        <span class="detalle-label">ID Cliente</span>
+                        <span class="detalle-value">
+                            <a href="/oficial/Clientes/consulta/<%= alerta.cliente_id %>" class="enlace-cliente">
+                                <%= alerta.cliente_id %>
+                            </a>
+                        </span>
+                    </div>
+                    
+                    <div class="detalle-item">
+                        <span class="detalle-label">ID Operación</span>
+                        <span class="detalle-value">
+                            <% if (alerta.id_operacion) { %>
+                                <%= alerta.id_operacion %>
+                            <% } else { %>
+                                <span class="text-muted">No asociada</span>
+                            <% } %>
+                        </span>
+                    </div>
+                    
+                    <div class="detalle-item">
+                        <span class="detalle-label">Evidencia Asociada</span>
+                        <span class="detalle-value">
+                            <% if (alerta.evidencia_asociada) { %>
+                                <%= alerta.evidencia_asociada %>
+                            <% } else { %>
+                                <span class="text-muted">Sin evidencia</span>
+                            <% } %>
+                        </span>
+                    </div>
+                    
+                    <div class="detalle-item">
+                        <span class="detalle-label">Fecha de Cierre</span>
+                        <span class="detalle-value">
+                            <% if (alerta.fecha_cierre) { %>
+                                <%= new Date(alerta.fecha_cierre).toLocaleDateString('es-MX') %>
+                            <% } else { %>
+                                <span class="text-muted">Abierta</span>
+                            <% } %>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario para actualizar estatus y observaciones -->
+            <div class="detalle-card">
+                <div class="detalle-header">
+                    <h3>Gestión de la Alerta</h3>
+                </div>
+                
+                <form action="/oficial/Alertas/<%= alerta.id_alerta %>/actualizar" method="POST" class="form-gestion-alerta">
+                    <input type="hidden" name="from" value="<%= typeof from !== 'undefined' ? from : 'alertas' %>">
+                    <input type="hidden" name="cliente_id" value="<%= typeof cliente_id !== 'undefined' ? cliente_id : '' %>">
+                    <div class="form-group">
+                        <label for="estatus">Estatus</label>
+                        <select name="estatus" id="estatus" class="form-control" required>
+                            <option value="abierta" <%= alerta.estatus === 'abierta' ? 'selected' : '' %>>Abierta</option>
+                            <option value="en revision" <%= alerta.estatus === 'en revision' ? 'selected' : '' %>>En Revisión</option>
+                            <option value="cerrada" <%= alerta.estatus === 'cerrada' ? 'selected' : '' %>>Cerrada</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <a href="<%= volverUrl %>" class="btn btn-secondary">
+                            <i class="fa-solid fa-arrow-left"></i> Volver
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-save"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/Sidebar.js"></script>
+</body>
+</html>
