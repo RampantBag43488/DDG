@@ -32,6 +32,21 @@ app.use(session({
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware para hacer disponible el usuario en todas las vistas
+app.use((req, res, next) => {
+    if (req.session && req.session.id_usuario) {
+        res.locals.usuario = {
+            id_usuario: req.session.id_usuario,
+            nombre: req.session.nombre,
+            apellido_paterno: req.session.apellido_paterno,
+            apellido_materno: req.session.apellido_materno,
+            email: req.session.email,
+            rol: req.session.rol
+        };
+    }
+    next();
+});
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 

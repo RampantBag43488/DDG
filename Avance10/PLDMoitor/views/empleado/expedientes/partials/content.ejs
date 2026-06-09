@@ -12,13 +12,7 @@
 <div class="main-content">
      <div class="header">
          <h2>Expedientes</h2>
-     </div>
-     <div class="content">
-         <div class="card">
-             <div class="card-body">
-                 <p>Desde aquí puedes gestionar los expedientes.</p>
-             </div>
-         </div>
+         <p>Desde aquí puedes gestionar y consultar los expedientes de clientes.</p>
      </div>
 
     <div class="expedientes">
@@ -33,6 +27,7 @@
                     <th>Estatus</th>
                     <th>Fecha Apertura</th>
                     <th>Observaciones</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,6 +49,11 @@
                         <td><%= exp.estatus_expediente %></td>
                         <td><%= new Date(exp.fecha_apertura).toLocaleDateString('es-MX') %></td>
                         <td><%= exp.observaciones %></td>
+                        <td style="text-align: center;">
+                            <a href="/empleado/expedientes/<%= exp.id_expediente %>" class="btn-accion" title="Ver expediente">
+                                <i class="fa-solid fa-eye"></i> Ver
+                            </a>
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>

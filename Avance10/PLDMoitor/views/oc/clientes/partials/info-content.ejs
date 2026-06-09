@@ -75,7 +75,7 @@
     </ul>
     <div class="tab-content">
        <% if(tab === 'alertas') { %>
-           <%- include('../../alertas/partials/tabla-alertas', { alertas, filtros, paginacion }) %>
+           <%- include('../../alertas/partials/tabla-alertas', { alertas, filtros, paginacion, origen: 'cliente', cliente_id: cliente.cliente_id }) %>
        <% } else if(tab === 'operaciones') { %>
            <%- include('../../operaciones/partials/tabla-operaciones', { operaciones, paginacion, cliente }) %>
        <% } else if(tab === 'contratos') { %>

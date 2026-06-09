@@ -77,8 +77,8 @@
                 </div>
 
                 <div class="user-info">
-                    <h5>OC</h5>
-                    <p>OficialDeCumplimiento@gmail.com</p>
+                    <h5><%= typeof usuario !== 'undefined' && usuario.nombre ? usuario.nombre + ' ' + (usuario.apellido_paterno || '') + ' ' + (usuario.apellido_materno || '') : 'Usuario' %></h5>
+                    <p><%= typeof usuario !== 'undefined' && usuario.email ? usuario.email : '' %></p>
                 </div>
 
                 <div id="arrow_down" class="arrow_down"><i class="fa-solid fa-sort-down"></i></div>

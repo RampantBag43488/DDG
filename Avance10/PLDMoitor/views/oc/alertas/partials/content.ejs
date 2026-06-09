@@ -1,14 +1,7 @@
 <div class="main-content">
      <div class="header">
          <h2>Alertas</h2>
-     </div>
-     <div class="content">
-         <div class="card">
-             <div class="card-body">
-                 <h3>Bienvenido, Oficial de Cumplimiento</h3>
-                 <p>Desde aquí puedes gestionar tus alertas.</p>
-             </div>
-         </div>
+         <p>Bienvenido, Oficial de Cumplimiento. Desde aquí puedes gestionar tus alertas.</p>
      </div>
 
     <div class="alertas">
@@ -34,6 +27,7 @@
                     <th>Fecha Generación</th>
                     <th>Estatus</th>
                     <th>Fecha Cierre</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,7 +41,10 @@
                         <td><%= alerta.evidencia_asociada %></td>
                         <td><%= new Date(alerta.fecha_generacion).toLocaleDateString('es-MX') %></td>
                         <td><%= alerta.estatus %></td>
-                        <td><%= new Date(alerta.fecha_cierre).toLocaleDateString('es-MX') %></td>
+                        <td><%= alerta.fecha_cierre ? new Date(alerta.fecha_cierre).toLocaleDateString('es-MX') : '—' %></td>
+                        <td style="text-align: center;">
+                            <a href="/oficial/Alertas/<%= alerta.id_alerta %>" class="btn-revisar">Revisar</a>
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>
