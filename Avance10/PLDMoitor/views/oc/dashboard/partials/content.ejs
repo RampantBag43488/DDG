@@ -1,0 +1,195 @@
+<div class="main-content">
+    <div class="header">
+        <h2>Dashboard</h2>
+        <p>Bienvenido al panel de control - Oficial de Cumplimiento</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon ic-red"><i class="fa-solid fa-bell"></i></div>
+            <div class="stat-info">
+                <h3><%= stats.totalAlertas %></h3>
+                <p>Total Alertas</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon ic-blue"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-info">
+                <h3><%= stats.totalClientes %></h3>
+                <p>Clientes</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon ic-green"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="stat-info">
+                <h3><%= stats.totalExpedientes %></h3>
+                <p>Expedientes</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon ic-purple"><i class="fa-solid fa-money-bill-transfer"></i></div>
+            <div class="stat-info">
+                <h3><%= stats.totalOperaciones %></h3>
+                <p>Operaciones</p>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon ic-teal"><i class="fa-solid fa-align-right"></i></div>
+            <div class="stat-info">
+                <h3><%= stats.totalReportes %></h3>
+                <p>Reportes</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Operaciones Recientes -->
+    <div class="recientes" style="margin-top: 2em;">
+        <h3 style="margin-bottom: 1em;">Operaciones Recientes</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>IDCliente</th>
+                    <th>IDContrato</th>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (operaciones && operaciones.length > 0) { %>
+                    <% operaciones.forEach(op => { %>
+                        <tr>
+                            <td><%= op.id_operacion %></td>
+                            <td><%= op.cliente_id %></td>
+                            <td><%= op.id_contrato %></td>
+                            <td><%= op.tipo_operacion %></td>
+                            <td><%= new Date(op.fecha_operacion).toLocaleDateString('es-MX') %></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="5" style="text-align: center;">No hay operaciones disponibles</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="pager">
+            <div style="margin: 1em; margin-left: 0;">
+                <p class="meta">
+                    <% if (operaciones && operaciones.length > 0) { %>
+                        Mostrando <%= operaciones.length %> de <%= operacionesTotal %> operaciones
+                    <% } else { %>
+                        No hay operaciones disponibles
+                    <% } %>
+                </p>
+            </div>
+            <a href="/operaciones">Ver todas las operaciones →</a>
+        </div>
+    </div>
+
+    <!-- Sección de Alertas Recientes -->
+    <div class="recientes" style="margin-top: 2em;">
+        <h3 style="margin-bottom: 1em;">Alertas Recientes</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID Alerta</th>
+                    <th>ID Cliente</th>
+                    <th>ID Operación</th>
+                    <th>Tipo</th>
+                    <th>Motivo</th>
+                    <th>Evidencia</th>
+                    <th>Fecha Generación</th>
+                    <th>Estatus</th>
+                    <th>Fecha Cierre</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (alertas && alertas.length > 0) { %>
+                    <% alertas.forEach(alerta => { %>
+                        <tr>
+                            <td><%= alerta.id_alerta %></td>
+                            <td><%= alerta.cliente_id %></td>
+                            <td><%= alerta.id_operacion %></td>
+                            <td><%= alerta.tipo_alerta %></td>
+                            <td><%= alerta.motivo %></td>
+                            <td><%= alerta.evidencia_asociada %></td>
+                            <td><%= new Date(alerta.fecha_generacion).toLocaleDateString('es-MX') %></td>
+                            <td><%= alerta.estatus %></td>
+                            <td><%= alerta.fecha_cierre ? new Date(alerta.fecha_cierre).toLocaleDateString('es-MX') : 'N/A' %></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="9" style="text-align: center;">No hay alertas disponibles</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="pager">
+            <div style="margin: 1em; margin-left: 0;">
+                <p class="meta">
+                    <% if (alertas && alertas.length > 0) { %>
+                        Mostrando <%= alertas.length %> de <%= alertasTotal %> alertas
+                    <% } else { %>
+                        No hay alertas disponibles
+                    <% } %>
+                </p>
+            </div>
+            <a href="/oficial/Alertas">Ver todas las alertas →</a>
+        </div>
+    </div>
+
+    <!-- Sección de Mensajes Anónimos Recientes -->
+    <div class="recientes" style="margin-top: 2em;">
+        <h3 style="margin-bottom: 1em;">Mensajes Anónimos Recientes</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Acusado</th>
+                    <th>Fecha de Generación</th>
+                    <th>Descripción</th>
+                    <th>Evidencia Adjunta</th>
+                    <th>Estatus</th>
+                    <th>Formato de Salida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (reportes && reportes.length > 0) { %>
+                    <% reportes.forEach(rep => { %>
+                        <tr>
+                            <td><%= rep.id_reporte %></td>
+                            <td><%= rep.acusado %></td>
+                            <td><%= new Date(rep.fecha_generacion).toLocaleDateString('es-MX') %></td>
+                            <td><%= rep.descripcion %></td>
+                            <td><%= rep.evidencia_adjunta %></td>
+                            <td><%= rep.estatus %></td>
+                            <td><%= rep.formato_salida %></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="7" style="text-align: center;">No hay mensajes disponibles</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="pager">
+            <div style="margin: 1em; margin-left: 0;">
+                <p class="meta">
+                    <% if (reportes && reportes.length > 0) { %>
+                        Mostrando <%= reportes.length %> de <%= reportesTotal %> mensajes
+                    <% } else { %>
+                        No hay mensajes disponibles
+                    <% } %>
+                </p>
+            </div>
+            <a href="/oficial/Reportes">Ver todos los mensajes →</a>
+        </div>
+    </div>
+</div>

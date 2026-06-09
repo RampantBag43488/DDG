@@ -1,0 +1,49 @@
+<div class="tabla-alertas">
+    <form class="filtros-alertas" method="get">
+        <input type="text" name="search" placeholder="Buscar alerta..." value="<%= filtros.search || '' %>" />
+        <select name="riesgo">
+            <option value="">Todos los riesgos</option>
+            <option value="ALTO">Alto</option>
+            <option value="MEDIO">Medio</option>
+            <option value="BAJO">Bajo</option>
+        </select>
+        <select name="estatus">
+            <option value="">Todos los estatus</option>
+            <option value="abierta">Abierta</option>
+            <option value="CERRADA">Cerrada</option>
+        </select>
+        <input type="date" name="fecha" value="<%= filtros.fecha || '' %>" />
+        <button type="submit">Filtrar</button>
+    </form>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Tipo de alerta</th>
+                <th>Nivel Riesgo</th>
+                <th>Fecha</th>
+                <th>Estatus</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% alertas.forEach(alerta => { %>
+                <tr>
+                    <td><%= alerta.tipo_alerta %></td>
+                    <td><span class="badge <%= alerta.nivel_riesgo === 'ALTO' ? 'badge-alto' : (alerta.nivel_riesgo === 'MEDIO' ? 'badge-medio' : 'badge-bajo') %>"><%= alerta.nivel_riesgo %></span></td>
+                    <td><%= alerta.fecha_generacion ? alerta.fecha_generacion.toISOString().slice(0,10) : '' %></td>
+                    <td><span class="badge <%= alerta.estatus === 'abierta' ? 'badge-activa' : 'badge-cerrada' %>"><%= alerta.estatus %></span></td>
+                    <td><a href="/oficial/Alertas/<%= alerta.id_alerta %>" class="btn revisar">Revisar</a></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <div class="paginacion">
+        <% for(let p=1; p<=paginacion.totalPages; p++) { %>
+            <% if(p === paginacion.page) { %>
+                <span class="actual"><%= p %></span>
+            <% } else { %>
+                <a href="?tab=alertas&page=<%= p %>"><%= p %></a>
+            <% } %>
+        <% } %>
+    </div>
+</div>

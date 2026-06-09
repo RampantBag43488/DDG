@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/oficial/ClientesOC.css">
+    <link rel="stylesheet" href="/css/oficial/sidebarOC.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <%- include('./components/sidebar') %>
+
+    <div class="main-content">
+        <div class="volver-container">
+        <form action="/oficial/Clientes/consulta/<%= cliente.cliente_id %>?tab=operaciones" method="get">
+            <button class="VolverButton" type="submit">
+            <div class="plus">
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+            Volver
+            </button>
+        </form>
+        </div>
+
+        <div class="form-card">
+        <h2>Registrar operación</h2>
+        <p>Captura la información de la nueva operación para este cliente.</p>
+
+        <form action="/oficial/Clientes/consulta/<%= cliente.cliente_id %>/operaciones/nueva" method="POST">
+            <div class="form-grid">
+            <div class="grupo-form">
+                <label for="id_contrato">Contrato</label>
+                <select id="id_contrato" name="id_contrato" required>
+                <option value="">Selecciona un contrato</option>
+                <% contratos.forEach(contrato => { %>
+                    <option value="<%= contrato.id_contrato %>">
+                    <%= contrato.folio_contrato %> - <%= contrato.tipo_contrato %>
+                    </option>
+                <% }) %>
+                </select>
+            </div>
+
+            <div class="grupo-form">
+                <label for="tipo_operacion">Tipo de operación</label>
+                <input type="text" id="tipo_operacion" name="tipo_operacion" placeholder="Ej. depósito, retiro, transferencia, pago, etc." required>
+            </div>
+
+            <div class="grupo-form">
+                <label for="fecha_operacion">Fecha de operación</label>
+                <input type="datetime-local" id="fecha_operacion" name="fecha_operacion" required>
+            </div>
+
+            <div class="grupo-form">
+                <label for="monto">Monto</label>
+                <input type="number" id="monto" name="monto" min="0.01" step="0.01" required>
+            </div>
+
+            <div class="grupo-form">
+                <label for="clasificacion">Clasificación</label>
+                <select id="clasificacion" name="clasificacion" required>
+                <option value="">Selecciona una clasificación</option>
+                <option value="Ingreso">Ingreso</option>
+                <option value="Egreso">Egreso</option>
+                </select>
+            </div>
+
+            <div class="grupo-form">
+                <label for="estatus">Estatus</label>
+                <select id="estatus" name="estatus" required>
+                <option value="">Selecciona un estatus</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="aprobada">Aprobada</option>
+                <option value="rechazada">Rechazada</option>
+                </select>
+            </div>
+
+            <div class="grupo-form">
+                <label for="nivel_riesgo">Nivel de riesgo</label>
+                <select id="nivel_riesgo" name="nivel_riesgo" required>
+                <option value="">Selecciona nivel de riesgo</option>
+                <option value="bajo">Bajo</option>
+                <option value="medio">Medio</option>
+                <option value="alto">Alto</option>
+                </select>
+            </div>
+
+            <div class="grupo-form full-width">
+                <label for="observaciones">Observaciones</label>
+                <textarea id="observaciones" name="observaciones" rows="3"></textarea>
+            </div>
+            </div>
+
+            <div class="form-actions">
+            <button class="submitButton" type="submit">Guardar operación</button>
+            </div>
+        </form>
+        </div>
+    </div>
+
+    <script src="/js/Sidebar.js"></script>
+</body>
+</html>
