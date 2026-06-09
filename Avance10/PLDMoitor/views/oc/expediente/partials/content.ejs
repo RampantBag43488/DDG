@@ -10,25 +10,29 @@
 </div>
 
 
-
 <div class="main-content">
      <div class="header">
          <h2>Expedientes</h2>
+         <p>Bienvenido, Oficial de Cumplimiento. Desde aquí puedes gestionar los expedientes.</p>
      </div>
-     <div class="content">
-         <div class="card">
-             <div class="card-body">
-                 <h3>Bienvenido, Oficial de Cumplimiento</h3>
-                 <p>Desde aquí puedes gestionar los expedientes.</p>
-             </div>
-         </div>
+
+     <div class="NC">
+        <div class="NuevoCliente">
+    <form action="/oficial/Expediente/Nuevo" method="get">
+        <button class="NCButton" type="submit">
+            <div class="plus">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            Nuevo Cliente
+        </button>
+    </form>
+</div>
      </div>
 
     <div class="expedientes">
         <table border="1">
             <thead>
                 <tr>
-                    <th>Acción</th>
                     <th>ID Expediente</th>
                     <th>ID Cliente</th>
                     <th>Tipo Persona</th>
@@ -37,17 +41,12 @@
                     <th>Estatus</th>
                     <th>Fecha Apertura</th>
                     <th>Observaciones</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <% expedientes.forEach(exp => { %>
                     <tr>
-                        <td>
-                            <form action="/oficial/Expediente/Actualizar" method="get" style="margin:0;">
-                                <input type="hidden" name="id_expediente" value="<%= exp.id_expediente %>" />
-                                <button type="submit" class="actionButton">Ver expediente</button>
-                            </form>
-                        </td>
                         <td><%= exp.id_expediente %></td>
                         <td><%= exp.cliente_id %></td>
                         <td><%= exp.tipo_persona %></td>
@@ -64,6 +63,12 @@
                         <td><%= exp.estatus_expediente %></td>
                         <td><%= new Date(exp.fecha_apertura).toLocaleDateString('es-MX') %></td>
                         <td><%= exp.observaciones %></td>
+                        <td style="text-align: center;">
+                            <form action="/oficial/Expediente/Actualizar" method="get" style="margin:0;">
+                                <input type="hidden" name="id_expediente" value="<%= exp.id_expediente %>" />
+                                <button type="submit" class="actionButton">Ver expediente</button>
+                            </form>
+                        </td>
                     </tr>
                 <% }); %>
             </tbody>

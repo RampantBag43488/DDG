@@ -17,6 +17,8 @@ const productosController = require('../controllers/productos.controller');
 router.get("/Dashboard",isAuth, checkRol('oficial_cumplimiento','auditoria'), dashboardController.index);
 
 router.get("/Alertas",isAuth, checkRol('oficial_cumplimiento','auditoria'), alertasController.index);
+router.get("/Alertas/:id", isAuth, checkRol('oficial_cumplimiento','auditoria'), alertasController.detalle);
+router.post("/Alertas/:id/actualizar", isAuth, checkRol('oficial_cumplimiento','auditoria'), alertasController.actualizar);
 
 router.get("/Operaciones",isAuth, checkRol('oficial_cumplimiento','auditoria'), operacionesController.index);
 
