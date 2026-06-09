@@ -15,6 +15,23 @@
     transition: width 0.3s;
 }
 
+/* Clase para deshabilitar transiciones en la carga inicial */
+.sidebar.no-transition {
+    transition: none !important;
+}
+
+/* Main content - uses CSS variable for margin to prevent flicker */
+.main-content {
+    margin-left: var(--sidebar-width, 220px);
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
+
+.main-content.no-transition {
+    transition: none !important;
+}
+
 
 .content {
     padding: .5em;

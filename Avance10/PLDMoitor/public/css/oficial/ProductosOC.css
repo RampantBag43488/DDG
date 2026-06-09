@@ -1,0 +1,198 @@
+/* reset css * selecciona todos los elementos */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+    background-color: #efe7da;
+    display: flex;
+}
+
+.main-content {  
+    min-height: 100vh;
+    flex: 1;  
+    padding: 20px;
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background: white; 
+}
+
+th, td { 
+    padding: 0.5rem 0.75rem; 
+    border-bottom: 1px solid #e5e7eb; 
+    text-align: left; 
+}
+
+th { 
+    background: #111827; 
+    color: white; 
+}
+
+tr:hover { 
+    background: #f3f4f6; 
+}
+
+.pager { 
+    margin-top: 1.5rem; 
+}
+
+.pager a, .pager span { 
+    padding: 0.35rem 0.7rem; 
+    margin-right: 0.3rem; 
+    border: 1px solid #d1d5db; 
+    border-radius: 4px; 
+    text-decoration: none; 
+    color: #111827; 
+}
+
+.pager .current { 
+    background: #111827; 
+    color: white; 
+}
+
+.recientes {
+    background-color: #ffff;
+    border-radius: 1em;
+    width: auto;
+    height: auto;
+    padding: 1em;
+}
+
+/* Botón Nuevo Producto */
+.btn-crear-producto {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    padding: 0.75em 1.2em;
+    border-radius: 0.6em;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn-crear-producto:hover {
+    background: #1d4ed8;
+}
+
+/* Header de acciones */
+.acciones-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+/* Filtros de productos */
+.filtros-productos {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+}
+
+.filtros-productos input,
+.filtros-productos select {
+    padding: 0.5em;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.filtros-productos input {
+    min-width: 200px;
+}
+
+/* Meta del pager */
+.pager-meta {
+    margin: 1em;
+    margin-left: 0;
+}
+
+/* --- Estilos para el formulario de nuevo producto --- */
+.volver-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.VolverButton {
+    background: #686868; 
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 0.85em 1.5em;
+    font-size: 1rem;
+    border-radius: 0.75em;
+    cursor: pointer;
+    min-width: 100px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+}
+
+.VolverButton .plus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.2em;
+}
+
+.form-card {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.form-card h2 {
+    margin-bottom: 0.5rem;
+}
+
+.form-card p {
+    margin-bottom: 1.5rem;
+    color: #666;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+.grupo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.grupo-form input,
+.grupo-form select,
+.grupo-form textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.7rem;
+    font-size: 0.95rem;
+}
+
+.form-actions {
+    margin-top: 1.5rem;
+}
+
+.submitButton {
+    border: none;
+    background: #111827;
+    color: white;
+    padding: 0.9rem 1.5rem;
+    border-radius: 999px;
+    cursor: pointer;
+}

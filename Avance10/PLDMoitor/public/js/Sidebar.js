@@ -3,11 +3,15 @@ const sidebar = document.getElementById('sidebar');
 const icon = toggleButton.querySelector('i');
 const toogleButtonDown = document.getElementById('arrow_down');
 
-// Función para restaurar el estado del sidebar
-function restoreSidebarState() {
-    // Obtener estado del localStorage
-    const sidebarState = localStorage.getItem('sidebar');
-    // Aplicar estado al sidebar
+// Función para obtener el estado del sidebar
+function getSidebarState() {
+    return localStorage.getItem('sidebar');
+}
+
+// Función para aplicar el estado del sidebar
+function applySidebarState(sidebarState) {
+    if (!sidebar || !icon) return;
+    
     if (sidebarState === 'hidden') {
         sidebar.classList.add('hide');
         icon.classList.remove('fa-caret-left');
@@ -17,12 +21,26 @@ function restoreSidebarState() {
         icon.classList.remove('fa-caret-right');
         icon.classList.add('fa-caret-left');
     }
-
+    
     // Aplicar margin-left al contenido
     const mainContent = document.querySelector('.main-content');
     if (mainContent) {
         mainContent.style.marginLeft = sidebarState === 'hidden' ? '80px' : '220px';
     }
+}
+
+// Función para restaurar el estado del sidebar
+function restoreSidebarState() {
+    const sidebarState = getSidebarState();
+    applySidebarState(sidebarState);
+    
+    // Después de aplicar el estado, permitir transiciones futuras
+    // Usamos requestAnimationFrame para asegurar que el navegador haya aplicado los cambios
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            sidebar.classList.remove('no-transition');
+        });
+    });
 }
 
 // Restaurar estado al cargar la página

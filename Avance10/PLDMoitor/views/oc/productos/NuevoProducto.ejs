@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/oficial/ProductosOC.css">
+    <link rel="stylesheet" href="/css/oficial/sidebarOC.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <%- include('./components/sidebar') %>
+
+    <div class="main-content">
+        <div class="volver-container">
+            <form action="/oficial/Productos" method="get">
+                <button class="VolverButton" type="submit">
+                    <div class="plus">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </div>
+                    Volver
+                </button>
+            </form>
+        </div>
+
+        <div class="form-card">
+            <h2>Registrar producto</h2>
+            <p>Captura la información del nuevo producto.</p>
+
+            <form action="/oficial/Productos/nuevo" method="POST">
+                <div class="form-grid">
+                    <div class="grupo-form">
+                        <label for="nombre_producto">Nombre del producto</label>
+                        <input type="text" id="nombre_producto" name="nombre_producto" placeholder="Ej. Crédito Empresarial, Cuenta de Ahorro, etc." required>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="tipo_producto">Tipo de producto</label>
+                        <select id="tipo_producto" name="tipo_producto" required>
+                            <option value="">Selecciona un tipo</option>
+                            <option value="Crédito">Crédito</option>
+                            <option value="Inversión">Inversión</option>
+                            <option value="Retiro">Retiro</option>
+                            <option value="Ahorro">Ahorro</option>
+                            <option value="Seguro">Seguro</option>
+                            <option value="Fideicomiso">Fideicomiso</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="estatus">Estatus</label>
+                        <select id="estatus" name="estatus" required>
+                            <option value="activo" selected>Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-form full-width">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" rows="3" placeholder="Describe las características del producto..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="submitButton" type="submit">Guardar producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/Sidebar.js"></script>
+</body>
+</html>

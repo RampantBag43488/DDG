@@ -12,6 +12,12 @@
     background-color: #ffff;
     border-top-right-radius: 1em;
     border-bottom-right-radius: 1em;
+    transition: width 0.3s ease;
+}
+
+/* Clase para deshabilitar transiciones en la carga inicial */
+.sidebar.no-transition {
+    transition: none !important;
 }
 
 .content {
