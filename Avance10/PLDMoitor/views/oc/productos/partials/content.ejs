@@ -1,0 +1,88 @@
+<div class="main-content">
+    <div class="header">
+        <h2>Productos</h2>
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <h3>Lista de Productos</h3>
+                <p>Desde aquí puedes consultar y buscar productos registrados.</p>
+            </div>
+        </div>
+    </div>
+    <div class="acciones-header">
+                <span></span>
+                <a href="/oficial/Productos/nuevo" class="btn-crear-producto">
+                    <i class="fa-solid fa-plus"></i> Nuevo Producto
+                </a>
+            </div>
+    
+    <div class="fila">
+        <div class="recientes">
+            
+            
+            <form id="productos-filtro-form" class="filtros-productos">
+                <input type="text" id="producto-search" name="search" placeholder="Buscar producto..." value="<%= typeof search !== 'undefined' ? search : '' %>" />
+                <select id="producto-tipo" name="tipo">
+                    <option value="" <%= !tipo ? 'selected' : '' %>>Todos los tipos</option>
+                    <option value="Crédito" <%= tipo === 'Crédito' ? 'selected' : '' %>>Crédito</option>
+                    <option value="Inversión" <%= tipo === 'Inversión' ? 'selected' : '' %>>Inversión</option>
+                    <option value="Retiro" <%= tipo === 'Retiro' ? 'selected' : '' %>>Retiro</option>
+                    <option value="Ahorro" <%= tipo === 'Ahorro' ? 'selected' : '' %>>Ahorro</option>
+                    <option value="Seguro" <%= tipo === 'Seguro' ? 'selected' : '' %>>Seguro</option>
+                    <option value="Fideicomiso" <%= tipo === 'Fideicomiso' ? 'selected' : '' %>>Fideicomiso</option>
+                </select>
+                <select id="producto-estatus" name="estatus">
+                    <option value="" <%= !estatus ? 'selected' : '' %>>Todos los estatus</option>
+                    <option value="activo" <%= estatus === 'activo' ? 'selected' : '' %>>Activo</option>
+                    <option value="inactivo" <%= estatus === 'inactivo' ? 'selected' : '' %>>Inactivo</option>
+                </select>
+            </form>
+            
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del Producto</th>
+                        <th>Tipo de Producto</th>
+                        <th>Descripción</th>
+                        <th>Estatus</th>
+                        <th>Fecha de Registro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% productos.forEach(producto => { %>
+                        <tr>
+                            <td><%= producto.id_producto %></td>
+                            <td><%= producto.nombre_producto %></td>
+                            <td><%= producto.tipo_producto %></td>
+                            <td><%= producto.descripcion || '—' %></td>
+                            <td><%= producto.estatus %></td>
+                            <td><%= new Date(producto.fecha_registro).toLocaleDateString('es-MX') %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            
+            <div class="pager">
+                <div class="pager-meta"><p class="meta"><% if (productos.length > 0) { %>Mostrando <%= productos.length %> de <%= total %> productos<% } else { %>No hay productos disponibles<% } %></p></div>
+                <% const filtroQuery = (search || tipo || estatus) ? `&search=${encodeURIComponent(search || '')}&tipo=${encodeURIComponent(tipo || '')}&estatus=${encodeURIComponent(estatus || '')}` : '';
+                %>
+                <% if (page > 1) { %>
+                    <a href="/oficial/Productos?page=<%= page - 1 %><%= filtroQuery %>">← Anterior</a>
+                <% } %>
+                <% for (let p = 1; p <= totalPages; p++) { %>
+                    <% if (p === page) { %>
+                        <span class="current"><%= p %></span>
+                    <% } else { %>
+                        <a href="/oficial/Productos?page=<%= p %><%= filtroQuery %>"><%= p %></a>
+                    <% } %>
+                <% } %>
+                <% if (page < totalPages) { %>
+                    <a href="/oficial/Productos?page=<%= page + 1 %><%= filtroQuery %>">Siguiente →</a>
+                <% } %>
+            </div>
+            <script src="/js/productosFiltro.js"></script>
+        </div>
+    </div>
+</div>

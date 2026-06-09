@@ -11,6 +11,7 @@ const checkRol = require('../util/check-rol.js');
 const nuevo_expedienteController = require('../controllers/nexpediente.controller');
 const bitacoraController = require('../controllers/bitacora.controller.js');
 const clientesController = require('../controllers/clientes.controller');
+const productosController = require('../controllers/productos.controller');
 
 
 router.get("/Dashboard",isAuth, checkRol('oficial_cumplimiento','auditoria'), dashboardController.index);
@@ -36,5 +37,9 @@ router.get("/Clientes/consulta/:id/contratos/nuevo", isAuth, checkRol('oficial_c
 router.post("/Clientes/consulta/:id/contratos/nuevo", isAuth, checkRol('oficial_cumplimiento'), clientesController.crearContrato);
 router.get("/Clientes/consulta/:id/operaciones/nueva", isAuth, checkRol('oficial_cumplimiento'), clientesController.nuevaOperacionVista);
 router.post("/Clientes/consulta/:id/operaciones/nueva", isAuth, checkRol('oficial_cumplimiento'), clientesController.crearOperacion);
+
+router.get("/Productos", isAuth, checkRol('oficial_cumplimiento'), productosController.index);
+router.get("/Productos/nuevo", isAuth, checkRol('oficial_cumplimiento'), productosController.nuevoVista);
+router.post("/Productos/nuevo", isAuth, checkRol('oficial_cumplimiento'), productosController.crear);
 
 module.exports = router;

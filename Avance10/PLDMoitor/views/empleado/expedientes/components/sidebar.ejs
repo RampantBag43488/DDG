@@ -1,5 +1,5 @@
 <div class="bar">
-    <div id="sidebar" class="sidebar">
+    <div id="sidebar" class="sidebar no-transition">
         <div class="content">
             <!-- Header / Logo -->
             <div class="sidebar-header">
@@ -62,3 +62,14 @@
         </div>
     </div>
 </div>
+<script>
+    // Inline script to restore sidebar state immediately before render
+    // This prevents the flicker by applying the collapsed state before the first paint
+    (function() {
+        var sidebarState = localStorage.getItem('sidebar');
+        var sidebar = document.getElementById('sidebar');
+        if (sidebarState === 'hidden' && sidebar) {
+            sidebar.classList.add('hide');
+        }
+    })();
+</script>
