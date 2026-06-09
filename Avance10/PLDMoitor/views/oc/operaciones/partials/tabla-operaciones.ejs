@@ -1,0 +1,35 @@
+<div class="acciones-operaciones" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1rem;">
+    <a href="/oficial/Clientes/consulta/<%= cliente.cliente_id %>/operaciones/nueva" class="btn-crear-operacion">+ Registrar operación</a>
+</div>
+
+<div class="tabla-operaciones">
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Estatus</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% operaciones.forEach(op => { %>
+                <tr>
+                    <td><%= op.tipo_operacion %></td>
+                    <td><%= op.monto %></td>
+                    <td><%= op.fecha_operacion ? op.fecha_operacion.toISOString().slice(0,10) : '' %></td>
+                    <td><span class="badge <%= op.estatus === 'ACTIVA' ? 'badge-activa' : 'badge-cerrada' %>"><%= op.estatus %></span></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <div class="paginacion">
+        <% for(let p=1; p<=paginacion.totalPages; p++) { %>
+            <% if(p === paginacion.page) { %>
+                <span class="actual"><%= p %></span>
+            <% } else { %>
+                <a href="?tab=operaciones&page=<%= p %>"><%= p %></a>
+            <% } %>
+        <% } %>
+    </div>
+</div>

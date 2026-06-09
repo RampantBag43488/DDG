@@ -1,0 +1,52 @@
+<div class="main-content">
+    <div class="header">
+        <h2>Mensajes Anónimos</h2>
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <p>Desde aquí puedes realizar mensajes anónimos.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="nuevoReporte">
+    <h2>Nuevo Mensaje Anónimo </h2>
+
+    <form action="/empleado/Reportes" method="POST">
+            <div class="fila">
+                <div>
+                <label for="acusado">Nombre del acusado</label><br>
+                <input type="text" id="acusado" name="acusado" placeholder="Nombre completo" required>
+                </div>
+
+                <br>
+
+                <div>
+                <label for="fecha">Fecha</label><br>
+                <input type="date" id="fecha" name="fecha" required>
+                </div>
+            </div>
+            <br>
+
+            <div>
+            <label for="descripcion">Descripción</label><br>
+            <textarea id="descripcion" name="descripcion" rows="5" cols="40" placeholder="Describe los hechos..." required></textarea>
+            </div>
+
+            <br>
+
+            <div>
+            <label for="archivo">Archivo adjunto</label><br>
+            <input type="file" id="archivo" name="archivo">
+            </div>
+
+            <br>
+
+            <button type="submit">Enviar mensaje</button>
+        </form>
+    </div>
+        <script src="/js/reportesFiltro.js"></script>
+        <script src="/js/alertasmensaje.js"></script>
+    </div>
+ </div>

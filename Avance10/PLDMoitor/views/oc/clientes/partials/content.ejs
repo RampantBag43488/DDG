@@ -1,0 +1,62 @@
+<div class="main-content">
+    <div class="header">
+        <h2>Clientes</h2>
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <h3>Bienvenido, Oficial de Cumplimiento</h3>
+                <p>Desde aquí puedes consultar y buscar clientes.</p>
+            </div>
+        </div>
+    </div>
+    <div class="fila">
+        <div class="recientes">
+            <form id="clientes-filtro-form" style="margin-bottom: 1em; display: flex; gap: 1em; align-items: center;">
+                <input type="text" id="cliente-search" name="search" placeholder="Buscar cliente..." value="<%= typeof search !== 'undefined' ? search : '' %>" style="padding: 0.5em; border-radius: 4px; border: 1px solid #ccc;" />
+                <select id="cliente-tipo" name="tipo" style="padding: 0.5em; border-radius: 4px; border: 1px solid #ccc;">
+                    <option value="" <%= !tipo ? 'selected' : '' %>>Todos los tipos</option>
+                    <option value="FISICA" <%= tipo === 'FISICA' ? 'selected' : '' %>>Persona Física</option>
+                    <option value="MORAL" <%= tipo === 'MORAL' ? 'selected' : '' %>>Persona Moral</option>
+                </select>
+            </form>
+            <table border="1">
+                <thead>
+                    <tr><th>ID</th><th>Nombre</th><th>Tipo Persona</th><th>Nivel de Riesgo</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                    <% clientes.forEach(cliente => { %>
+                        <tr>
+                            <td><%= cliente.cliente_id %></td>
+                            <td><%= cliente.nombre %></td>
+                            <td><%= cliente.tipo_persona %></td>
+                            <td><%= cliente.nivel_riesgo %></td>
+                            <td>
+                                <a href="/oficial/Clientes/consulta/<%= cliente.cliente_id %>">Ver</a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <div class="pager">
+                <div style="margin: 1em; margin-left: 0;"><p class="meta"><% if (clientes.length > 0) { %>Mostrando <%= clientes.length %> de <%= total %> clientes<% } else { %>No hay clientes disponibles<% } %></p></div>
+                <% const filtroQuery = (search || tipo) ? `&search=${encodeURIComponent(search || '')}&tipo=${encodeURIComponent(tipo || '')}` : '';
+                %>
+                <% if (page > 1) { %>
+                    <a href="/oficial/Clientes?page=<%= page - 1 %><%= filtroQuery %>">← Anterior</a>
+                <% } %>
+                <% for (let p = 1; p <= totalPages; p++) { %>
+                    <% if (p === page) { %>
+                        <span class="current"><%= p %></span>
+                    <% } else { %>
+                        <a href="/oficial/Clientes?page=<%= p %><%= filtroQuery %>"><%= p %></a>
+                    <% } %>
+                <% } %>
+                <% if (page < totalPages) { %>
+                    <a href="/oficial/Clientes?page=<%= page + 1 %><%= filtroQuery %>">Siguiente →</a>
+                <% } %>
+            </div>
+            <script src="/js/clientesFiltro.js"></script>
+        </div>
+    </div>
+</div>

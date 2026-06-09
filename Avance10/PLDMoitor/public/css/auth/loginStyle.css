@@ -1,0 +1,58 @@
+/* reset css * selecciona todos los elementos */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Centrar todo */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #efe7da;
+}
+
+/* Rectángulo */
+.card {
+  width: 360px;
+  padding: 48px 40px;
+  background-color: white;
+  border-radius: 16px;
+  border: 1px solid #ddd;
+}
+
+.card h1 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.card button {
+  width: 100%;
+  padding: 12px;
+  background-color: #968555;
+  color: white;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.error-message{
+    color: #b91c1c;
+    background: #fee2e2;
+    padding: 0.8rem 1rem;
+    border-radius: 0.6rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
