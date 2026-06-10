@@ -12,7 +12,7 @@ const nuevo_expedienteController = require('../controllers/nexpediente.controlle
 const bitacoraController = require('../controllers/bitacora.controller.js');
 const clientesController = require('../controllers/clientes.controller');
 const productosController = require('../controllers/productos.controller');
-
+const documentoController = require('../controllers/documentos.controller.js');
 
 router.get("/Dashboard",isAuth, checkRol('oficial_cumplimiento','auditoria'), dashboardController.index);
 
@@ -43,5 +43,6 @@ router.post("/Clientes/consulta/:id/operaciones/nueva", isAuth, checkRol('oficia
 router.get("/Productos", isAuth, checkRol('oficial_cumplimiento'), productosController.index);
 router.get("/Productos/nuevo", isAuth, checkRol('oficial_cumplimiento'), productosController.nuevoVista);
 router.post("/Productos/nuevo", isAuth, checkRol('oficial_cumplimiento'), productosController.crear);
+router.get("/documentos/:id/signed-url", isAuth, checkRol('oficial_cumplimiento','auditoria'), documentoController.getSignedUrl);
 
 module.exports = router;
