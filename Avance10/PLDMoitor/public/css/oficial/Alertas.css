@@ -62,6 +62,14 @@ tr:hover {
     border-radius: 4px; 
 }
 
+.pager .ellipsis {
+    padding: 0.35rem 0.5rem;
+    margin-right: 0.3rem;
+    color: #6b7280;
+    cursor: default;
+    user-select: none;
+}
+
 /* Header styles  */
 .header {
     margin-bottom: 20px;

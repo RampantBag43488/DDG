@@ -45,15 +45,15 @@ exports.do_login = async (req, res) => {
                 return res.redirect('/login');
             }
 
-            if (usuario.rol =='gestion'){
+            if (usuario.rol == 'gestion') {
                 return res.redirect('/admin/usuarios');
-            }else if (usuario.rol == 'oficial_cumplimiento'){
+            } else if (usuario.rol == 'oficial_cumplimiento') {
                 return res.redirect('/oficial/Dashboard');
-            }else if (usuario.rol == 'empleado'){
-                return res.redirect('/empleado/Dashboard');
-            }else if (usuario.rol == 'auditoria'){
+            } else if (usuario.rol == 'empleado') {
+                return res.redirect('/empleado/Expedientes');
+            } else if (usuario.rol == 'auditoria') {
                 return res.redirect('/oficial/Dashboard');
-            }else if (usuario.rol == 'cliente'){
+            } else if (usuario.rol == 'cliente') {
                 return res.redirect('/cliente/Informacion');
             }
             return res.redirect('/login');
