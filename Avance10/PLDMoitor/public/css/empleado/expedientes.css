@@ -133,3 +133,15 @@ tr:hover {
 .btn-accion:hover {
     background-color: #1f2937;
 }
+
+.NC {
+    width: auto;
+    height: 50px;
+}
+
+.NCButton {
+    position: fixed;
+    top: 135px;
+    right: 21px;
+    z-index: 1000; /* Encima de todo */
+}

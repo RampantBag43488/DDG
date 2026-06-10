@@ -234,9 +234,7 @@ body {
     cursor: pointer;
 }
 
-/* =============================================
-   Header Styles - Consistent across all pages
-   ============================================= */
+/* header styles*/
 .header {
     margin-bottom: 24px;
     padding: 20px 24px;

@@ -147,6 +147,28 @@ exports.findById = async (id_alerta) => {
     return rows[0] || null;
 };
 
+// Contar alertas por estatus
+exports.countByStatus = async () => {
+    try {
+        const query = `
+            SELECT 
+                COUNT(*) FILTER (WHERE estatus = 'abierta') as "abiertas",
+                COUNT(*) FILTER (WHERE estatus = 'en revision') as "en_revision",
+                COUNT(*) FILTER (WHERE estatus = 'cerrada') as "cerradas"
+            FROM alertas
+        `;
+        const { rows } = await pool.query(query);
+        return {
+            abiertas: parseInt(rows[0].abiertas, 10) || 0,
+            en_revision: parseInt(rows[0].en_revision, 10) || 0,
+            cerradas: parseInt(rows[0].cerradas, 10) || 0
+        };
+    } catch (error) {
+        console.error('Error counting alerts by status:', error);
+        return { abiertas: 0, en_revision: 0, cerradas: 0 };
+    }
+};
+
 // Actualizar alerta (solo estatus) - maneja fecha_cierre automaticamente
 exports.updateAlerta = async (id_alerta, estatus) => {
     let fecha_cierre = null;
