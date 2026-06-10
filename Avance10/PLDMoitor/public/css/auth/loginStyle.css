@@ -38,7 +38,62 @@ body {
   border-radius: 10px;
 }
 
-.card button {
+/* Contenedor de contraseña para el botón de alternar visibilidad */
+.password-container {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.password-container input {
+  width: 100%;
+  padding: 12px;
+  padding-right: 44px;
+  margin-bottom: 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+/* Botón de visibilidad de contraseña */
+.password-container .password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
+  color: #666;
+  padding: 0 !important;
+  width: 24px !important;
+  height: 24px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  z-index: 1;
+}
+
+.password-container .password-toggle i {
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.password-container .password-toggle:hover {
+  color: #968555;
+}
+
+.password-container .password-toggle:focus {
+  outline: none;
+}
+
+.password-container .password-toggle:focus-visible {
+  outline: 2px solid #968555;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.card button[type="submit"] {
   width: 100%;
   padding: 12px;
   background-color: #968555;

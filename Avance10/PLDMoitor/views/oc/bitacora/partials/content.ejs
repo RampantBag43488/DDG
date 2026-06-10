@@ -44,21 +44,55 @@
                 </p>
             </div>
 
-            <% if (page > 1) { %>
-                <a href="/oficial/Bitacora?page=<%= page - 1 %>">← Anterior</a>
-            <% } %>
+            <%
+            // Paginación condensada con elipsis
+            // Genera un array de elementos a mostrar: números de página o '...'
+            var pagerItems = [];
 
-            <% for (let p = 1; p <= totalPages; p++) { %>
-                <% if (p === page) { %>
-                    <span class="current"><%= p %></span>
+            if (totalPages <= 7) {
+                // Si hay 7 o menos páginas, mostrar todas
+                for (var p = 1; p <= totalPages; p++) {
+                    pagerItems.push({ type: 'page', num: p });
+                }
+            } else {
+                // Siempre mostrar primera página
+                pagerItems.push({ type: 'page', num: 1 });
+
+                if (page <= 3) {
+                    // Páginas iniciales (1-4): mostrar 1, 2, 3, 4, ..., last
+                    pagerItems.push({ type: 'page', num: 2 });
+                    pagerItems.push({ type: 'page', num: 3 });
+                    pagerItems.push({ type: 'page', num: 4 });
+                    pagerItems.push({ type: 'ellipsis' });
+                    pagerItems.push({ type: 'page', num: totalPages });
+                } else if (page >= totalPages - 2) {
+                    // Páginas finales: mostrar 1, ..., last-3, last-2, last-1, last
+                    pagerItems.push({ type: 'ellipsis' });
+                    pagerItems.push({ type: 'page', num: totalPages - 3 });
+                    pagerItems.push({ type: 'page', num: totalPages - 2 });
+                    pagerItems.push({ type: 'page', num: totalPages - 1 });
+                    pagerItems.push({ type: 'page', num: totalPages });
+                } else {
+                    // Páginas centrales: mostrar 1, ..., page-1, page, page+1, ..., last
+                    pagerItems.push({ type: 'ellipsis' });
+                    pagerItems.push({ type: 'page', num: page - 1 });
+                    pagerItems.push({ type: 'page', num: page });
+                    pagerItems.push({ type: 'page', num: page + 1 });
+                    pagerItems.push({ type: 'ellipsis' });
+                    pagerItems.push({ type: 'page', num: totalPages });
+                }
+            }
+            %>
+
+            <% pagerItems.forEach(function(item) { %>
+                <% if (item.type === 'ellipsis') { %>
+                    <span class="ellipsis">...</span>
+                <% } else if (item.num === page) { %>
+                    <span class="current"><%= item.num %></span>
                 <% } else { %>
-                    <a href="/oficial/Bitacora?page=<%= p %>"><%= p %></a>
+                    <a href="/oficial/Bitacora?page=<%= item.num %>"><%= item.num %></a>
                 <% } %>
-            <% } %>
-
-            <% if (page < totalPages) { %>
-                <a href="/oficial/Bitacora?page=<%= page + 1 %>">Siguiente →</a>
-            <% } %>
+            <% }); %>
         </div>
     </div>
 </div>
