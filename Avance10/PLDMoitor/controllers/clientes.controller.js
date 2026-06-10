@@ -6,7 +6,7 @@ const modeloCliente = require('../models/cliente.model');
 const contratoModel = require('../models/contrato.model');
 const registrarBitacora = require('../util/bitacora.js');
 const productoModel = require('../models/producto.model');
-
+const documentoModel = require('../models/documentos.model.js');
 module.exports.info = async (req, res) => {
     const cliente_id = req.params.id;
     const tab = req.query.tab || 'alertas';
@@ -64,6 +64,9 @@ module.exports.info = async (req, res) => {
     const contratos = await contratoModel.fetchByCliente(cliente_id, contPage, contPageSize, contSearch, contEstatus);
     const totalContratos = await contratoModel.countContratosByCliente(cliente_id, contSearch, contEstatus);
     const contTotalPages = Math.max(1, Math.ceil(totalContratos / contPageSize));
+    //Documentos del Cliente
+    const expediente = await documentoModel.getExpedienteByCliente(cliente_id);
+    const documentos = expediente? await documentoModel.getByExpediente(expediente.id_expediente):[];
     // Pager y filtros
     const paginacion = { page, totalPages };
     const filtros = { search, riesgo, estatus, fecha };
@@ -86,6 +89,7 @@ module.exports.info = async (req, res) => {
         operacionesBadgeText,
         alertas,
         operaciones,
+        documentos,
         contratos,
         tab,
         paginacion,

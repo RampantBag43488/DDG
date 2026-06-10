@@ -18,7 +18,11 @@
     </div>
 
     <p class="subtitulo">Sube los documentos requeridos para tu expediente</p>
-
+    <% if (locals.query && query.exito) { %>
+    <div class="mensaje-exito">
+      Documentos enviados correctamente
+    </div>
+    <% } %>
     <form action="/cliente/documentos" method="POST" enctype="multipart/form-data">
 
       <div class="docs-grid">
@@ -28,71 +32,71 @@
           <div class="doc-card">
             <h3>Identificación Personal</h3>
             <p>INE o credencial vigente</p>
-            <input type="file" name="identificacion_personal" accept=".pdf,.jpg,.png">
+            <input type="file" name="identificacion_personal" accept=".pdf" required>
           </div>
 
           <div class="doc-card">
             <h3>Comprobante de Domicilio</h3>
             <p>No mayor a 3 meses</p>
-            <input type="file" name="comprobante_domicilio" accept=".pdf,.jpg,.png">
+            <input type="file" name="comprobante_domicilio" accept=".pdf" required>
           </div>
 
           <div class="doc-card">
             <h3>Carta Poder</h3>
-            <input type="file" name="carta_poder" accept=".pdf,.jpg,.png">
+            <input type="file" name="carta_poder" accept=".pdf" required>
           </div>
 
           <div class="doc-card">
             <h3>RFC</h3>
-            <input type="file" name="rfc" accept=".pdf,.jpg,.png">
+            <input type="file" name="rfc" accept=".pdf" required>
           </div>
 
           <div class="doc-card">
             <h3>Pasaporte <span class="opcional">(Opcional — extranjeros)</span></h3>
-            <input type="file" name="pasaporte" accept=".pdf,.jpg,.png">
+            <input type="file" name="pasaporte" accept=".pdf">
           </div>
 
         <% } else { %>
 
           <div class="doc-card">
             <h3>Testimonio de Instrumento Público</h3>
-            <input type="file" name="testimonio_instrumento" accept=".pdf,.jpg,.png">
+            <input type="file" name="testimonio_instrumento" accept=".pdf" required>
           </div>
 
           <div class="doc-card">
             <h3>Escrito Firmado por Persona Legalmente Facultada</h3>
-            <input type="file" name="escrito_firmado" accept=".pdf,.jpg,.png">
+            <input type="file" name="escrito_firmado" accept=".pdf" required>
           </div>
 
           <div class="doc-card">
             <h3>Cédula de Identificación Fiscal</h3>
-            <input type="file" name="cedula_fiscal" accept=".pdf,.jpg,.png">
+            <input type="file" name="cedula_fiscal" accept=".pdf"required>
           </div>
 
           <div class="doc-card">
             <h3>Documento de Asignación de Número de Identificación Fiscal</h3>
-            <input type="file" name="doc_identificacion_fiscal" accept=".pdf,.jpg,.png">
+            <input type="file" name="doc_identificacion_fiscal" accept=".pdf" required>
           </div>
 
           <div class="doc-card">
             <h3>Comprobante de Domicilio</h3>
             <p>No mayor a 3 meses</p>
-            <input type="file" name="comprobante_domicilio" accept=".pdf,.jpg,.png">
+            <input type="file" name="comprobante_domicilio" accept=".pdf" required>
           </div>
 
           <div class="doc-card">
             <h3>Copia de Instrumentos de Poderes de Representante</h3>
-            <input type="file" name="poderes_representante" accept=".pdf,.jpg,.png">
+            <input type="file" name="poderes_representante" accept=".pdf" required>
           </div>
 
           <div class="doc-card">
             <h3>CNBV Datos Otorgados</h3>
-            <input type="file" name="cnbv_datos" accept=".pdf,.jpg,.png">
+            <input type="file" name="cnbv_datos" accept=".pdf" required>
           </div>
 
           <div class="doc-card">
             <h3>Estructura Accionaria</h3>
-            <input type="file" name="estructura_accionaria" accept=".pdf,.jpg,.png">
+            <input type="file" name="estructura_accionaria" accept=".pdf" required>
           </div>
 
         <% } %>
