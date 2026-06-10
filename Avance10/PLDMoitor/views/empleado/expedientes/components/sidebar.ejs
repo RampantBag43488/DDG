@@ -16,13 +16,6 @@
             <nav class="menu">
                 <ul>
                     <li>
-                        <a href="/empleado/Dashboard">
-                            <i class="fa-solid fa-house"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-
-                    <li>
                         <a href="/empleado/Reportes">
                             <i class="fa-solid fa-align-right"></i>
                             <span>Mensajes Anónimos</span>
@@ -63,13 +56,17 @@
     </div>
 </div>
 <script>
-    // Inline script to restore sidebar state immediately before render
-    // This prevents the flicker by applying the collapsed state before the first paint
+    // Script en línea para restaurar el estado del sidebar antes de renderizar
+    // Esto previene el parpadeo aplicando el estado antes de la primera pintura
     (function() {
         var sidebarState = localStorage.getItem('sidebar');
         var sidebar = document.getElementById('sidebar');
         if (sidebarState === 'hidden' && sidebar) {
             sidebar.classList.add('hide');
+            // Establece el margen inicial para main-content y previene saltos de diseño
+            document.documentElement.style.setProperty('--sidebar-width', '80px');
+        } else {
+            document.documentElement.style.setProperty('--sidebar-width', '220px');
         }
     })();
 </script>

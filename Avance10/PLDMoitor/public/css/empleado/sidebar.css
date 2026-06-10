@@ -1,4 +1,23 @@
-.bar{
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* No aplicar font-family a iconos de Font Awesome */
+[class^="fa-"],
+[class*=" fa-"],
+.fa-solid,
+.fa-regular,
+.fa-brands {
+    font-family: "Font Awesome 6 Free";
+}
+
+.bar {
     display: flex;
 }
 
@@ -12,7 +31,7 @@
     background-color: #ffff;
     border-top-right-radius: 1em;
     border-bottom-right-radius: 1em;
-    transition: width 0.3s ease;
+    transition: width 0.3s;
 }
 
 /* Clase para deshabilitar transiciones en la carga inicial */
@@ -20,17 +39,28 @@
     transition: none !important;
 }
 
-.content {
-    padding: 1em;
-    
+/* Main content - uses CSS variable for margin to prevent flicker */
+.main-content {
+    margin-left: var(--sidebar-width, 220px);
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s;
 }
 
-.logo img{
+.main-content.no-transition {
+    transition: none !important;
+}
+
+.content {
+    padding: .5em;
+}
+
+.logo img {
     width: 40px;
     border-radius: 50%;
 }
 
-.user img{
+.user img {
     width: 40px;
     border-radius: 50%;
 }
@@ -38,22 +68,24 @@
 .sidebar-header {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-.logo{
+.logo {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.logo h4{
-    padding: 0 1em;
+.logo h4 {
+    padding: 0 10px;
+    font-size: .9rem;
 }
 
 .arrow {
     padding: 20px;
     cursor: pointer;
+    padding-left: 45px;
 }
 
 .menu {
@@ -64,27 +96,28 @@
 .selected {
     background-color: #e0e0e0;
     border-radius: 8px;
-    width: 190px;
-    height: 60px;
+    width: 170px;
+    height: 48px;
 }
 
-.menu ul{
+.menu ul {
     padding: 0;
+    padding-left: 10px;
 }
 
-.menu ul li{
+.menu ul li {
     list-style: none;
-    margin: 3em 0;
+    margin: 2em 0;
     cursor: pointer;
 }
 
-.menu a{
+.menu a {
     color: black;
     text-decoration: none;
-    font-size: 1.3em;
+    font-size: 1.05em;
 }
 
-.menu ul li i{
+.menu ul li i {
     margin: 0 1em;
     color: black;
 }
@@ -92,7 +125,7 @@
 .menu ul li a {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
 }
 
 .user {
@@ -103,7 +136,7 @@
     gap: 10px;
 }
 
-.user h5,p {
+.user h5, p {
     margin-left: 1em;
     padding: 0;
     font-size: .9rem;
@@ -131,20 +164,28 @@
 }
 
 /* Estado escondido */
-
 .sidebar.hide {
     width: 80px;
+}
+
+.sidebar.hide .content {
+    padding-top: 1em;
 }
 
 .sidebar.hide span {
     display: none;
 }
 
+.sidebar.hide ul {
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
 .sidebar.hide ul li a {
     justify-content: center;
 }
 
-.sidebar.hide ul li{
+.sidebar.hide ul li {
     justify-content: center;
 }
 
@@ -169,10 +210,10 @@
     padding: 10px;
 }
 
-.sidebar.hide .selected{
-    width: 50px;
-    height: 50px;
-    
+.sidebar.hide .selected {
+    margin-left: 20px;
+    width: 36px;
+    height: 36px;
 }
 
 .btn_arrowDown {
@@ -191,62 +232,4 @@
 
 #arrow_down {
     cursor: pointer;
-}
-
-/* Header styles */
-.header {
-    margin-bottom: 24px;
-    padding: 20px 24px;
-    background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
-    border-radius: 12px;
-    color: white;
-    box-shadow: 0 4px 6px -1px rgba(17, 24, 39, 0.1), 0 2px 4px -1px rgba(17, 24, 39, 0.06);
-    position: relative;
-    overflow: hidden;
-}
-
-.header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-    opacity: 0.8;
-}
-
-.header h2 {
-    font-size: 1.625rem;
-    font-weight: 700;
-    margin: 0 0 6px 0;
-    color: white;
-    letter-spacing: -0.025em;
-    line-height: 1.3;
-}
-
-.header p {
-    margin: 0;
-    opacity: 0.85;
-    font-size: 0.95rem;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.85);
-    line-height: 1.5;
-    max-width: 700px;
-}
-
-/* Responsive header */
-@media (max-width: 768px) {
-    .header {
-        padding: 16px 18px;
-        margin-bottom: 20px;
-    }
-    
-    .header h2 {
-        font-size: 1.375rem;
-    }
-    
-    .header p {
-        font-size: 0.875rem;
-    }
 }
