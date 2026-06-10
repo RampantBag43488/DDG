@@ -4,6 +4,37 @@
          <p>Bienvenido, Oficial de Cumplimiento. Desde aquí puedes gestionar tus alertas.</p>
      </div>
 
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+        <div class="summary-card card-abiertas">
+            <div class="card-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="card-content">
+                <span class="card-label">Alertas Abiertas</span>
+                <span class="card-count"><%= typeof statusCounts !== 'undefined' ? statusCounts.abiertas : 0 %></span>
+            </div>
+        </div>
+        <div class="summary-card card-revision">
+            <div class="card-icon">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <div class="card-content">
+                <span class="card-label">En Revisión</span>
+                <span class="card-count"><%= typeof statusCounts !== 'undefined' ? statusCounts.en_revision : 0 %></span>
+            </div>
+        </div>
+        <div class="summary-card card-cerradas">
+            <div class="card-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div class="card-content">
+                <span class="card-label">Alertas Cerradas</span>
+                <span class="card-count"><%= typeof statusCounts !== 'undefined' ? statusCounts.cerradas : 0 %></span>
+            </div>
+        </div>
+    </div>
+
     <div class="alertas">
             <!-- Filtros para alertas -->
             <form id="alertas-filtro-form" style="margin-bottom: 1em; display: flex; gap: 1em; align-items: center;">
