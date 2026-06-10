@@ -72,6 +72,7 @@
         <li class="<%= tab === 'operaciones' ? 'active' : '' %>"><a href="?tab=operaciones">Operaciones Recientes</a></li>
         <li class="<%= tab === 'contratos' ? 'active' : '' %>"><a href="?tab=contratos">Contratos</a></li>
         <li class="<%= tab === 'datos' ? 'active' : '' %>"><a href="?tab=datos">Datos del cliente</a></li>
+        <li class="<%= tab === 'documentos' ? 'active' : '' %>"><a href="?tab=documentos">Documentos</a></li>
     </ul>
     <div class="tab-content">
        <% if(tab === 'alertas') { %>
@@ -82,6 +83,8 @@
            <%- include('./tabla-contratos', { contratos, contPaginacion, contFiltros, cliente }) %>
        <% } else if(tab === 'datos') { %>
            <%- include('./datos-cliente', { cliente, datos }) %>
+       <% } else if(tab === 'documentos') { %>
+            <%- include('./tabla-documentos', {documentos}) %>
        <% } %>
    </div>
 </div>
