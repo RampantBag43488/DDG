@@ -30,9 +30,24 @@
 
             <br>
 
-            <div>
-            <label for="archivo">Archivo adjunto</label><br>
-            <input type="file" id="archivo" name="archivo">
+            <div class="upload-area-container">
+                <div class="upload-area" id="uploadArea">
+                    <input type="file" id="archivo" name="archivo" class="file-input" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx">
+                    <div class="upload-icon">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <div class="upload-text">
+                        <span class="upload-title">Archivo adjunto</span>
+                        <span class="upload-hint">Haz clic para seleccionar un archivo o arrástralo aquí</span>
+                    </div>
+                    <div class="file-info" id="fileInfo" style="display: none;">
+                        <i class="fa-solid fa-file"></i>
+                        <span class="file-name" id="fileName"></span>
+                        <button type="button" class="file-remove" id="fileRemove" title="Eliminar archivo">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <br>
@@ -42,5 +57,6 @@
     </div>
         <script src="/js/reportesFiltro.js"></script>
         <script src="/js/alertasmensaje.js"></script>
+        <script src="/js/uploadArea.js"></script>
     </div>
  </div>

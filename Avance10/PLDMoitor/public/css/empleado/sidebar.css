@@ -193,9 +193,7 @@
     cursor: pointer;
 }
 
-/* =============================================
-   Header Styles - Consistent across all pages
-   ============================================= */
+/* Header styles */
 .header {
     margin-bottom: 24px;
     padding: 20px 24px;
