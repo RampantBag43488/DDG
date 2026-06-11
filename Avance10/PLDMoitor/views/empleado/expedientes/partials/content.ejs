@@ -52,9 +52,10 @@
                         <td><%= new Date(exp.fecha_apertura).toLocaleDateString('es-MX') %></td>
                         <td><%= exp.observaciones %></td>
                         <td style="text-align: center;">
-                            <a href="/empleado/expedientes/<%= exp.id_expediente %>" class="btn-accion" title="Ver expediente">
-                                <i class="fa-solid fa-eye"></i> Ver
-                            </a>
+                            <form action="/empleado/Expediente/Actualizar" method="get" style="margin:0;">
+                                <input type="hidden" name="id_expediente" value="<%= exp.id_expediente %>" />
+                                <button type="submit" class="actionButton">Ver expediente</button>
+                            </form>
                         </td>
                     </tr>
                 <% }); %>
