@@ -180,3 +180,55 @@ exports.create = async ({
     const { rows } = await pool.query(sql, values);
     return rows[0];
 };
+
+exports.findContratoByIdAndCliente = async (id_contrato, cliente_id) => {
+    const { rows } = await pool.query(
+        `SELECT *
+         FROM contrato
+         WHERE id_contrato = $1 AND cliente_id = $2
+         LIMIT 1`,
+        [id_contrato, cliente_id]
+    );
+    return rows[0] || null;
+};
+
+exports.getPromedioMontoPorTipo = async (cliente_id, id_contrato, tipo_operacion, excludeOperacionId) => {
+    const { rows } = await pool.query(
+        `SELECT AVG(monto) AS promedio
+         FROM operaciones
+         WHERE cliente_id = $1
+           AND id_contrato = $2
+           AND LOWER(tipo_operacion) = LOWER($3)
+           AND id_operacion <> $4`,
+        [cliente_id, id_contrato, tipo_operacion, excludeOperacionId]
+    );
+    return Number(rows[0].promedio || 0);
+};
+
+exports.countSameTypeSameDay = async (cliente_id, id_contrato, tipo_operacion, fecha_operacion, excludeOperacionId) => {
+    const { rows } = await pool.query(
+        `SELECT COUNT(*) AS total
+         FROM operaciones
+         WHERE cliente_id = $1
+           AND id_contrato = $2
+           AND LOWER(tipo_operacion) = LOWER($3)
+           AND DATE(fecha_operacion) = DATE($4)
+           AND id_operacion <> $5`,
+        [cliente_id, id_contrato, tipo_operacion, fecha_operacion, excludeOperacionId]
+    );
+    return Number(rows[0].total || 0);
+};
+
+exports.countLast24h = async (cliente_id, id_contrato, fecha_operacion, excludeOperacionId) => {
+    const { rows } = await pool.query(
+        `SELECT COUNT(*) AS total
+         FROM operaciones
+         WHERE cliente_id = $1
+           AND id_contrato = $2
+           AND fecha_operacion >= ($3::timestamp - interval '24 hours')
+           AND fecha_operacion <= $3::timestamp
+           AND id_operacion <> $4`,
+        [cliente_id, id_contrato, fecha_operacion, excludeOperacionId]
+    );
+    return Number(rows[0].total || 0);
+};
