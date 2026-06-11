@@ -1,5 +1,6 @@
 const model = require('../models/alertas.model');
 const registrarBitacora = require('../util/bitacora.js');
+const clienteModel = require('../models/cliente.model');
 
 module.exports.index = async (req, res) => {
     try {
@@ -91,13 +92,27 @@ module.exports.actualizar = async (req, res) => {
         const id_alerta = parseInt(req.params.id);
         const { estatus, from, cliente_id } = req.body;
         
+        // Get the alert's cliente_id before updating
+        const alerta = await model.findById(id_alerta);
+        
         await model.updateAlerta(id_alerta, estatus);
         
-        await registrarBitacora({
-            id_usuario: req.session.id_usuario,
-            accion: 'Actualizó alerta',
-            descripcion: `El usuario ${req.session.nombre} actualizó la alerta ${id_alerta} con estatus: ${estatus}`
-        });
+        // Recalculate client risk level based on alerts
+        if (alerta && alerta.cliente_id) {
+            const nuevoNivelRiesgo = await clienteModel.actualizarNivelRiesgo(alerta.cliente_id);
+            
+            await registrarBitacora({
+                id_usuario: req.session.id_usuario,
+                accion: 'Actualizó alerta y nivel de riesgo',
+                descripcion: `El usuario ${req.session.nombre} actualizó la alerta ${id_alerta} con estatus: ${estatus}. Nivel de riesgo del cliente ${alerta.cliente_id} actualizado a: ${nuevoNivelRiesgo}`
+            });
+        } else {
+            await registrarBitacora({
+                id_usuario: req.session.id_usuario,
+                accion: 'Actualizó alerta',
+                descripcion: `El usuario ${req.session.nombre} actualizó la alerta ${id_alerta} con estatus: ${estatus}`
+            });
+        }
         
         // Preserve the navigation context (from and cliente_id) after update
         const redirectFrom = from || 'alertas';

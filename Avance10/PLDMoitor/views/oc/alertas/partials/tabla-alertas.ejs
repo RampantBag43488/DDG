@@ -1,12 +1,7 @@
 <div class="tabla-alertas">
     <form class="filtros-alertas" method="get">
         <input type="text" name="search" placeholder="Buscar alerta..." value="<%= filtros.search || '' %>" />
-        <select name="riesgo">
-            <option value="">Todos los riesgos</option>
-            <option value="ALTO">Alto</option>
-            <option value="MEDIO">Medio</option>
-            <option value="BAJO">Bajo</option>
-        </select>
+
         <select name="estatus">
             <option value="">Todos los estatus</option>
             <option value="abierta">Abierta</option>
@@ -29,7 +24,7 @@
             <% alertas.forEach(alerta => { %>
                 <tr>
                     <td><%= alerta.tipo_alerta %></td>
-                    <td><span class="badge <%= alerta.nivel_riesgo === 'ALTO' ? 'badge-alto' : (alerta.nivel_riesgo === 'MEDIO' ? 'badge-medio' : 'badge-bajo') %>"><%= alerta.nivel_riesgo %></span></td>
+                    
                     <td><%= alerta.fecha_generacion ? alerta.fecha_generacion.toISOString().slice(0,10) : '' %></td>
                     <td><span class="badge <%= alerta.estatus === 'abierta' ? 'badge-activa' : 'badge-cerrada' %>"><%= alerta.estatus %></span></td>
                     <td><a href="/oficial/Alertas/<%= alerta.id_alerta %>?from=<%= typeof origen !== 'undefined' ? origen : 'alertas' %><%= (typeof origen !== 'undefined' && origen === 'cliente' && typeof cliente_id !== 'undefined') ? '&cliente_id=' + cliente_id : '' %>" class="btn revisar">Revisar</a></td>
