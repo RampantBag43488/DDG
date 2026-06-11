@@ -73,3 +73,39 @@ exports.getById = async (cliente_id) => {
 	const { rows } = await pool.query('SELECT cliente_id, tipo_persona, nivel_riesgo FROM cliente WHERE cliente_id = $1', [cliente_id]);
 	return rows[0];
 };
+
+// Calcular nivel de riesgo basado en alertas
+exports.calcularNivelRiesgo = async (cliente_id) => {
+	const query = `
+		SELECT COUNT(*) as total_alertas 
+		FROM alertas 
+		WHERE cliente_id = $1
+	`;
+	const { rows } = await pool.query(query, [cliente_id]);
+	const totalAlertas = parseInt(rows[0].total_alertas, 10) || 0;
+	
+	// Determinar nivel de riesgo (valores en minúsculas para la BD)
+	if (totalAlertas === 0) return 'bajo';
+	if (totalAlertas <= 2) return 'medio';
+	return 'alto';
+};
+
+// Actualizar nivel de riesgo de un cliente
+exports.actualizarNivelRiesgo = async (cliente_id) => {
+	const nivelRiesgo = await exports.calcularNivelRiesgo(cliente_id);
+	const updateQuery = `
+		UPDATE cliente 
+		SET nivel_riesgo = $1 
+		WHERE cliente_id = $2
+	`;
+	await pool.query(updateQuery, [nivelRiesgo, cliente_id]);
+	return nivelRiesgo;
+};
+
+// Actualizar nivel de riesgo de todos los clientes
+exports.actualizarNivelesRiesgoTodos = async () => {
+	const { rows: clientes } = await pool.query('SELECT cliente_id FROM cliente');
+	for (const cliente of clientes) {
+		await exports.actualizarNivelRiesgo(cliente.cliente_id);
+	}
+};
