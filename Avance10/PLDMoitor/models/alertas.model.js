@@ -186,3 +186,35 @@ exports.updateAlerta = async (id_alerta, estatus) => {
     `;
     await pool.query(query, [estatus, fecha_cierre, id_alerta]);
 };
+
+exports.create = async ({ cliente_id, id_operacion, tipo_alerta, motivo,
+evidencia_asociada = null, estatus = 'abierta' }) => {
+    const sql = `
+        INSERT INTO alertas (
+            cliente_id,
+            id_operacion,
+            tipo_alerta,
+            motivo,
+            evidencia_asociada,
+            fecha_generacion,
+            estatus,
+            fecha_cierre
+        )
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+        RETURNING *
+    `;
+
+    const values = [
+        cliente_id,
+        id_operacion,
+        tipo_alerta,
+        motivo,
+        evidencia_asociada,
+        new Date(),
+        estatus,
+        null
+    ];
+
+    const { rows } = await pool.query(sql, values);
+    return rows[0];
+};

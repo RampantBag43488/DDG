@@ -6,6 +6,7 @@ const modeloCliente = require('../models/cliente.model');
 const contratoModel = require('../models/contrato.model');
 const registrarBitacora = require('../util/bitacora.js');
 const productoModel = require('../models/producto.model');
+const evaluarReglasAlerta = require('../util/alertaRules.js');
 
 module.exports.info = async (req, res) => {
     const cliente_id = req.params.id;
@@ -288,7 +289,7 @@ module.exports.crearOperacion = async (req, res) => {
             return res.status(400).send('El contrato seleccionado no corresponde al cliente');
         }
 
-        await operacionesModel.create({
+        const operacionCreada = await operacionesModel.create({
             cliente_id,
             id_contrato,
             tipo_operacion,
@@ -299,6 +300,42 @@ module.exports.crearOperacion = async (req, res) => {
             nivel_riesgo,
             observaciones
         });
+
+        const contrato = await operacionesModel.findContratoByIdAndCliente(id_contrato, cliente_id);
+
+        const promedioTipo = await operacionesModel.getPromedioMontoPorTipo( cliente_id,
+            id_contrato, tipo_operacion, operacionCreada.id_operacion );
+
+        const sameDayCount = await operacionesModel.countSameTypeSameDay( cliente_id, id_contrato,
+            tipo_operacion, fecha_operacion, operacionCreada.id_operacion );
+
+        const last24hCount = await operacionesModel.countLast24h( cliente_id, id_contrato,
+            fecha_operacion, operacionCreada.id_operacion );
+
+        const alertasGeneradas = evaluarReglasAlerta({ operacion: operacionCreada,
+            contrato, promedioTipo, sameDayCount, last24hCount });
+
+        for (const alertaData of alertasGeneradas) {
+            const alertaCreada = await alertasModel.create({
+                cliente_id,
+                id_operacion: operacionCreada.id_operacion,
+                tipo_alerta: alertaData.tipo_alerta,
+                motivo: alertaData.motivo,
+                evidencia_asociada: alertaData.evidencia_asociada,
+                estatus: 'abierta'
+            });
+
+            if (req.session && req.session.id_usuario) {
+                await registrarBitacora({
+                    id_usuario: req.session.id_usuario,
+                    id_alerta: alertaCreada.id_alerta,
+                    accion: 'Generó alerta automática',
+                    descripcion: `Se generó la alerta ${alertaCreada.tipo_alerta} para la operación ${operacionCreada.id_operacion}`
+                });
+            }
+        }
+
+
 
         if (req.session && req.session.id_usuario) {
             await registrarBitacora({
@@ -314,3 +351,4 @@ module.exports.crearOperacion = async (req, res) => {
         res.status(500).send('Error al registrar operación');
     }
 };
+
