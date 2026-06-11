@@ -18,6 +18,7 @@ router.get('/Expedientes', isAuth, checkRol('empleado'), expedienteController.in
 
 router.get('/Expedientes/Nuevo', isAuth, checkRol('empleado'), expedienteController.nuevoEmpleado);
 router.post('/Expedientes/Nuevo', isAuth, checkRol('empleado'), nuevo_expedienteController.postNuevoExpediente);
+router.get('/Expediente/Actualizar', isAuth, checkRol('empleado'), expedienteController.actualizarVistaEmpleado);
 router.get('/Transacciones', isAuth, checkRol('empleado'), operacionesController.indexEmpleado);
 
 module.exports = router;

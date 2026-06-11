@@ -218,6 +218,46 @@ module.exports.indexEmpleado = async (req, res) => {
     }
 };
 
+module.exports.actualizarVistaEmpleado = async (req, res) => {
+    try {
+        const id_expediente = req.query.id_expediente;
+        if (!id_expediente) return res.redirect('/empleado/Expedientes');
+        const expediente = await model.getById(id_expediente);
+        if (!expediente) return res.status(404).send('Expediente no encontrado');
+
+        // Obtener datos relacionados
+        const cliente = expediente.cliente_id ? await clienteModel.getById(expediente.cliente_id) : {};
+        const persona_fisica = expediente.cliente_id ? await personaFisicaModel.getByClienteId(expediente.cliente_id) : {};
+        const persona_moral = expediente.cliente_id ? await personaMoralModel.getByClienteId(expediente.cliente_id) : {};
+
+        // Funcion de ayuda para limpiar campos que vengan como arrays o strings corruptos
+        const sanitizarCampo = (val) => {
+            if (!val) return '';
+            // Si es un array real de JS, tomamos el primer elemento no vacío
+            let str = Array.isArray(val) ? (val.find(v => v && v !== '') || '') : String(val);
+            // Eliminamos llaves, comillas dobles, barras invertidas y espacios, Luego dividimos por coma y tomamos el primer valor real encontrado
+            return str.replace(/[{} "\\]/g, '').split(',').find(v => v !== '') || '';
+        };
+
+        // Unificar datos
+        const datosVista = {
+            ...expediente,
+            ...cliente,
+            ...persona_fisica,
+            ...persona_moral
+        };
+
+        datosVista.rfc = sanitizarCampo(datosVista.rfc);
+        datosVista.numero_id_fiscal = sanitizarCampo(datosVista.numero_id_fiscal);
+        datosVista.num_serie_firma = sanitizarCampo(datosVista.num_serie_firma);
+
+        res.render('empleado/expedientes/ActualizarExpediente', { expediente: datosVista });
+    } catch (e) {
+        console.log(e);
+        res.status(500).send('Error al cargar expediente');
+    }
+};
+
 module.exports.getExpedientes = async (req, res) => {
     const expedientes = await model.getExpedientes();
     res.status(200).json({ total: expedientes});
