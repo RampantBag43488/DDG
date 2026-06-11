@@ -3,6 +3,7 @@ const path = require('path');
 const multer = require('multer');
 const supabase = require('../util/storage');
 const model = require('../models/documentos.model.js');
+const pool = require('../util/database.js')
 
 const BUCKET = process.env.PRIVATE_BUCKET;
 
@@ -83,8 +84,12 @@ exports.subirDocumentos = async (req, res) => {
         if (subidos === 0) {
         return res.status(400).send('Solo se aceptan archivos PDF');
         }
-      res.redirect('/cliente/Informacion?exito=1');
-
+      await pool.query(
+        "UPDATE usuarios SET estatus = 'inactivo' WHERE id_usuario = $1",
+        [req.session.id_usuario]
+      );
+      req.session.destroy();
+      res.render('cliente/exito');
     } catch (e) {
       console.error('Error general:', e);
       res.status(500).send('Error del servidor');
