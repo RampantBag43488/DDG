@@ -23,13 +23,13 @@ app.use(session({
         pool: pool,
         tableName: 'sesion'
     }),
-    secret: process.env.SESSION_SECRET === 'true',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
         sameSite: 'lax',
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 1000 * 60 * 60 * 8 // 8 horas
+        secure: process.env.COOKIE_SECURE === 'true',
+        maxAge: 1000 * 60 * 60 * 8
     }
 }));
 
