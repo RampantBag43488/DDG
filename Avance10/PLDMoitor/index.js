@@ -12,14 +12,18 @@ const pool = require('./util/database');
 
 app.set("trust proxy", 1);
 
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginOpenerPolicy: false,
+    originAgentCluster: false
+}));
 app.use(cookieParser());
 app.use(session({
     store: new pgSession({
         pool: pool,
         tableName: 'sesion'
     }),
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET === 'true',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -80,8 +84,12 @@ app.get("/health", (req, res) => {
     res.status(200).json({ status: "ok" });
 });
 
+const PORT = process.env.PORT || 6767;
+
 if (require.main === module) {
-    app.listen(6767);
+    app.listen(PORT, () => {
+        console.log(`Servidor corriendo en puerto ${PORT}`);
+    });
 }
 
 module.exports = app;
